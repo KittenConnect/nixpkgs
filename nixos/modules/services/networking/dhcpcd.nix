@@ -247,35 +247,39 @@ in
             ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${lib.optionalString cfg.persistent "--persistent"} --config ${dhcpcdConf}";
             ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
             Restart = "always";
-            AmbientCapabilities = [ "CAP_NET_ADMIN" "CAP_NET_RAW" "CAP_NET_BIND_SERVICE" ];
-            ReadWritePaths = [ "/proc/sys/net/ipv6" ]
-              ++ lib.optionals useResolvConf [ "/etc/resolv.conf" "/run/resolvconf" ];
-            DeviceAllow = "";
-            LockPersonality = true;
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = lib.mkDefault true;  # may be disabled for sudo in runHook
-            PrivateDevices = true;
-            PrivateMounts = true;
+          } // lib.optionalAttrs (cfg.runHook == "") {
+            # Proc filesystem
+            ProcSubset = "all";
+            ProtectProc = "invisible";
+            # Access write directories
+            UMask = "0027";
+            # Capabilities
+            CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW" "CAP_SETGID" "CAP_SETUID" "CAP_SYS_CHROOT" ];
+            # Security
+            NoNewPrivileges = true;
+            # Sandboxing
+            ProtectSystem = true;
+            ProtectHome = true;
             PrivateTmp = true;
+            PrivateDevices = true;
             PrivateUsers = false;
-            ProtectClock = true;
-            ProtectControlGroups = true;
-            ProtectHome = "tmpfs";  # allow exceptions to be added to ReadOnlyPaths, etc.
             ProtectHostname = true;
-            ProtectKernelLogs = true;
+            ProtectClock = true;
+            ProtectKernelTunables = false;
             ProtectKernelModules = true;
-            ProtectKernelTunables = true;
-            ProtectSystem = "strict";
-            RemoveIPC = true;
+            ProtectKernelLogs = true;
+            ProtectControlGroups = true;
             RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_PACKET" ];
             RestrictNamespaces = true;
+            LockPersonality = true;
+            MemoryDenyWriteExecute = true;
             RestrictRealtime = true;
             RestrictSUIDSGID = true;
-            SystemCallFilter = [
-              "@system-service"
-              "~@aio" "~@chown" "~@keyring" "~@memlock"
-            ];
+            RemoveIPC = true;
+            PrivateMounts = true;
+            # System Call Filtering
             SystemCallArchitectures = "native";
+            SystemCallFilter = [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @resources" "chroot" "gettid" "setgroups" "setuid" ];
           };
       };
 
