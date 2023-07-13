@@ -31006,8 +31006,6 @@ with pkgs;
 
   faircamp = callPackage ../applications/misc/faircamp { };
 
-  famistudio = callPackage ../applications/audio/famistudio { };
-
   fasttext = callPackage ../applications/science/machine-learning/fasttext { };
 
   fbmenugen = callPackage ../applications/misc/fbmenugen { };
