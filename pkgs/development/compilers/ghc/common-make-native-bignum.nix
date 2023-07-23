@@ -381,9 +381,12 @@ stdenv.mkDerivation (rec {
   '';
 
   # FreeBSD prebuilts are built for x86_64-portbld-freebsd instead of x86_64-unknown-freebsd
+  # Although it is usually correct to pass --host, we don't do that here because
+  # GHC's usage of build, host, and target is non-standard.
+  # See https://gitlab.haskell.org/ghc/ghc/-/wikis/building/cross-compiling
   # TODO(@Ericson2314): Always pass "--target" and always prefix.
-  configurePlatforms = lib.optionals (!stdenv.isFreeBSD) ([ "build" "host" ]
-    ++ lib.optional (targetPlatform != hostPlatform) "target");
+  configurePlatforms = lib.optionals (!stdenv.isFreeBSD) ([ "build" ]
+    ++ lib.optional (buildPlatform != hostPlatform || targetPlatform != hostPlatform) "target");
 
   # `--with` flags for libraries needed for RTS linker
   configureFlags = [
