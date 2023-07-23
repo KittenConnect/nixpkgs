@@ -142,6 +142,7 @@ let
 
   buildCC = buildPackages.stdenv.cc;
   targetCC = builtins.head toolsForTarget;
+  installCC = pkgsHostTarget.targetPackages.stdenv.cc;
 
   # toolPath calculates the absolute path to the name tool associated with a
   # given `stdenv.cc` derivation, i.e. it picks the correct derivation to take
@@ -215,13 +216,6 @@ let
   };
 
 in
-
-# C compiler, bintools and LLVM are used at build time, but will also leak into
-# the resulting GHC's settings file and used at runtime. This means that we are
-# currently only able to build GHC if hostPlatform == buildPlatform.
-assert targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
-assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
-assert stdenv.targetPlatform.isDarwin -> buildTargetLlvmPackages.clang == llvmPackages.clang;
 
 stdenv.mkDerivation (rec {
   pname = "${targetPrefix}ghc${variantSuffix}";
@@ -423,7 +417,8 @@ stdenv.mkDerivation (rec {
 
   nativeBuildInputs = [
     perl autoconf automake m4 python3
-    ghc bootPkgs.alex bootPkgs.happy bootPkgs.hscolour
+    ghc bootPkgs.alex bootPkgs.happy bootPkgs.hscolour 
+    bootPkgs.ghc-settings-edit
   ] ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
     autoSignDarwinBinariesHook
   ] ++ lib.optionals enableDocs [
@@ -470,6 +465,18 @@ stdenv.mkDerivation (rec {
   requiredSystemFeatures = [ "big-parallel" ];
 
   postInstall = ''
+    settingsFile="$out/lib/${targetPrefix}${passthru.haskellCompilerName}/settings"
+
+    # Make the installed GHC use the host->target tools.
+    ghc-settings-edit "$settingsFile" \
+      "C compiler command" "${toolPath "cc" installCC}" \
+      "Haskell CPP command" "${toolPath "cc" installCC}" \
+      "C++ compiler command" "${toolPath "c++" installCC}" \
+      "ld command" "${toolPath "ld${lib.optionalString useLdGold ".gold"}" installCC}" \
+      "Merge objects command" "${toolPath "ld${lib.optionalString useLdGold ".gold"}" installCC}" \
+      "ar command" "${toolPath "ar" installCC}" \
+      "ranlib command" "${toolPath "ranlib" installCC}"
+
     # Install the bash completion file.
     install -D -m 444 utils/completion/ghc.bash $out/share/bash-completion/completions/${targetPrefix}ghc
   '';
