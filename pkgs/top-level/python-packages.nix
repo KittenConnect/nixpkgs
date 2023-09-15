@@ -5907,6 +5907,8 @@ self: super: with self; {
 
   itanium-demangler = callPackage ../development/python-modules/itanium-demangler { };
 
+  item-synchronizer = callPackage ../development/python-modules/item-synchronizer { };
+
   itemadapter = callPackage ../development/python-modules/itemadapter { };
 
   itemdb = callPackage ../development/python-modules/itemdb { };
