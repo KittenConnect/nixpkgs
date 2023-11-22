@@ -29398,6 +29398,8 @@ with pkgs;
   android-studio = androidStudioPackages.stable;
   android-studio-full = android-studio.full;
 
+  android-studio-for-platform = callPackage ../by-name/an/android-studio-for-platform/package.nix { inherit (gnome2) GConf gnome_vfs; };
+
   antfs-cli = callPackage ../applications/misc/antfs-cli { };
 
   antimony = libsForQt5.callPackage ../applications/graphics/antimony { };
