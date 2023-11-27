@@ -19165,6 +19165,10 @@ with pkgs;
     jre_headless = jre8_headless;
   };
 
+  nexusmods-app-unfree = callPackage ../by-name/ne/nexusmods-app/package.nix {
+    enableUnfree = true;
+  };
+
   nmrpflash = callPackage ../development/embedded/nmrpflash { };
 
   norminette = callPackage ../development/tools/norminette { };
