@@ -26,7 +26,7 @@
 
   # tests.cudaAvailable:
   callPackage,
-  torch,
+  torchWithCuda,
 
   # Native build inputs
   cmake,
@@ -646,11 +646,7 @@ buildPythonPackage rec {
     blasProvider = blas.provider;
     # To help debug when a package is broken due to CUDA support
     inherit brokenConditions;
-  } // lib.optionalAttrs cudaSupport {
-
-    tests = lib.optionalAttrs cudaSupport {
-      cudaAvailable = callPackage ./test-cuda.nix { inherit torch; };
-    };
+    gpuChecks.cudaAvailable = callPackage ./test-cuda.nix { torch = torchWithCuda; };
   };
 
   meta = {
