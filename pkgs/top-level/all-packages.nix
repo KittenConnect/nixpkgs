@@ -16096,13 +16096,11 @@ with pkgs;
   haskell = callPackage ./haskell-packages.nix { };
 
   haskellPackages = dontRecurseIntoAttrs
-    # JS backend is only available for GHC >= 9.6
-    (if stdenv.hostPlatform.isGhcjs
-     then haskell.packages.native-bignum.ghc96
-     # Prefer native-bignum to avoid linking issues with gmp
-     else if stdenv.hostPlatform.isStatic
-     then haskell.packages.native-bignum.ghc94
-     else haskell.packages.ghc94)
+    # Prefer native-bignum to avoid linking issues with gmp
+    # JS backend can't use gmp
+    (if stdenv.hostPlatform.isStatic || stdenv.hostPlatform.isGhcjs
+    then haskell.packages.native-bignum.ghc96
+    else haskell.packages.ghc96)
   // { __recurseIntoDerivationForReleaseJobs = true; };
 
   # haskellPackages.ghc is build->host (it exposes the compiler used to build the
@@ -16115,9 +16113,10 @@ with pkgs;
   # plain, cross-compiled compiler (which is only theoretical at the moment).
   ghc = targetPackages.haskellPackages.ghc or
     # Prefer native-bignum to avoid linking issues with gmp
-    (if stdenv.targetPlatform.isStatic
-       then haskell.compiler.native-bignum.ghc94
-       else haskell.compiler.ghc94);
+    # JS backend can't use GMP
+    (if stdenv.targetPlatform.isStatic || stdenv.targetPlatform.isGhcjs
+       then haskell.compiler.native-bignum.ghc96
+       else haskell.compiler.ghc96);
 
   alex = haskell.lib.compose.justStaticExecutables haskellPackages.alex;
 
@@ -20495,7 +20494,8 @@ with pkgs;
   inherit (callPackages ../development/libraries/c-blosc { })
     c-blosc c-blosc2;
 
-  cachix = lib.getBin haskellPackages.cachix;
+  # justStaticExecutables is needed due to https://github.com/NixOS/nix/issues/2990
+  cachix = haskell.lib.compose.justStaticExecutables haskellPackages.cachix;
 
   calcium = callPackage ../development/libraries/calcium { };
 
