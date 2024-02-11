@@ -14,6 +14,7 @@
 , gtk4
 , gnome
 , gsettings-desktop-schemas
+, desktop-file-utils
 , xvfb-run
 , AppKit
 , Foundation
@@ -47,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     sassc
     vala
     gobject-introspection
+    desktop-file-utils  # for validate-desktop-file
   ];
 
   mesonFlags = [
