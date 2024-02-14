@@ -34,6 +34,9 @@ let
     pp.mako
     pp.markdown
   ];
+
+  # https://discourse.gnome.org/t/dealing-with-glib-and-gobject-introspection-circular-dependency/18701
+  glib' = glib.override { withIntrospection = false; };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "gobject-introspection";
@@ -94,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   propagatedBuildInputs = [
     libffi
-    glib
+    glib'
   ];
 
   propagatedNativeBuildInputs = lib.optionals (stdenv.isFreeBSD) [ buildPackages.freebsd.ldd ];
