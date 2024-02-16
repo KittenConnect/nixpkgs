@@ -464,7 +464,7 @@ in
             };
             options.securityModel = mkOption {
               type = types.enum [ "passthrough" "mapped-xattr" "mapped-file" "none" ];
-              default = "none";
+              default = "mapped-xattr";
               description = lib.mdDoc ''
                 The security model to use for this share:
 
