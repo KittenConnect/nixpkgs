@@ -5001,6 +5001,8 @@ self: super: with self; {
 
   graphene-django = callPackage ../development/python-modules/graphene-django { };
 
+  graphlib-backport = callPackage ../development/python-modules/graphlib-backport { };
+
   graphqlclient= callPackage ../development/python-modules/graphqlclient { };
 
   graphql-core = callPackage ../development/python-modules/graphql-core { };
