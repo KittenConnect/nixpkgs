@@ -18,5 +18,6 @@
     services.pipewire.enable = true;
 
     systemd.packages = [ pkgs.gnome.gnome-remote-desktop ];
+    systemd.tmpfiles.packages = [ pkgs.gnome.gnome-remote-desktop ];
   };
 }
