@@ -222,7 +222,6 @@ let
       };
     in
     {
-      inherit jitSupport;
       psqlSchema = lib.versions.major version;
 
       withJIT = if jitSupport then this else jitToggle;
@@ -232,6 +231,8 @@ let
 
       pkgs = let
         scope = {
+          inherit jitSupport;
+          inherit (llvmPackages) llvm;
           postgresql = this;
           stdenv = stdenv';
           buildPgxExtension = buildPgxExtension.override {
@@ -258,8 +259,6 @@ let
       } // lib.optionalAttrs jitSupport {
         postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
       };
-    } // lib.optionalAttrs jitSupport {
-      inherit (llvmPackages) llvm;
     };
 
     meta = with lib; {
