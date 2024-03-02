@@ -263,7 +263,7 @@ let
       };
     in
     {
-      inherit readline psqlSchema jitSupport;
+      inherit psqlSchema jitSupport;
 
       withJIT = if jitSupport then this else jitToggle;
       withoutJIT = if jitSupport then jitToggle else this;
