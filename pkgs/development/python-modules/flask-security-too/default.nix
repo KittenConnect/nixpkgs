@@ -3,7 +3,6 @@
 , fetchPypi
 , pythonOlder
 , setuptools
-, fetchpatch
 
 # extras: babel
 , babel
@@ -34,6 +33,7 @@
 , passlib
 , importlib-resources
 , wtforms
+, freezegun
 
 # tests
 , argon2-cffi
@@ -43,7 +43,6 @@
 , peewee
 , pony
 , pytestCheckHook
-, python-dateutil
 , zxcvbn
 }:
 
@@ -73,6 +72,7 @@ buildPythonPackage rec {
     passlib
     importlib-resources
     wtforms
+    freezegun
   ];
 
   passthru.optional-dependencies = {
@@ -106,7 +106,6 @@ buildPythonPackage rec {
     peewee
     pony
     pytestCheckHook
-    python-dateutil
     zxcvbn
   ]
   ++ passthru.optional-dependencies.babel
