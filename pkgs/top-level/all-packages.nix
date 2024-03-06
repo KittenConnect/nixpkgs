@@ -2003,6 +2003,11 @@ with pkgs;
 
   openbugs = pkgsi686Linux.callPackage ../applications/science/machine-learning/openbugs { };
 
+  openusd = python3Packages.openusd.override {
+    withTools = true;
+    withUsdView = true;
+  };
+
   osquery = callPackage ../tools/system/osquery { };
 
   paperview = callPackage ../tools/X11/paperview { };
