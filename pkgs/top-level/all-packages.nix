@@ -28839,8 +28839,6 @@ with pkgs;
 
   commit-mono = callPackage ../data/fonts/commit-mono { };
 
-  conway_polynomials = callPackage ../data/misc/conway_polynomials { };
-
   cooper-hewitt = callPackage ../data/fonts/cooper-hewitt { };
 
   d2coding = callPackage ../data/fonts/d2coding { };
