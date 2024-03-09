@@ -5,6 +5,7 @@
   fetchurl,
   libxslt,
   docbook_xsl,
+  docbook_xml_dtd_43,
   gettext,
   makeWrapper,
   libintl,
@@ -31,6 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
     libxslt
     docbook_xsl
+    docbook_xml_dtd_43
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ gettext ];
 
   preFixup = ''
