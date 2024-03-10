@@ -2558,9 +2558,7 @@ with pkgs;
 
   lab = callPackage ../applications/version-management/lab { };
 
-  labctl = callPackage ../tools/networking/labctl {
-    buildGoModule = buildGo120Module;
-  };
+  labctl = callPackage ../tools/networking/labctl { };
 
   legit = callPackage ../applications/version-management/legit { };
 
