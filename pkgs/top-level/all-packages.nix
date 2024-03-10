@@ -2836,8 +2836,6 @@ with pkgs;
 
   xcpc = callPackage ../applications/emulators/xcpc { };
 
-  xemu = callPackage ../applications/emulators/xemu { };
-
   yapesdl = callPackage ../applications/emulators/yapesdl { };
 
   zsnes = pkgsi686Linux.callPackage ../applications/emulators/zsnes { };
