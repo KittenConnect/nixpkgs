@@ -28077,9 +28077,7 @@ with pkgs;
 
   go-mod-graph-chart = callPackage ../development/tools/go-mod-graph-chart { };
 
-  gomacro = callPackage ../development/tools/gomacro {
-    buildGoModule = buildGo120Module;
-  };
+  gomacro = callPackage ../development/tools/gomacro { };
 
   gomodifytags = callPackage ../development/tools/gomodifytags { };
 
