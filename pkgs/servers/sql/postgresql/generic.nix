@@ -210,9 +210,6 @@ let
           --replace "object_address" ""
       '' else null;
 
-    doInstallCheck = false; # needs a running daemon?
-    NIX_DEBUG=7;
-
     disallowedReferences = [ stdenv'.cc ];
 
     passthru = let
