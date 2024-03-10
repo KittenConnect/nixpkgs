@@ -2694,8 +2694,6 @@ with pkgs;
 
   fsrx = callPackage ../tools/misc/fsrx { };
 
-  fsuae = callPackage ../applications/emulators/fs-uae { };
-
   fsuae-launcher = callPackage ../applications/emulators/fs-uae/launcher.nix { };
 
   fuc = callPackage ../tools/misc/fuc { };
