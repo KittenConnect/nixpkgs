@@ -61,6 +61,7 @@
 , static ? stdenv.hostPlatform.isStatic
 , enableFramework ? false
 , noldconfigPatch ? ./. + "/${sourceVersion.major}.${sourceVersion.minor}/no-ldconfig.patch"
+, enableGIL ? true
 
 # pgo (not reproducible) + -fno-semantic-interposition
 # https://docs.python.org/3/using/configure.html#cmdoption-enable-optimizations
@@ -112,6 +113,7 @@ let
   inherit (lib)
     concatMapStringsSep
     concatStringsSep
+    enableFeature
     getDev
     getLib
     optionals
@@ -410,6 +412,8 @@ in with passthru; stdenv.mkDerivation (finalAttrs: {
     "--enable-shared"
   ] ++ optionals enableFramework [
     "--enable-framework=${placeholder "out"}/Library/Frameworks"
+  ] ++ optionals (pythonAtLeast "3.13") [
+    (enableFeature enableGIL "gil")
   ] ++ optionals enableOptimizations [
     "--enable-optimizations"
   ] ++ optionals (sqlite != null) [
