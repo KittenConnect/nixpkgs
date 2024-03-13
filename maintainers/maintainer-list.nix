@@ -7795,6 +7795,12 @@
     matrix = "@chris:netsoj.nl";
     name = "Chris Josten";
   };
+  hennk = {
+    email = "henning.kiel@gmail.com";
+    github = "hennk";
+    githubId = 328259;
+    name = "Henning Kiel";
+  };
   henrikolsson = {
     email = "henrik@fixme.se";
     github = "henrikolsson";
