@@ -38512,8 +38512,6 @@ with pkgs;
 
   ecos = callPackage ../development/libraries/science/math/ecos { };
 
-  flintqs = callPackage ../development/libraries/science/math/flintqs { };
-
   getdp = callPackage ../applications/science/math/getdp { };
 
   gurobi = callPackage ../applications/science/math/gurobi {
