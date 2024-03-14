@@ -33,7 +33,6 @@
 , passlib
 , importlib-resources
 , wtforms
-, freezegun
 
 # tests
 , argon2-cffi
@@ -44,11 +43,12 @@
 , pony
 , pytestCheckHook
 , zxcvbn
+, freezegun
 }:
 
 buildPythonPackage rec {
   pname = "flask-security-too";
-  version = "5.4.1";
+  version = "5.4.2";
   pyproject = true;
 
   disabled = pythonOlder "3.7";
@@ -56,7 +56,7 @@ buildPythonPackage rec {
   src = fetchPypi {
     pname = "Flask-Security-Too";
     inherit version;
-    hash = "sha256-Ay7+gk+zuUlXtw0LDdsnvSa22z+yE6VR1guu9QmiFvw=";
+    hash = "sha256-dzVHHC5Lsh6rUC+cOyNEe/uHVTzkObhFffgSvFOfKoI=";
   };
 
   nativeBuildInputs = [
@@ -72,7 +72,6 @@ buildPythonPackage rec {
     passlib
     importlib-resources
     wtforms
-    freezegun
   ];
 
   passthru.optional-dependencies = {
@@ -107,6 +106,7 @@ buildPythonPackage rec {
     pony
     pytestCheckHook
     zxcvbn
+    freezegun
   ]
   ++ passthru.optional-dependencies.babel
   ++ passthru.optional-dependencies.common
