@@ -6621,6 +6621,8 @@ self: super: with self; {
     inherit (pkgs) lzfse;
   };
 
+  libmambapy = callPackage ../development/python-modules/libmambapy { };
+
   libmodulemd = lib.pipe pkgs.libmodulemd [
     toPythonModule
     (p:
