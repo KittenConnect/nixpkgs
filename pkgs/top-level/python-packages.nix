@@ -13017,6 +13017,8 @@ self: super: with self; {
 
   roadtx = callPackage ../development/python-modules/roadtx { };
 
+  roadrecon = callPackage ../development/python-modules/roadrecon { };
+
   robomachine = callPackage ../development/python-modules/robomachine { };
 
   robot-detection = callPackage ../development/python-modules/robot-detection { };
