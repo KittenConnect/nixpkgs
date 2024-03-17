@@ -13013,6 +13013,8 @@ self: super: with self; {
 
   rns = callPackage ../development/python-modules/rns { };
 
+  roadlib = callPackage ../development/python-modules/roadlib { };
+
   robomachine = callPackage ../development/python-modules/robomachine { };
 
   robot-detection = callPackage ../development/python-modules/robot-detection { };
