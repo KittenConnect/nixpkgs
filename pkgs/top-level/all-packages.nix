@@ -26010,7 +26010,7 @@ with pkgs;
 
   dspam = callPackage ../servers/mail/dspam { };
 
-  engelsystem = callPackage ../servers/web-apps/engelsystem { php = php81; };
+  engelsystem = callPackage ../servers/web-apps/engelsystem { };
 
   envoy = callPackage ../servers/http/envoy {
     go = go_1_20;
