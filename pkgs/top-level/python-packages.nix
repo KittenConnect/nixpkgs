@@ -13537,6 +13537,8 @@ self: super: with self; {
 
   signedjson = callPackage ../development/python-modules/signedjson { };
 
+  signxml = callPackage ../development/python-modules/signxml { };
+
   sigrok = callPackage ../development/python-modules/sigrok { };
 
   sigstore = callPackage ../development/python-modules/sigstore { };
