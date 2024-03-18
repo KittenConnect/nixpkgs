@@ -1952,10 +1952,7 @@ self: super: {
   vivid-supercollider = dontCheck super.vivid-supercollider;
 
   # Test suite does not compile.
-  feed = overrideCabal (drv: {
-    jailbreak = lib.warnIf (lib.toInt drv.revision >= 4) "haskellPackages.feed: jailbreak can be removed" true;
-    doCheck = false;
-  }) super.feed;
+  feed = dontCheck super.feed;
 
   spacecookie = overrideCabal (old: {
     buildTools = (old.buildTools or []) ++ [ pkgs.buildPackages.installShellFiles ];
@@ -2895,7 +2892,7 @@ self: super: {
   }) super.kmonad;
 
   ghc-syntax-highlighter_0_0_11_0 = super.ghc-syntax-highlighter_0_0_11_0.overrideScope(self: super: {
-    ghc-lib-parser = self.ghc-lib-parser_9_8_1_20231121;
+    ghc-lib-parser = self.ghc-lib-parser_9_8_2_20240223;
   });
 
   # 2024-03-17: broken
