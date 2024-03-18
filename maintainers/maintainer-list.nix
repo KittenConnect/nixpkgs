@@ -17921,7 +17921,7 @@
   };
   sinanmohd = {
     name = "Sinan Mohd";
-    email = "sinan@firemail.cc";
+    email = "sinan@sinanmohd.com";
     matrix = "@sinan:sinanmohd.com";
     github = "sinanmohd";
     githubId = 69694713;
