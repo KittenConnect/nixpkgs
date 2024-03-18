@@ -6797,6 +6797,8 @@ self: super: with self; {
 
   lmtpd = callPackage ../development/python-modules/lmtpd { };
 
+  lnkparse3 = callPackage ../development/python-modules/lnkparse3 { };
+
   loca = callPackage ../development/python-modules/loca { };
 
   localimport = callPackage ../development/python-modules/localimport { };
