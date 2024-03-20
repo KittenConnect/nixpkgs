@@ -7007,6 +7007,8 @@ self: super: with self; {
 
   mariadb = callPackage ../development/python-modules/mariadb { };
 
+  marimo = callPackage ../development/python-modules/marimo { };
+
   marisa = callPackage ../development/python-modules/marisa {
     inherit (pkgs) marisa;
   };
