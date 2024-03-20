@@ -377,14 +377,8 @@ in {
     defconfig = "orangepi-5-rk3588s_defconfig";
     extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareRK3588}/bl31.elf";
-    ROCKCHIP_TPL = rkbin.TPL_RK3588;
-
-    # FIXME: applied upstream, remove in 2024.04
-    extraConfig = ''
-      CONFIG_ROCKCHIP_SPI_IMAGE=y
-    '';
-
-    filesToInstall = [ "u-boot.itb" "idbloader.img" "u-boot-rockchip.bin" "u-boot-rockchip-spi.bin" ];
+    ROCKCHIP_TPL = "${rkbin}/${rkbin.ROCKCHIP_TPL_RK3588}";
+    filesToInstall = [ "u-boot.itb" "idbloader.img" "u-boot-rockchip.bin" ];
   };
 
   ubootOrangePiPc = buildUBoot {
