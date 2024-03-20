@@ -28408,6 +28408,7 @@ with pkgs;
     ubootRaspberryPi4_32bit
     ubootRaspberryPi4_64bit
     ubootRaspberryPiZero
+    ubootRock5ModelB
     ubootRock64
     ubootRock64v2
     ubootRockPi4
