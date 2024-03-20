@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     description = "Rockchip proprietary bootloader blobs";
     homepage = "https://github.com/rockchip-linux/rkbin";
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ thefossguy ];
+    maintainers = with maintainers; [ ];
     platforms = [ "aarch64-linux" ];
   };
 }
