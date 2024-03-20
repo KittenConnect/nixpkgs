@@ -32813,9 +32813,7 @@ with pkgs;
 
   kupfer = callPackage ../applications/misc/kupfer { };
 
-  kuro = callPackage ../applications/misc/kuro {
-    electron = electron_22;
-  };
+  kuro = callPackage ../applications/misc/kuro { };
 
   timoni = callPackage ../applications/networking/cluster/timoni { };
 
