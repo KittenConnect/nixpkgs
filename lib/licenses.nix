@@ -395,6 +395,7 @@ lib.mapAttrs
 
     commons-clause = {
       fullName = "Commons Clause License";
+      url = "https://commonsclause.com/";
       free = false;
     };
 
