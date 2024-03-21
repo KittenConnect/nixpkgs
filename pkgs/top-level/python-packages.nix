@@ -13921,6 +13921,8 @@ self: super: with self; {
 
   speechbrain = callPackage ../development/python-modules/speechbrain { };
 
+  speechrecognition = callPackage ../development/python-modules/speechrecognition { };
+
   speedtest-cli = callPackage ../development/python-modules/speedtest-cli { };
 
   speg = callPackage ../development/python-modules/speg { };
