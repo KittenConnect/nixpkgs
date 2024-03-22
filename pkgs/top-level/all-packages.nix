@@ -6254,8 +6254,6 @@ with pkgs;
 
   reg = callPackage ../tools/virtualization/reg { };
 
-  retool = callPackage ../applications/misc/retool { };
-
   rex = callPackage ../tools/system/rex { };
 
   river = callPackage ../applications/window-managers/river { };
