@@ -36256,8 +36256,6 @@ with pkgs;
 
   ytmdl = callPackage ../tools/misc/ytmdl { };
 
-  yutto = callPackage ../tools/misc/yutto { };
-
   yuview = libsForQt5.yuview;
 
   wallust = callPackage ../applications/misc/wallust { };
