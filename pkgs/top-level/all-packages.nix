@@ -12520,8 +12520,6 @@ with pkgs;
 
   redir = callPackage ../tools/networking/redir { };
 
-  redmine = callPackage ../applications/version-management/redmine { };
-
   redpanda-client = callPackage ../servers/redpanda { };
 
   redpanda-server = redpanda-client.server;
