@@ -1,4 +1,9 @@
-{ stdenv, lib, config, newScope, buildPackages, pkgsHostHost, makeSetupHook, substituteAll, runtimeShell, ... }:
+{ stdenv, lib, stdenvNoCC
+, makeScopeWithSplicing', generateSplicesForMkScope
+, buildPackages
+, fetchgit, fetchzip
+}:
+
 let
   versions = builtins.fromJSON (builtins.readFile ./versions.json);
 in lib.makeScope newScope (self:
@@ -11,76 +16,66 @@ in byName // (with self; { inherit stdenv;
   #stdenv = if stdenv.cc.isClang then stdenv else llvmPackages.stdenv;
   compatIsNeeded = !self.stdenv.hostPlatform.isFreeBSD;
 
-  # build a self which is parameterized with whatever the targeted version is
-  # so e.g. pkgsCross.x86_64-freebsd.freebsd.branches."releng/14.0".buildFreebsd will get you
-  # freebsd.branches."releng/14.0"
-  buildFreebsd = buildPackages.freebsd.overrideScope (_: _: { inherit hostBranch; });
-  branches = lib.flip lib.mapAttrs versions (branch: _: self.overrideScope (_: _: { hostBranch = branch; }));
+in makeScopeWithSplicing' {
+  otherSplices = generateSplicesForMkScope "freebsd";
+  f = (self: lib.packagesFromDirectoryRecursive {
+    callPackage = self.callPackage;
+    directory = ./pkgs;
+  } // {
+    inherit freebsdSrc;
 
-  packages13 = self.overrideScope (_: _: { hostBranch = "release/13.2.0"; });
-  packages14 = self.overrideScope (_: _: { hostBranch = "release/14.0.0"; });
-  packagesGit = self.overrideScope (_: _: { hostBranch = "main"; });
+    ports = fetchzip {
+      url = "https://cgit.freebsd.org/ports/snapshot/ports-dde3b2b456c3a4bdd217d0bf3684231cc3724a0a.tar.gz";
+      sha256 = "BpHqJfnGOeTE7tkFJBx0Wk8ryalmf4KNTit/Coh026E=";
+    };
 
-  hostBranch = let
-    supportedBranches = builtins.attrNames (lib.filterAttrs (k: v: v.supported) versions);
-    fallbackBranch = let
-        branchRegex = "releng/.*";
-        candidateBranches = builtins.filter (name: builtins.match branchRegex name != null) supportedBranches;
-      in
-        lib.last (lib.naturalSort candidateBranches);
-    envBranch = builtins.getEnv "NIXPKGS_FREEBSD_BRANCH";
-    selectedBranch =
-      if config.freebsdBranch != null then
-        config.freebsdBranch
-      else if envBranch != "" then
-        envBranch
-      else null;
-    chosenBranch = if selectedBranch != null then selectedBranch else fallbackBranch;
-  in
-    if versions ? ${chosenBranch} then chosenBranch else throw ''
-      Unknown FreeBSD branch ${chosenBranch}!
-      FreeBSD branches normally look like one of:
-      * `release/<major>.<minor>.0` for tagged releases without security updates
-      * `releng/<major>.<minor>` for release update branches with security updates
-      * `stable/<major>` for stable versions working towards the next minor release
-      * `main` for the latest development version
+    # Why do we have splicing and yet do `nativeBuildInputs = with self; ...`?
+    # See note in ../netbsd/default.nix.
 
-      Set one with the NIXPKGS_FREEBSD_BRANCH environment variable or by setting `nixpkgs.config.freebsdBranch`.
-    '';
+    compatIfNeeded = lib.optional (!stdenvNoCC.hostPlatform.isFreeBSD) self.compat;
 
-  sourceData = versions.${hostBranch};
-  versionData = sourceData.version;
-  hostVersion = versionData.revision;
+    freebsd-lib = import ./lib { inherit version; };
 
-  hostArchBsd = {
-    x86_64 = "amd64";
-    aarch64 = "aarch64";
-    i486 = "i386";
-    i586 = "i386";
-    i686 = "i386";
-  }.${self.stdenv.hostPlatform.parsed.cpu.name} or self.stdenv.hostPlatform.parsed.cpu.name;
+    # Overridden arguments avoid cross package-set splicing issues,
+    # otherwise would just use implicit
+    # `lib.packagesFromDirectoryRecursive` auto-call.
 
-  hostMachineBsd = {
-    x86_64 = "amd64";
-    aarch64 = "arm64";
-    i486 = "i386";
-    i586 = "i386";
-    i686 = "i386";
-  }.${self.stdenv.hostPlatform.parsed.cpu.name} or self.stdenv.hostPlatform.parsed.cpu.name;
+    compat = self.callPackage ./pkgs/compat/package.nix {
+      inherit stdenv;
+      inherit (buildPackages.freebsd) makeMinimal boot-install;
+    };
 
-  patchesRoot = ./patches/${hostVersion};
+    csu = self.callPackage ./pkgs/csu.nix {
+      inherit (buildPackages.freebsd) makeMinimal install gencat;
+      inherit (self) include;
+    };
 
-  compatIfNeeded = lib.optional compatIsNeeded compat;
+    include = self.callPackage ./pkgs/include/package.nix {
+      inherit (buildPackages.freebsd) makeMinimal install rpcgen;
+    };
 
-  # for cross-compiling or bootstrapping
-  install-wrapper = builtins.readFile ./install-wrapper.sh;
-  boot-install = buildPackages.writeShellScriptBin "boot-install" (install-wrapper + ''
-    ${xinstallBootstrap}/bin/xinstall "''${args[@]}"
-  '');
+    install = self.callPackage ./pkgs/install.nix {
+      inherit (buildPackages.freebsd) makeMinimal;
+      inherit (self) mtree libnetbsd;
+    };
 
-  # libs, bins, and data
-  libncurses-tinfo = if hostVersion == "13.2" then libncurses else byName.libncurses-tinfo;
+    libc = self.callPackage ./pkgs/libc/package.nix {
+      inherit (buildPackages.freebsd) makeMinimal install gencat rpcgen;
+      inherit (self) csu include;
+    };
 
-  drm-kmod-firmware-amd = self.drm-kmod-firmware.override { withIntel = false; };
-  drm-kmod-firmware-intel = self.drm-kmod-firmware.override { withAmd = false; };
-}))
+    libnetbsd = self.callPackage ./pkgs/libnetbsd/package.nix {
+      inherit (buildPackages.freebsd) makeMinimal;
+    };
+
+    mkDerivation = self.callPackage ./pkgs/mkDerivation.nix {
+      inherit stdenv;
+      inherit (buildPackages.freebsd) makeMinimal install tsort;
+    };
+
+    makeMinimal = self.callPackage ./pkgs/makeMinimal.nix {
+      inherit (self) make;
+    };
+
+  });
+}
