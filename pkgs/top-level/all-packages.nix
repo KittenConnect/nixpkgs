@@ -5533,8 +5533,6 @@ with pkgs;
 
   godu = callPackage ../tools/misc/godu { };
 
-  goss = callPackage ../tools/misc/goss { };
-
   gosu = callPackage ../tools/misc/gosu { };
 
   gotify-cli = callPackage ../tools/misc/gotify-cli { };
