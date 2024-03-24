@@ -5424,6 +5424,7 @@
     name = "Florentin Eckl";
   };
   eclairevoyant = {
+    email = "contactmeongithubinstead@proton.me";
     github = "eclairevoyant";
     githubId = 848000;
     name = "éclairevoyant";
