@@ -19503,8 +19503,6 @@ with pkgs;
 
   pup = callPackage ../development/tools/pup { };
 
-  puppet-bolt = callPackage ../tools/admin/puppet/puppet-bolt { };
-
   puppeteer-cli = callPackage ../tools/graphics/puppeteer-cli { };
 
   pyrseas = callPackage ../development/tools/database/pyrseas { };
