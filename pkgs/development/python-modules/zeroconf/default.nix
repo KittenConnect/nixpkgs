@@ -1,5 +1,5 @@
 { lib
-, cython_3
+, cython
 , async-timeout
 , buildPythonPackage
 , fetchFromGitHub
@@ -31,8 +31,8 @@ buildPythonPackage rec {
       --replace-fail "Cython>=3.0.8" "Cython"
   '';
 
-  build-system = [
-    cython_3
+  nativeBuildInputs = [
+    cython
     poetry-core
     setuptools
   ];

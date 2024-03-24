@@ -8,7 +8,7 @@
 , writeTextFile
 
 # build-system
-, cython_3
+, cython
 , gfortran
 , meson-python
 , mesonEmulatorHook
@@ -92,7 +92,7 @@ in buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [
-    cython_3
+    cython
     gfortran
     meson-python
     pkg-config
