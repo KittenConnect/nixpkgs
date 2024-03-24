@@ -8,7 +8,7 @@
 , numpy
 , astunparse
 , typing-extensions
-, pytestCheckHook
+, pytest7CheckHook
 , pytest-cov
 }:
 
@@ -32,7 +32,12 @@ buildPythonPackage rec {
   preCheck = ''
     cd $TMP
   '';
-  pytestFlagsArray = ["--pyargs" "uarray" "-W" "ignore::pytest.PytestRemovedIn8Warning" ];
+
+  pytestFlagsArray = [
+    "--pyargs"
+    "uarray"
+  ];
+
   pythonImportsCheck = [ "uarray" ];
 
   meta = with lib; {
