@@ -1,14 +1,15 @@
 { lib
 , buildPythonPackage
-, pythonAtLeast
 , pythonOlder
 , fetchFromGitHub
+, fetchPypi
+, setuptools
 , setuptools-scm
 , cssselect
 , jaraco-test
 , lxml
 , mock
-, pytestCheckHook
+, pytest7CheckHook
 , importlib-resources
 }:
 
@@ -36,7 +37,7 @@ buildPythonPackage rec {
     jaraco-test
     lxml
     mock
-    pytestCheckHook
+    pytest7CheckHook
   ] ++ lib.optionals (pythonOlder "3.9") [
     importlib-resources
   ];
