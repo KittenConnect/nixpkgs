@@ -36,6 +36,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "apsw" ];
 
   meta = with lib; {
+    changelog = "https://github.com/rogerbinns/apsw/blob/${src.rev}/doc/changes.rst";
     description = "A Python wrapper for the SQLite embedded relational database engine";
     homepage = "https://github.com/rogerbinns/apsw";
     changelog = "https://github.com/rogerbinns/apsw/releases/tag/${version}";
