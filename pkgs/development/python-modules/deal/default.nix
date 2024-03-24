@@ -19,8 +19,7 @@
 buildPythonPackage rec {
   pname = "deal";
   version = "4.24.4";
-  pyproject = true;
-
+  format = "pyproject";
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
@@ -58,10 +57,6 @@ buildPythonPackage rec {
     sphinx
     urllib3
     vaa
-  ];
-
-  pytestFlagsArray = [
-    "-W" "ignore::pytest.PytestRemovedIn8Warning"
   ];
 
   disabledTests = [
