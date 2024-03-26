@@ -1,6 +1,8 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, setuptools
+, setuptools-scm
 , param
 , pyct
 , pytest-mpl
@@ -18,6 +20,11 @@ buildPythonPackage rec {
     inherit pname version;
     hash = "sha256-KSGzzYGiKIqvLWPbwM48JtzYgujDicxQXWiGv3qppOs=";
   };
+
+  build-system = [
+    setuptools
+    setuptools-scm
+  ];
 
   dependencies = [
     param
