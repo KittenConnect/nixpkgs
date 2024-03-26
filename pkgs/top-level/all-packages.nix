@@ -24887,6 +24887,10 @@ with pkgs;
 
   tet = callPackage ../development/tools/misc/tet { };
 
+  texpresso = callPackage ../tools/typesetting/tex/texpresso {
+    texpresso-tectonic = callPackage ../tools/typesetting/tex/texpresso/tectonic.nix { };
+  };
+
   text-engine = callPackage ../development/libraries/text-engine { };
 
   the-foundation = callPackage ../development/libraries/the-foundation { };
