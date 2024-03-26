@@ -1,21 +1,20 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mako,
-  parse,
-  parse-type,
-  poetry-core,
-  pytest,
-  pytestCheckHook,
-  pythonOlder,
-  typing-extensions,
+{ lib
+, buildPythonPackage
+, fetchFromGitHub
+, mako
+, parse
+, parse-type
+, poetry-core
+, pytest
+, pytestCheckHook
+, pythonOlder
+, typing-extensions
 }:
 
 buildPythonPackage rec {
   pname = "pytest-bdd";
   version = "7.1.2";
-  pyproject = true;
+  format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
@@ -26,9 +25,11 @@ buildPythonPackage rec {
     hash = "sha256-PC4VSsUU5qEFp/C/7OTgHINo8wmOo0w2d1Hpe0EnFzE=";
   };
 
-  build-system = [ poetry-core ];
 
   buildInputs = [ pytest ];
+  nativeBuildInputs = [
+    poetry-core
+  ];
 
   dependencies = [
     mako
