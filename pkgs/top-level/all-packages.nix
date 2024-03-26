@@ -37427,8 +37427,6 @@ with pkgs;
 
   portmod = callPackage ../games/portmod { };
 
-  tetrio-desktop = callPackage ../games/tetrio-desktop { };
-
   tr-patcher = callPackage ../games/tr-patcher { };
 
   tes3cmd = callPackage ../games/tes3cmd { };
