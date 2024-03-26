@@ -1,25 +1,16 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  pythonOlder,
-  setuptools,
-  versioneer,
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "ed25519";
   version = "1.5";
   pyproject = true;
 
-  disabled = pythonOlder "3.7";
+  # last commit in 2019, various compat issues with 3.12
+  disabled = pythonAtLeast "3.12";
 
-  src = fetchFromGitHub {
-    owner = "warner";
-    repo = "python-ed25519";
-    rev = "refs/tags/${version}";
-    hash = "sha256-AwnhB5UGycQliNndbqd0JlI4vKSehCSy0qHv2EiB+jA=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "0n1k83ww0pr4q6z0h7p8hvy21hcgb96jvgllfbwhvvyf37h3w182";
   };
 
   postPatch = ''
