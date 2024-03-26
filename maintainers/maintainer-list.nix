@@ -12200,6 +12200,12 @@
     githubId = 26470037;
     name = "Markus Kowalewski";
   };
+  marmolak = {
+    email = "hack.robin@gmail.com";
+    github = "marmolak";
+    githubId = 1709273;
+    name = "Robin Hack";
+  };
   marsam = {
     github = "marsam";
     githubId = 65531;
