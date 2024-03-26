@@ -33,10 +33,23 @@ buildPythonPackage rec {
     hash = "sha256-KChfiXYnJTeIW6O7GaK/fMxU2quIvbjc4gB4aZBeTtI=";
   };
 
+
   postPatch = ''
-    substituteInPlace kubernetes/base/config/kube_config_test.py \
+    substituteInPlace ./kubernetes/base/config/kube_config_test.py \
       --replace-fail "assertEquals" "assertEqual"
   '';
+
+  propagatedBuildInputs = [
+    adal
+    certifi
+    google-auth
+    python-dateutil
+    pyyaml
+    requests
+    requests-oauthlib
+    six
+    websocket-client
+  ];
 
   pythonRelaxDeps = [
     "urllib3"
@@ -45,18 +58,6 @@ buildPythonPackage rec {
   build-system = [
     pythonRelaxDepsHook
     setuptools
-  ];
-
-  dependencies = [
-    certifi
-    google-auth
-    python-dateutil
-    pyyaml
-    requests
-    requests-oauthlib
-    six
-    urllib3
-    websocket-client
   ];
 
   passthru.optional-dependencies = {
