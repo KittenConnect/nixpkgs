@@ -4,6 +4,7 @@
 , future
 , pythonOlder
 , setuptools
+, pytest7CheckHook
 }:
 
 buildPythonPackage rec {
@@ -19,6 +20,14 @@ buildPythonPackage rec {
     rev = "refs/tags/${version}";
     hash = "sha256-ylDthh6fO0jKiYib0bed31Dxt4afiD0Jd5mfRKrsZpE=";
   };
+
+  propagatedBuildInputs = [
+    future
+  ];
+
+  nativeCheckInputs = [
+    pytest7CheckHook
+  ];
 
   postPatch = ''
     # https://github.com/thebabush/nampa/pull/13
