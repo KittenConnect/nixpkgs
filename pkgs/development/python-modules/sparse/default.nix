@@ -4,7 +4,7 @@
 , fetchPypi
 , numba
 , numpy
-, pytestCheckHook
+, pytest7CheckHook
 , pythonOlder
 , setuptools
 , setuptools-scm
@@ -26,6 +26,7 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace pytest.ini \
       --replace-fail "--cov-report term-missing --cov-report html --cov-report=xml --cov-report=term --cov sparse --cov-config .coveragerc --junitxml=junit/test-results.xml" ""
+    sed -i "/addopts =/d" pytest.ini
   '';
 
   build-system = [
@@ -41,7 +42,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [
     dask
-    pytestCheckHook
+    pytest7CheckHook
   ];
 
   pythonImportsCheck = [
