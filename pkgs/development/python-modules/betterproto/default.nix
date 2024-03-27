@@ -1,22 +1,21 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  pythonOlder,
-  poetry-core,
-  grpclib,
-  python-dateutil,
-  black,
-  jinja2,
-  isort,
-  python,
-  pydantic,
-  pytestCheckHook,
-  pytest-asyncio,
-  pytest-mock,
-  typing-extensions,
-  tomlkit,
-  grpcio-tools,
+{ buildPythonPackage
+, fetchFromGitHub
+, lib
+, pythonOlder
+, poetry-core
+, grpclib
+, python-dateutil
+, black
+, jinja2
+, isort
+, python
+, pydantic
+, pytest7CheckHook
+, pytest-asyncio
+, pytest-mock
+, typing-extensions
+, tomlkit
+, grpcio-tools
 }:
 
 buildPythonPackage rec {
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     pydantic
     pytest-asyncio
     pytest-mock
-    pytestCheckHook
+    pytest7CheckHook
     tomlkit
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
