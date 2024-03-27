@@ -8,8 +8,27 @@
 , pytestCheckHook
 , pythonRelaxDepsHook
 , pythonOlder
+
+# build-system
 , setuptools
 , setuptools-scm
+, pythonRelaxDepsHook
+
+# dependencies
+, packaging
+
+# native dependencies
+, portmidi
+
+# optional-dependencies
+, pygame
+, python-rtmidi
+, rtmidi-python
+
+# tests
+, pytestCheckHook
+, pythonOlder
+
 }:
 
 buildPythonPackage rec {
@@ -21,7 +40,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Ouootu1zD3N9WxLaNXjevp3FAFj6Nw/pzt7ZGJtnw0g=";
+    hash = "sha256-Ouootu1zD3N9WxLaNXjevp3FAFj6Nw/pzt7ZGJtnw0g=";
   };
 
   patches = [
@@ -31,7 +50,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
+  build-system = [
     setuptools
     setuptools-scm
     pythonRelaxDepsHook
@@ -41,9 +60,15 @@ buildPythonPackage rec {
     "packaging"
   ];
 
-  propagatedBuildInputs = [
-    python-rtmidi
+  dependencies = [
+    packaging
   ];
+
+  optional-dependencies = {
+    ports-pygame = [ pygame ];
+    ports-rtmidi = [ python-rtmidi ];
+    ports-rtmidi-python = [ rtmidi-python ];
+  };
 
   nativeCheckInputs = [
     pytestCheckHook
