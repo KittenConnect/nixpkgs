@@ -303,23 +303,24 @@ self = stdenv.mkDerivation {
   buildInputs = with xorg; [
     expat
     glslang
-    llvmPackages.libllvm
-    libglvnd
-    xorgproto
-    libX11
-    libXext
-    libxcb
-    libXt
-    libXfixes
-    libxshmfence
-    libXrandr
     libffi
+    libglvnd
     libvdpau
-    libXvMC
-    libpthreadstubs
+    llvmPackages.libllvm
     openssl
     zstd
-  ] ++ lib.optionals withLibunwind [
+  ] ++ (with xorg; [
+    libX11
+    libXext
+    libXfixes
+    libXrandr
+    libXt
+    libXvMC
+    libpthreadstubs
+    libxcb
+    libxshmfence
+    xorgproto
+  ]) ++ lib.optionals withLibunwind [
     libunwind
   ] ++ [
     python3Packages.python # for shebang
@@ -329,10 +330,11 @@ self = stdenv.mkDerivation {
   ] ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [ 
     libva-minimal
   ] ++ lib.optionals stdenv.isLinux [
-    elfutils
     libomxil-bellagio
     udev
     lm_sensors
+  ] ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform elfutils) [
+    elfutils
   ] ++ lib.optionals enableOpenCL [
     llvmPackages.libclc
     llvmPackages.clang
@@ -377,10 +379,10 @@ self = stdenv.mkDerivation {
     wayland-scanner
   ];
 
-  propagatedBuildInputs = with xorg; [
+  propagatedBuildInputs = (with xorg; [
     libXdamage
     libXxf86vm
-  ] ++ lib.optionals withLibdrm [
+  ]) ++ lib.optionals withLibdrm [
     libdrm
   ] ++ lib.optionals stdenv.isDarwin [
     OpenGL
