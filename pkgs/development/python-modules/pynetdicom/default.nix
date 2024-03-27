@@ -1,16 +1,14 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  pydicom,
-  pyfakefs,
-  pytestCheckHook,
-  pythonAtLeast,
-  pythonOlder,
-  setuptools,
-  sqlalchemy,
+{ lib
+, stdenv
+, buildPythonPackage
+, fetchFromGitHub
+, fetchpatch
+, pydicom
+, pyfakefs
+, pytest7CheckHook
+, sqlalchemy
+, pythonAtLeast
+, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -41,7 +39,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [
     pyfakefs
-    pytestCheckHook
+    pytest7CheckHook
     sqlalchemy
   ];
 
