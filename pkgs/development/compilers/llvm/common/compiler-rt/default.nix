@@ -1,6 +1,19 @@
-{ lib, stdenv, llvm_meta, version
-, monorepoSrc, runCommand
-, cmake, ninja, python3, xcbuild, libllvm, linuxHeaders, libxcrypt
+{ lib
+, stdenv
+, llvm_meta
+, release_version
+, version
+, patches ? []
+, src ? null
+, monorepoSrc ? null
+, runCommand
+, cmake
+, ninja
+, python3
+, xcbuild
+, libllvm
+, linuxHeaders
+, libxcrypt
 , doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD
 }:
 
@@ -9,26 +22,34 @@ let
   useLLVM = stdenv.hostPlatform.useLLVM or false;
   bareMetal = stdenv.hostPlatform.parsed.kernel.name == "none";
   haveLibc = stdenv.cc.libc != null;
-  isDarwinStatic = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isStatic;
-  inherit (stdenv.hostPlatform) isMusl;
+  isDarwinStatic = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isStatic && lib.versionAtLeast release_version "16";
+  inherit (stdenv.hostPlatform) isMusl isAarch64;
 
   baseName = "compiler-rt";
+  pname = baseName + lib.optionalString (haveLibc) "-libc";
 
-  src = runCommand "${baseName}-src-${version}" {} ''
-    mkdir -p "$out"
-    cp -r ${monorepoSrc}/cmake "$out"
-    cp -r ${monorepoSrc}/${baseName} "$out"
+  src' = if monorepoSrc != null then
+    runCommand "${baseName}-src-${version}" {} ''
+      mkdir -p "$out"
+      cp -r ${monorepoSrc}/cmake "$out"
+      cp -r ${monorepoSrc}/${baseName} "$out"
+    '' else src;
+
+  preConfigure = lib.optionalString (useLLVM && !haveLibc) ''
+    cmakeFlagsArray+=(-DCMAKE_C_FLAGS="-nodefaultlibs -ffreestanding")
   '';
 in
 
-stdenv.mkDerivation {
-  pname = baseName + lib.optionalString (haveLibc) "-libc";
-  inherit version;
+stdenv.mkDerivation ({
+  inherit pname version patches;
 
-  inherit src;
-  sourceRoot = "${src.name}/${baseName}";
+  src = src';
+  sourceRoot = if lib.versionOlder release_version "13" then null
+    else "${src'.name}/${baseName}";
 
-  nativeBuildInputs = [ cmake ninja python3 libllvm.dev ]
+  nativeBuildInputs = [ cmake ]
+    ++ (lib.optional (lib.versionAtLeast release_version "15") ninja)
+    ++ [ python3 libllvm.dev ]
     ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
   buildInputs =
     lib.optional (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isRiscV) linuxHeaders;
@@ -50,6 +71,8 @@ stdenv.mkDerivation {
     "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
   ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.libc == "glibc") [
     "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include"
+  ] ++ lib.optionals ((useLLVM || bareMetal || isMusl || isAarch64) && (lib.versions.major release_version == "13")) [
+    "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
   ] ++ lib.optionals (useLLVM || bareMetal || isMusl || isDarwinStatic) [
     "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
     "-DCOMPILER_RT_BUILD_XRAY=OFF"
@@ -58,7 +81,7 @@ stdenv.mkDerivation {
     "-DCOMPILER_RT_BUILD_ORC=OFF" # may be possible to build with musl if necessary
   ] ++ lib.optionals (useLLVM || bareMetal) [
      "-DCOMPILER_RT_BUILD_PROFILE=OFF"
-  ] ++ lib.optionals ((useLLVM && !haveLibc) || bareMetal || isDarwinStatic ) [
+  ] ++ lib.optionals ((useLLVM && !haveLibc) || bareMetal || isDarwinStatic) [
     "-DCMAKE_CXX_COMPILER_WORKS=ON"
   ] ++ lib.optionals ((useLLVM && !haveLibc) || bareMetal) [
     "-DCMAKE_C_COMPILER_WORKS=ON"
@@ -72,15 +95,18 @@ stdenv.mkDerivation {
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY"
   ] ++ lib.optionals (bareMetal) [
     "-DCOMPILER_RT_OS_DIR=baremetal"
-  ] ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
+  ] ++ lib.optionals (stdenv.hostPlatform.isDarwin) (lib.optionals (lib.versionAtLeast release_version "16") [
     "-DCMAKE_LIPO=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}lipo"
+  ] ++ [
     "-DDARWIN_macosx_OVERRIDE_SDK_VERSION=ON"
     "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
     "-DDARWIN_osx_BUILTIN_ARCHS=${stdenv.hostPlatform.darwinArch}"
-
+  ] ++ lib.optionals (lib.versionAtLeast release_version "15") [
     # `COMPILER_RT_DEFAULT_TARGET_ONLY` does not apply to Darwin:
     # https://github.com/llvm/llvm-project/blob/27ef42bec80b6c010b7b3729ed0528619521a690/compiler-rt/cmake/base-config-ix.cmake#L153
     "-DCOMPILER_RT_ENABLE_IOS=OFF"
+  ]) ++ lib.optionals (lib.versionAtLeast version "19" && stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13") [
+    "-DSANITIZER_MIN_OSX_VERSION=10.10"
   ];
 
   outputs = [ "out" "dev" ];
@@ -116,13 +142,16 @@ stdenv.mkDerivation {
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/config-ix.cmake \
       --replace 'set(COMPILER_RT_HAS_TSAN TRUE)' 'set(COMPILER_RT_HAS_TSAN FALSE)'
-  '' + lib.optionalString (useLLVM && !haveLibc) ''
+  '' + lib.optionalString (useLLVM && !haveLibc) ((lib.optionalString (lib.versionAtLeast release_version "18") ''
+    substituteInPlace lib/builtins/aarch64/sme-libc-routines.c \
+      --replace "<stdlib.h>" "<stddef.h>"
+  '') + ''
     substituteInPlace lib/builtins/int_util.c \
       --replace "#include <stdlib.h>" ""
   '' + lib.optionalString (useLLVM && !haveLibc && !stdenv.hostPlatform.isFreeBSD) ''
     substituteInPlace lib/builtins/clear_cache.c \
       --replace "#include <assert.h>" ""
-    substituteInPlace lib/builtins/cpu_model.c \
+    substituteInPlace lib/builtins/cpu_model${lib.optionalString (lib.versionAtLeast version "18") "/x86"}.c \
       --replace "#include <assert.h>" ""
   '' + lib.optionalString (useLLVM && !haveLibc && stdenv.hostPlatform.isFreeBSD) ''
     # As per above, but in FreeBSD assert is a macro and simply allowing it to be implicitly declared causes Issues!!!!!
@@ -153,7 +182,6 @@ stdenv.mkDerivation {
   meta = llvm_meta // {
     homepage = "https://compiler-rt.llvm.org/";
     description = "Compiler runtime libraries";
-    mainProgram = "hwasan_symbolize";
     longDescription = ''
       The compiler-rt project provides highly tuned implementations of the
       low-level code generator support routines like "__fixunsdfdi" and other
@@ -169,4 +197,4 @@ stdenv.mkDerivation {
     # https://reviews.llvm.org/D43106#1019077
     broken = stdenv.hostPlatform.isRiscV32 && !stdenv.cc.isClang;
   };
-}
+} // (if lib.versionOlder release_version "16" then { inherit preConfigure; } else {}))
