@@ -37824,7 +37824,7 @@ with pkgs;
 
   voxelands = callPackage ../games/voxelands { };
 
-  vvvvvv = callPackage ../games/vvvvvv {
+  vvvvvv = callPackage ../by-name/vv/vvvvvv/package.nix {
     inherit (darwin.apple_sdk.frameworks) Foundation IOKit;
   };
 
