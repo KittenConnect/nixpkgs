@@ -5503,8 +5503,6 @@ with pkgs;
 
   iotools = callPackage ../tools/misc/iotools { };
 
-  irpf = callPackage ../applications/finance/irpf { };
-
   jellycli = callPackage ../applications/audio/jellycli { };
 
   jellyfin-ffmpeg = callPackage ../development/libraries/jellyfin-ffmpeg { };
