@@ -3680,8 +3680,6 @@ with pkgs;
 
   cudd = callPackage ../development/libraries/cudd { };
 
-  cue = callPackage ../development/tools/cue { };
-
   inherit (cue) writeCueValidator;
 
   cuelsp = callPackage ../development/tools/cuelsp { };
