@@ -24986,8 +24986,6 @@ with pkgs;
 
   vkdt = callPackage ../applications/graphics/vkdt { };
 
-  vkdt-wayland = callPackage ../applications/graphics/vkdt { glfw = glfw-wayland; };
-
   vlock = callPackage ../misc/screensavers/vlock { };
 
   virtualpg = callPackage ../development/libraries/virtualpg { };
