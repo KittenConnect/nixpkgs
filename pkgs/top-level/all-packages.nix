@@ -39795,6 +39795,8 @@ with pkgs;
 
   kmon = callPackage ../tools/system/kmon { };
 
+  kmonad = haskellPackages.kmonad.bin;
+
   kompose = callPackage ../applications/networking/cluster/kompose { };
 
   kompute = callPackage ../development/libraries/kompute {
