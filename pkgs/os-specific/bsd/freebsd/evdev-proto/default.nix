@@ -14,30 +14,45 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ buildPackages.freebsd.sed ];
 
-  patchPhase = ''
-    sed -i "" -E \
-      -e 's/__u([[:digit:]]+)/uint\1_t/g' \
-      -e 's/__s([[:digit:]]+)/int\1_t/g' \
-      -e '/# *include/ s|<sys/ioctl.h>|<sys/ioccom.h>|' \
-      -e '/# *include[[:space:]]+<linux\/types.h>/d' \
-      -e '/EVIOC(RMFF|GRAB|REVOKE)/ s/_IOW(.*), *int/_IOWINT\1/' \
-      -e '/EVIOCGKEYCODE/ s/_IOR/_IOWR/' \
-      -e '/EVIOCGMASK/ s/_IOR/_IOW/' \
-      -e '/EVIOCGMTSLOTS/ s/_IOC_READ/IOC_INOUT/' \
-      -e '/#define/ s/_IOC_READ/IOC_OUT/' \
-      -e '/#define/ s/_IOC_WRITE/IOC_IN/' \
-      -e 's/[[:space:]]+__user[[:space:]]+/ /' \
-      -e '/__USE_TIME_BITS64/ s|^#if (.*)$|#if 1 /* \1 */|' \
-      ${WRKSRC}/input.h
-    sed -i "" -E \
-      -e 's/__u([[:digit:]]+)/uint\1_t/g' \
-      -e 's/__s([[:digit:]]+)/int\1_t/g' \
-      -e '/# *include/s|<linux/types.h>|<sys/types.h>|' \
-      -e '/#define/ s/_IOW(.*), *int/_IOWINT\1/' \
-      -e '/#define/ s/_IOW(.*), *char\*/_IO\1/' \
-      -e '/#define/ s/_IOC_READ/IOC_OUT/' \
-      ${WRKSRC}/joystick.h \
-      ${WRKSRC}/uinput.h
+  useTempPrefix = true;
+
+  nativeBuildInputs = [ freebsd.makeMinimal ];
+
+  ARCH = freebsd.makeMinimal.MACHINE_ARCH;
+  OPSYS = "FreeBSD";
+  _OSRELEASE = "${lib.versions.majorMinor freebsd.makeMinimal.version}-RELEASE";
+
+  AWK = "awk";
+  CHMOD = "chmod";
+  FIND = "find";
+  MKDIR = "mkdir -p";
+  PKG_BIN = "${buildPackages.pkg}/bin/pkg";
+  RM = "rm -f";
+  SED = "${buildPackages.freebsd.sed}/bin/sed";
+  SETENV = "env";
+  SH = "sh";
+  TOUCH = "touch";
+  XARGS = "xargs";
+
+  ABI_FILE = runCommandCC "abifile" {} "$CC -shared -o $out";
+  CLEAN_FETCH_ENV = true;
+  INSTALL_AS_USER = true;
+  NO_CHECKSUM = true;
+  NO_MTREE = true;
+  SRC_BASE = freebsd.source;
+
+  preUnpack = ''
+    export MAKE_JOBS_NUMBER="$NIX_BUILD_CORES"
+
+    export DISTDIR="$PWD/distfiles"
+    export PKG_DBDIR="$PWD/pkg"
+    export PREFIX="$prefix"
+
+    mkdir -p "$DISTDIR/evdev-proto"
+    tar -C "$DISTDIR/evdev-proto" \
+        -xf ${linuxHeaders.src} \
+        --strip-components 4 \
+        linux-${linuxHeaders.version}/include/uapi/linux
   '';
 
   buildPhase = ":";

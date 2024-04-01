@@ -5,24 +5,19 @@
 }:
 
 let
-  versions = builtins.fromJSON (builtins.readFile ./versions.json);
-in lib.makeScope newScope (self:
-let
-  byName = lib.packagesFromDirectoryRecursive {
-    callPackage = self.callPackage;
-    directory = ./by-name;
-  };
-in byName // (with self; { inherit stdenv;
-  #stdenv = if stdenv.cc.isClang then stdenv else llvmPackages.stdenv;
-  compatIsNeeded = !self.stdenv.hostPlatform.isFreeBSD;
+  inherit (buildPackages.buildPackages) rsync;
 
+  versions = builtins.fromJSON (builtins.readFile ./versions.json);
+
+  version = "13.1.0";
+  branch = "release/${version}";
 in makeScopeWithSplicing' {
   otherSplices = generateSplicesForMkScope "freebsd";
   f = (self: lib.packagesFromDirectoryRecursive {
     callPackage = self.callPackage;
     directory = ./pkgs;
   } // {
-    inherit freebsdSrc;
+    sourceData = versions.${branch};
 
     ports = fetchzip {
       url = "https://cgit.freebsd.org/ports/snapshot/ports-dde3b2b456c3a4bdd217d0bf3684231cc3724a0a.tar.gz";
