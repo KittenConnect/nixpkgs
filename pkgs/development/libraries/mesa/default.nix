@@ -279,8 +279,9 @@ self = stdenv.mkDerivation {
   ] ++ [
     python3Packages.python # for shebang
   ] ++ lib.optionals haveWayland [ wayland wayland-protocols ]
-    ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [ elfutils libva-minimal ]
-    ++ lib.optionals stdenv.isLinux [ udev lm_sensors ]
+    ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [ libva-minimal ]
+    ++ lib.optionals stdenv.isLinux [ libomxil-bellagio udev lm_sensors ]
+    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform elfutils) [ elfutils ]
     ++ lib.optionals enableOpenCL [ llvmPackages.libclc llvmPackages.clang llvmPackages.clang-unwrapped spirv-llvm-translator ]
     ++ lib.optional withValgrind valgrind-light
     ++ lib.optional haveZink vulkan-loader
