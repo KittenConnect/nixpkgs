@@ -31740,8 +31740,6 @@ with pkgs;
     withDoc = true;
   };
 
-  gpscorrelate = callPackage ../applications/misc/gpscorrelate { };
-
   gpsd = callPackage ../servers/gpsd { };
 
   gpsprune = callPackage ../applications/misc/gpsprune { };
