@@ -93,12 +93,12 @@ in mkLicense lset) ({
     url = "https://aomedia.org/license/patent-license/";
   };
 
-  apsl10 = {
+  apple-psl10 = {
     spdxId = "APSL-1.0";
     fullName = "Apple Public Source License 1.0";
   };
 
-  apsl20 = {
+  apple-psl20 = {
     spdxId = "APSL-2.0";
     fullName = "Apple Public Source License 2.0";
   };
@@ -1275,6 +1275,17 @@ in mkLicense lset) ({
   agpl3 = {
     spdxId = "AGPL-3.0";
     fullName = "GNU Affero General Public License v3.0";
+  };
+  apsl10 = {
+    # deprecated for consistency with `apple-psl20`; use `apple-psl10`
+    spdxId = "APSL-1.0";
+    fullName = "Apple Public Source License 1.0";
+    deprecated = true;
+  };
+  apsl20 = {
+    # deprecated due to confusion with Apache-2.0; use `apple-psl20`
+    spdxId = "APSL-2.0";
+    fullName = "Apple Public Source License 2.0";
     deprecated = true;
   };
   gpl2 = {
