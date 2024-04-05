@@ -20883,6 +20883,9 @@ with pkgs;
     ffmpeg_6
     ffmpeg_6-headless
     ffmpeg_6-full
+    ffmpeg_7
+    ffmpeg_7-headless
+    ffmpeg_7-full
     ffmpeg
     ffmpeg-headless
     ffmpeg-full;
