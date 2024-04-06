@@ -4021,9 +4021,7 @@ with pkgs;
 
   gopass-hibp = callPackage ../tools/security/gopass/hibp.nix { };
 
-  gopass-jsonapi = callPackage ../tools/security/gopass/jsonapi.nix {
-    buildGoModule = buildGo122Module;
-  };
+  gopass-jsonapi = callPackage ../tools/security/gopass/jsonapi.nix { };
 
   git-credential-gopass = callPackage ../tools/security/gopass/git-credential.nix {
     buildGoModule = buildGo122Module;
