@@ -24967,7 +24967,9 @@ with pkgs;
 
   umockdev = callPackage ../development/libraries/umockdev { };
 
-  unconvert = callPackage ../development/tools/unconvert { };
+  unconvert = callPackage ../development/tools/unconvert {
+    buildGoModule = buildGo121Module;
+  };
 
   uncover = callPackage ../tools/security/uncover { };
 
