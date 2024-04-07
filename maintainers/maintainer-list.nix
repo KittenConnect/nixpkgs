@@ -1990,12 +1990,6 @@
     githubId = 687218;
     name = "averelld";
   };
-  avery = {
-    email = "averyl+nixos@protonmail.com";
-    github = "AveryLychee";
-    githubId = 9147625;
-    name = "Avery Lychee";
-  };
   avh4 = {
     email = "gruen0aermel@gmail.com";
     github = "avh4";
