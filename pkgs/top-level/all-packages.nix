@@ -1797,11 +1797,15 @@ with pkgs;
   gamescope = callPackage ../by-name/ga/gamescope/package.nix {
     enableExecutable = true;
     enableWsi = false;
+
+    wlroots = wlroots_0_17;
   };
 
   gamescope-wsi = callPackage ../by-name/ga/gamescope/package.nix {
     enableExecutable = false;
     enableWsi = true;
+
+    wlroots = wlroots_0_17;
   };
 
   gay = callPackage ../tools/misc/gay {  };
