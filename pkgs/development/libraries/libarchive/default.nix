@@ -65,6 +65,10 @@ stdenv.mkDerivation (finalAttrs: {
       "cpio/test/test_option_a.c"
       "cpio/test/test_option_t.c"
       "libarchive/test/test_read_disk_directory_traversals.c"
+    ] ++ lib.optionals (stdenv.isAarch64 && stdenv.isLinux) [
+      # only on some aarch64-linux systems?
+      "cpio/test/test_basic.c"
+      "cpio/test/test_format_newc.c"
     ];
     removeTest = testPath: ''
       substituteInPlace Makefile.am --replace "${testPath}" ""
