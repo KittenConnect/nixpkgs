@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , buildPythonPackage
+, pythonAtLeast
 , pythonOlder
 , fetchFromGitHub
 , isPyPy
@@ -127,6 +128,9 @@ buildPythonPackage rec {
     "test_connect_to_selfsigned_with_tls_verify_false"
     "test_connect_to_selfsigned_with_tls_cacerts"
     "test_connect_to_selfsigned_with_requests_env_var"
+  ] ++ lib.optionals (pythonAtLeast "3.12") [
+    # https://github.com/sphinx-doc/sphinx/issues/12202 (Fixed in 7.3)
+    "test_enum_class"
   ];
 
   meta = {
