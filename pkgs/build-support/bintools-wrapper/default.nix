@@ -86,8 +86,7 @@ let
     replaceStrings
     ;
 
-  stdenv = stdenvNoCC;
-  inherit (stdenv) hostPlatform targetPlatform;
+  inherit (stdenvNoCC) hostPlatform targetPlatform;
 
   # Prefix for binaries. Customarily ends with a dash separator.
   #
@@ -141,7 +140,7 @@ let
 
 in
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = targetPrefix
     + (if name != "" then name else "${bintoolsName}-wrapper");
   version = optionalString (bintools != null) bintoolsVersion;
@@ -349,7 +348,7 @@ stdenv.mkDerivation {
       done
     ''
 
-    + optionalString stdenv.targetPlatform.isDarwin ''
+    + optionalString stdenvNoCC.targetPlatform.isDarwin ''
       echo "-arch ${targetPlatform.darwinArch}" >> $out/nix-support/libc-ldflags
     ''
 
@@ -366,7 +365,7 @@ stdenv.mkDerivation {
     ###
     ### Remove certain timestamps from final binaries
     ###
-    + optionalString (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false)) ''
+    + optionalString (stdenvNoCC.targetPlatform.isDarwin && !(bintools.isGNU or false)) ''
       echo "export ZERO_AR_DATE=1" >> $out/nix-support/setup-hook
     ''
 
@@ -383,9 +382,9 @@ stdenv.mkDerivation {
     ###
     ### Ensure consistent LC_VERSION_MIN_MACOSX
     ###
-    + optionalString stdenv.targetPlatform.isDarwin (
+    + optionalString stdenvNoCC.targetPlatform.isDarwin (
       let
-        inherit (stdenv.targetPlatform)
+        inherit (stdenvNoCC.targetPlatform)
           darwinPlatform darwinSdkVersion
           darwinMinVersion darwinMinVersionVariable;
       in ''

@@ -82,9 +82,7 @@ let
     versionAtLeast
     ;
 
-  inherit (stdenv) hostPlatform targetPlatform;
-
-  stdenv = stdenvNoCC;
+  inherit (stdenvNoCC) hostPlatform targetPlatform;
 
   includeFortifyHeaders' = if includeFortifyHeaders != null
     then includeFortifyHeaders
@@ -119,11 +117,11 @@ let
 
   useGccForLibs = useCcForLibs
     && libcxx == null
-    && !stdenv.targetPlatform.isDarwin
-    && !stdenv.targetPlatform.isFreeBSD
-    && !(stdenv.targetPlatform.useLLVM or false)
-    && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
-    && !(stdenv.targetPlatform.isiOS or false)
+    && !stdenvNoCC.targetPlatform.isDarwin
+    && !stdenvNoCC.targetPlatform.isFreeBSD
+    && !(stdenvNoCC.targetPlatform.useLLVM or false)
+    && !(stdenvNoCC.targetPlatform.useAndroidPrebuilt or false)
+    && !(stdenvNoCC.targetPlatform.isiOS or false)
     && gccForLibs != null;
   gccForLibs_solib = getLib gccForLibs
     + optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}";
@@ -250,17 +248,17 @@ let
     then cc.hardeningUnsupportedFlagsByTargetPlatform targetPlatform
     else (cc.hardeningUnsupportedFlags or []);
 
-  darwinPlatformForCC = optionalString stdenv.targetPlatform.isDarwin (
+  darwinPlatformForCC = optionalString stdenvNoCC.targetPlatform.isDarwin (
     if (targetPlatform.darwinPlatform == "macos" && isGNU) then "macosx"
     else targetPlatform.darwinPlatform
   );
 
-  darwinMinVersion = optionalString stdenv.targetPlatform.isDarwin (
-    stdenv.targetPlatform.darwinMinVersion
+  darwinMinVersion = optionalString stdenvNoCC.targetPlatform.isDarwin (
+    stdenvNoCC.targetPlatform.darwinMinVersion
   );
 
-  darwinMinVersionVariable = optionalString stdenv.targetPlatform.isDarwin
-    stdenv.targetPlatform.darwinMinVersionVariable;
+  darwinMinVersionVariable = optionalString stdenvNoCC.targetPlatform.isDarwin
+    stdenvNoCC.targetPlatform.darwinMinVersionVariable;
 in
 
 assert includeFortifyHeaders' -> fortify-headers != null;
@@ -273,7 +271,7 @@ assert nativeTools == bintools.nativeTools;
 assert nativeLibc == bintools.nativeLibc;
 assert nativePrefix == bintools.nativePrefix;
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = targetPrefix
     + (if name != "" then name else "${ccName}-wrapper");
   version = optionalString (cc != null) ccVersion;
@@ -427,7 +425,7 @@ stdenv.mkDerivation {
     ../setup-hooks/role.bash
   ] ++ optional (cc.langC or true) ./setup-hook.sh
     ++ optional (cc.langFortran or false) ./fortran-hook.sh
-    ++ optional (targetPlatform.isWindows) (stdenv.mkDerivation {
+    ++ optional (targetPlatform.isWindows) (stdenvNoCC.mkDerivation {
       name = "win-dll-hook.sh";
       dontUnpack = true;
       installPhase = ''
@@ -480,8 +478,8 @@ stdenv.mkDerivation {
     # break `useLLVM` into.)
     + optionalString (isClang
                       && targetPlatform.isLinux
-                      && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
-                      && !(stdenv.targetPlatform.useLLVM or false)
+                      && !(stdenvNoCC.targetPlatform.useAndroidPrebuilt or false)
+                      && !(stdenvNoCC.targetPlatform.useLLVM or false)
                       && gccForLibs != null) (''
       echo "--gcc-toolchain=${gccForLibs}" >> $out/nix-support/cc-cflags
 
@@ -690,7 +688,7 @@ stdenv.mkDerivation {
       done
     ''
 
-    + optionalString stdenv.targetPlatform.isDarwin ''
+    + optionalString stdenvNoCC.targetPlatform.isDarwin ''
         echo "-arch ${targetPlatform.darwinArch}" >> $out/nix-support/cc-cflags
     ''
 
