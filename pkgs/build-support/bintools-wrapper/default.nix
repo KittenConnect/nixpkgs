@@ -348,7 +348,7 @@ stdenvNoCC.mkDerivation {
       done
     ''
 
-    + optionalString stdenvNoCC.targetPlatform.isDarwin ''
+    + optionalString targetPlatform.isDarwin ''
       echo "-arch ${targetPlatform.darwinArch}" >> $out/nix-support/libc-ldflags
     ''
 
@@ -365,7 +365,7 @@ stdenvNoCC.mkDerivation {
     ###
     ### Remove certain timestamps from final binaries
     ###
-    + optionalString (stdenvNoCC.targetPlatform.isDarwin && !(bintools.isGNU or false)) ''
+    + optionalString (targetPlatform.isDarwin && !(bintools.isGNU or false)) ''
       echo "export ZERO_AR_DATE=1" >> $out/nix-support/setup-hook
     ''
 
@@ -382,9 +382,9 @@ stdenvNoCC.mkDerivation {
     ###
     ### Ensure consistent LC_VERSION_MIN_MACOSX
     ###
-    + optionalString stdenvNoCC.targetPlatform.isDarwin (
+    + optionalString targetPlatform.isDarwin (
       let
-        inherit (stdenvNoCC.targetPlatform)
+        inherit (targetPlatform)
           darwinPlatform darwinSdkVersion
           darwinMinVersion darwinMinVersionVariable;
       in ''
