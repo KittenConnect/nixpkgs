@@ -1579,7 +1579,7 @@ with pkgs;
 
   aefs = callPackage ../tools/filesystems/aefs { };
 
-  aegisub = callPackage ../applications/video/aegisub ({
+  aegisub = callPackage ../by-name/ae/aegisub/package.nix ({
     wxGTK = wxGTK32;
   } // (config.aegisub or {}));
 
