@@ -5132,8 +5132,6 @@ with pkgs;
 
   earlybird = callPackage ../tools/security/earlybird { };
 
-  earlyoom = callPackage ../os-specific/linux/earlyoom { };
-
   easyabc = callPackage ../applications/audio/easyabc { };
 
   easycrypt = callPackage ../applications/science/logic/easycrypt {
