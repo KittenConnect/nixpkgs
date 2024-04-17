@@ -8229,7 +8229,7 @@
     name = "Akshat Agarwal";
   };
   hummeltech = {
-    email = "hummeltech2024@gmail.com";
+    email = "hummeltech@sherpaguru.com";
     github = "hummeltech";
     githubId = 6109326;
     name = "David Hummel";
