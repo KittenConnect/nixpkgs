@@ -2754,8 +2754,6 @@ with pkgs;
 
   mednafen = callPackage ../applications/emulators/mednafen { };
 
-  mednafen-server = callPackage ../applications/emulators/mednafen/server.nix { };
-
   mednaffe = callPackage ../applications/emulators/mednaffe { };
 
   melonDS = libsForQt5.callPackage ../applications/emulators/melonDS { };
