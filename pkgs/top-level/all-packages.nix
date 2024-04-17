@@ -2752,8 +2752,6 @@ with pkgs;
     description = mame.meta.description + " (tools only)";
   } (lib.getOutput "tools" mame);
 
-  mednaffe = callPackage ../applications/emulators/mednaffe { };
-
   melonDS = libsForQt5.callPackage ../applications/emulators/melonDS { };
 
   mgba = libsForQt5.callPackage ../applications/emulators/mgba { };
