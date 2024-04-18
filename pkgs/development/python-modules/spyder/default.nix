@@ -44,7 +44,7 @@
 buildPythonPackage rec {
   pname = "spyder";
   version = "5.5.4";
-  pyproject = true;
+  format = "setuptools";
 
   disabled = pythonOlder "3.8";
 
