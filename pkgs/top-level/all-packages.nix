@@ -37955,7 +37955,7 @@ with pkgs;
   lxqt = recurseIntoAttrs (import ../desktops/lxqt {
     inherit pkgs;
     inherit (lib) makeScope;
-    inherit qt5 libsForQt5;
+    inherit kdePackages;
   });
 
   mate = recurseIntoAttrs (callPackage ../desktops/mate { });
