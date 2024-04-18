@@ -1,24 +1,36 @@
 { stdenv
 , lib
-, fetchPypi
+, fetchgit
 , buildPythonPackage
+, flit-core
+, pillow
 , python
 , pythonOlder
 , freebsd
 }:
 
-buildPythonPackage rec {
+let self = buildPythonPackage rec {
   pname = "docutils";
-  version = "0.20.1";
+  version = "0.21.1";
+  pyproject = true;
 
   disabled = pythonOlder "3.7";
 
-  format = "setuptools";
-
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-8IpOJ2w6FYOobc4+NKuj/gTQK7ot1R7RYQYkToqSPjs=";
+  src = fetchgit {
+    url = "git://repo.or.cz/docutils.git";
+    rev = "docutils-${version}";
+    hash = "sha256-ahnj6iKjyUCDxhgxJdwEb8huFIGpbuuLQBHDzKj6O9E=";
   };
+
+  build-system = [ flit-core ];
+
+  # infinite recursion via sphinx and pillow
+  doCheck = false;
+  passthru.tests.pytest = self.overridePythonAttrs { doCheck = true; };
+
+  nativeCheckInputs = [
+    pillow
+  ];
 
   # Only Darwin needs LANG, but we could set it in general.
   # It's done here conditionally to prevent mass-rebuilds.
@@ -39,4 +51,5 @@ buildPythonPackage rec {
     license = with licenses; [ publicDomain bsd2 psfl gpl3Plus ];
     maintainers = with maintainers; [ AndersonTorres ];
   };
-}
+};
+in self
