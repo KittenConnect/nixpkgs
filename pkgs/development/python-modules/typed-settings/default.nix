@@ -18,7 +18,7 @@
 buildPythonPackage rec {
   pname = "typed-settings";
   version = "24.2.0";
-  pyproject = true;
+  format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
