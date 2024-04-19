@@ -13,12 +13,14 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
+  outputs = [ "out" "dev" ];
+
   # NOTE: the libcxxrt readme advises against installing both the shared and static libraries.
   # I (@rhelmot) have noticed that various static builds fail without the static library present, due to -lcxxrt.
   # I don't know if the ecosystem will still work with only the staticlib.
   installPhase = ''
-    mkdir -p $out/include $out/lib
-    cp ../src/cxxabi.h $out/include
+    mkdir -p $dev/include $out/lib
+    cp ../src/cxxabi.h $dev/include
     cp lib/libcxxrt${stdenv.hostPlatform.extensions.library} $out/lib
     cp lib/libcxxrt${stdenv.hostPlatform.extensions.staticLibrary} $out/lib
     ln -s $out/lib/libcxxrt${stdenv.hostPlatform.extensions.library} $out/lib/libcxxrt${stdenv.hostPlatform.extensions.library}.1
