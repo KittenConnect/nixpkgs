@@ -90,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
       using only the keyboard.
     '';
     homepage    = "https://swaywm.org";
-    changelog   = "https://github.com/swaywm/sway/releases/tag/${version}";
+    changelog   = "https://github.com/swaywm/sway/releases/tag/${finalAttrs.version}";
     license     = licenses.mit;
     platforms   = platforms.linux ++ platforms.freebsd;
     maintainers = with maintainers; [ primeos synthetica ];
