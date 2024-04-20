@@ -6093,7 +6093,7 @@ with pkgs;
 
 
   ockam = callPackage ../tools/networking/ockam {
-    inherit (darwin.apple_sdk.frameworks) Security;
+    inherit (darwin.apple_sdk.frameworks) AppKit Security;
   };
 
   odoo = callPackage ../applications/finance/odoo { };
