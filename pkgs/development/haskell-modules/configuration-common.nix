@@ -1578,6 +1578,7 @@ self: super: {
   jsaddle-dom = overrideCabal (old: {
     postPatch = old.postPatch or "" + ''
       sed -i 's/lens.*4.20/lens/' jsaddle-dom.cabal
+      rm Setup.hs
     '';
   }) (doJailbreak super.jsaddle-dom);
 
