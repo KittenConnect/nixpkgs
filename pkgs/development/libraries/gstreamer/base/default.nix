@@ -126,6 +126,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
   ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"
   ++ lib.optionals stdenv.isDarwin [
+    "-Ddrm=disabled"
     "-Dlibvisual=disabled"
   ] ++ lib.optionals (stdenv.isFreeBSD && enableGl) [
     #"-Dgl_api=opengl,gles2"
