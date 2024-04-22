@@ -50,7 +50,6 @@ stdenv.mkDerivation rec {
     gst-plugins-base
     orc
     libintl
-    opencore-amr
   ] ++ lib.optionals enableGplPlugins [
     a52dec
     libcdio
