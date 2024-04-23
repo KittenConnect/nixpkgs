@@ -8450,8 +8450,6 @@ with pkgs;
 
   gitea-actions-runner = callPackage ../development/tools/continuous-integration/gitea-actions-runner { };
 
-  forgejo = callPackage ../applications/version-management/forgejo { };
-
   gokart = callPackage ../development/tools/gokart { };
 
   gl2ps = callPackage ../development/libraries/gl2ps { };
