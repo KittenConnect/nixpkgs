@@ -17094,6 +17094,12 @@
     githubId = 37246692;
     name = "Riley Inman";
   };
+  rinx = {
+    email = "rintaro.okamura@gmail.com";
+    github = "rinx";
+    githubId = 1588935;
+    name = "Rintaro Okamura";
+  };
   riotbib = {
     email = "lennart@cope.cool";
     github = "riotbib";
