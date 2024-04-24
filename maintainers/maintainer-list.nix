@@ -12389,11 +12389,6 @@
     githubId = 1709273;
     name = "Robin Hack";
   };
-  marsam = {
-    github = "marsam";
-    githubId = 65531;
-    name = "Mario Rodas";
-  };
   marsupialgutz = {
     email = "mars@possums.xyz";
     github = "pupbrained";
