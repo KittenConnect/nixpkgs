@@ -5,6 +5,7 @@
 , imath
 , libdeflate
 , pkg-config
+, pkgsCross
 }:
 
 stdenv.mkDerivation rec {
@@ -48,6 +49,9 @@ stdenv.mkDerivation rec {
   # sigh. not sure why this doesn't trip on other platforms.
   # the flagged line is effectively printf(strerror(errno))
   hardeningDisable = lib.optionals stdenv.hostPlatform.isFreeBSD [ "format" ];
+  passthru.tests = {
+    musl = pkgsCross.musl64.openexr_3;
+  };
 
   meta = with lib; {
     description = "A high dynamic-range (HDR) image file format";
