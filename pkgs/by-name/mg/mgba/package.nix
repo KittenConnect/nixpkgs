@@ -1,21 +1,20 @@
-{
-  lib,
-  SDL2,
-  cmake,
-  fetchFromGitHub,
-  ffmpeg,
-  discord-rpc,
-  libedit,
-  elfutils,
-  libepoxy,
-  libsForQt5,
-  libzip,
-  lua,
-  minizip,
-  pkg-config,
-  stdenv,
-  wrapGAppsHook,
-  enableDiscordRpc ? false,
+{ lib
+, SDL2
+, cmake
+, fetchFromGitHub
+, ffmpeg
+, discord-rpc
+, libedit
+, elfutils
+, libepoxy
+, libsForQt5
+, libzip
+, lua
+, minizip
+, pkg-config
+, stdenv
+, wrapGAppsHook3
+, enableDiscordRpc ? false
 }:
 
 let
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2
     cmake
     pkg-config
-    wrapGAppsHook
+    wrapGAppsHook3
     wrapQtAppsHook
   ];
 

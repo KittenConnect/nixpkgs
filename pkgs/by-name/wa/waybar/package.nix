@@ -42,7 +42,7 @@
 , wayland
 , wayland-scanner
 , wireplumber
-, wrapGAppsHook
+, wrapGAppsHook3
 
 , cavaSupport ? true
 , enableManpages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
@@ -99,8 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     meson
     ninja
     pkg-config
-    wayland-scanner
-    wrapGAppsHook
+    wrapGAppsHook3
   ] ++ lib.optional withMediaPlayer gobject-introspection
     ++ lib.optional enableManpages scdoc;
 

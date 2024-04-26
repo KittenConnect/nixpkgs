@@ -3,9 +3,7 @@
 , fetchurl
 , autoPatchelfHook
 , dpkg
-, wrapGAppsHook
-, quickemu
-, gnome
+, wrapGAppsHook3
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -20,12 +18,10 @@ stdenvNoCC.mkDerivation rec {
   nativeBuildInputs = [
     autoPatchelfHook
     dpkg
-    wrapGAppsHook
   ];
 
   buildInputs = [
-    quickemu
-    gnome.zenity
+    wrapGAppsHook3
   ];
 
   strictDeps = true;

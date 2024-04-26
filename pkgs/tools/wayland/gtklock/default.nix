@@ -1,11 +1,14 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, wrapGAppsHook3
 , meson
 , ninja
 , scdoc
 , pkg-config
 , wrapGAppsHook
+, wayland-scanner
+, glib
 , gtk3
 , pam
 , gtk-session-lock
@@ -27,7 +30,9 @@ stdenv.mkDerivation rec {
     ninja
     scdoc
     pkg-config
-    wrapGAppsHook
+    wayland-scanner
+    glib
+    wrapGAppsHook3
   ];
 
   buildInputs = [

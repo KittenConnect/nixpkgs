@@ -6,6 +6,7 @@
 , pkg-config
 , qt6
 , xkeyboard_config
+, wrapGAppsHook3
 , unstableGitUpdater
 }:
 
@@ -26,6 +27,7 @@ stdenv.mkDerivation {
     pkg-config
     qt6.qttools
     qt6.wrapQtAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [
