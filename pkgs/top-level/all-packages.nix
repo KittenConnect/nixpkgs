@@ -1440,8 +1440,6 @@ with pkgs;
     isGraphical = true;
   };
 
-  wrapGAppsHook = wrapGAppsHook3;
-
   wrapGAppsHook4 = wrapGAppsNoGuiHook.override {
     isGraphical = true;
     gtk3 = __splicedPackages.gtk4;
