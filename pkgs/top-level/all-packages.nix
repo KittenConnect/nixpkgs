@@ -3615,8 +3615,6 @@ with pkgs;
 
   codespell = callPackage ../development/tools/codespell { };
 
-  codux = callPackage ../applications/editors/codux { };
-
   conjure = callPackage ../applications/graphics/conjure { };
 
   coolreader = libsForQt5.callPackage ../applications/misc/coolreader { };
