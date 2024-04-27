@@ -3574,8 +3574,6 @@ with pkgs;
 
   changelogger = callPackage ../tools/misc/changelogger { };
 
-  chezmoi = callPackage ../tools/misc/chezmoi { };
-
   chipsec = callPackage ../tools/security/chipsec {
     kernel = null;
     withDriver = false;
