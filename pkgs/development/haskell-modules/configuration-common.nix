@@ -1569,6 +1569,9 @@ self: super: {
     '';
   }) (doJailbreak super.jsaddle-dom);
 
+  # Too strict upper bounds on text
+  lsql-csv = doJailbreak super.lsql-csv;
+
   reflex-dom = lib.pipe super.reflex-dom [
       (appendPatch
         (fetchpatch {
