@@ -1568,6 +1568,7 @@ self: super: {
       rm Setup.hs
     '';
   }) (doJailbreak super.jsaddle-dom);
+  jsaddle-hello = doJailbreak super.jsaddle-hello;
 
   # Too strict upper bounds on text
   lsql-csv = doJailbreak super.lsql-csv;
