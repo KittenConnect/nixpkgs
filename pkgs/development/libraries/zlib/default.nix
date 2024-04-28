@@ -108,6 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
   } // lib.optionalAttrs (stdenv.hostPlatform.linker == "lld") {
     # lld 16 enables --no-undefined-version by defualt
     # This makes configure think it can't build dynamic libraries
+    # this may be removed when a version is packaged with https://github.com/madler/zlib/issues/960 fixed
     NIX_LDFLAGS = "--undefined-version";
   };
 
