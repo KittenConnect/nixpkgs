@@ -207,6 +207,6 @@ in buildPythonPackage {
     downloadPage = "https://github.com/scipy/scipy";
     homepage = "https://www.scipy.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fridh doronbehar ];
+    maintainers = with maintainers; [ doronbehar ];
   };
 }

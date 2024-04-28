@@ -673,7 +673,6 @@ in with passthru; stdenv.mkDerivation (finalAttrs: {
     license = licenses.psfl;
     pkgConfigModules = [ "python3" ];
     platforms = platforms.linux ++ platforms.darwin ++ platforms.windows ++ platforms.freebsd;
-    maintainers = with maintainers; [ fridh ];
     mainProgram = executable;
   };
 })
