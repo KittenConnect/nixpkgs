@@ -24621,8 +24621,6 @@ with pkgs;
 
   stb = callPackage ../development/libraries/stb { };
 
-  stduuid = callPackage ../development/libraries/stduuid { };
-
   steghide = callPackage ../tools/graphics/steghide { };
 
   stegsolve = callPackage ../tools/graphics/stegsolve { };
