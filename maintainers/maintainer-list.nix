@@ -7703,6 +7703,12 @@
     githubId = 10654650;
     name = "Guillaume Koenig";
   };
+  guitargeek = {
+    email = "jonas.rembser@cern.ch";
+    github = "guitargeek";
+    githubId = 6578603;
+    name = "Jonas Rembser";
+  };
   guserav = {
     github = "guserav";
     githubId = 28863828;
