@@ -1253,7 +1253,7 @@ with self; {
     };
   };
 
-  AstroFITSHeader = buildPerlModule rec {
+  AstroFITSHeader = buildPerlModule {
     pname = "Astro-FITS-Header";
     version = "3.09";
     src = fetchurl {
@@ -1358,7 +1358,7 @@ with self; {
     };
   };
 
-  AuthenKrb5Admin = buildPerlPackage rec {
+  AuthenKrb5Admin = buildPerlPackage {
     pname = "Authen-Krb5-Admin";
     version = "0.17";
     src = fetchurl {
@@ -1836,7 +1836,7 @@ with self; {
     };
   };
 
-  BKeywords = buildPerlPackage rec {
+  BKeywords = buildPerlPackage {
     pname = "B-Keywords";
     version = "1.26";
     src = fetchurl {
@@ -3627,7 +3627,7 @@ with self; {
     };
   };
 
-  ClassLoader = buildPerlPackage rec {
+  ClassLoader = buildPerlPackage {
     pname = "Class-Loader";
     version = "2.03";
     src = fetchurl {
@@ -4529,7 +4529,7 @@ with self; {
     };
   };
 
-  ConvertBencode = buildPerlPackage rec {
+  ConvertBencode = buildPerlPackage {
     pname = "Convert-Bencode";
     version = "1.03";
     src = fetchurl {
@@ -4557,7 +4557,7 @@ with self; {
     };
   };
 
-  ConvertUU = buildPerlPackage rec {
+  ConvertUU = buildPerlPackage {
     pname = "Convert-UU";
     version = "0.5201";
     src = fetchurl {
@@ -5245,7 +5245,7 @@ with self; {
     };
   };
 
-  CryptRandom = buildPerlPackage rec {
+  CryptRandom = buildPerlPackage {
     pname = "Crypt-Random";
     version = "1.54";
     src = fetchurl {
@@ -5556,7 +5556,7 @@ with self; {
     };
   };
 
-  CryptOpenSSLX509 = buildPerlPackage rec {
+  CryptOpenSSLX509 = buildPerlPackage {
     pname = "Crypt-OpenSSL-X509";
     version = "1.915";
     src = fetchurl {
@@ -6965,7 +6965,7 @@ with self; {
     };
   };
 
-  DevelLeak = buildPerlPackage rec {
+  DevelLeak = buildPerlPackage {
     pname = "Devel-Leak";
     version = "0.03";
     src = fetchurl {
@@ -9170,7 +9170,7 @@ with self; {
     };
   };
 
-  ExtUtilsF77 = buildPerlPackage rec {
+  ExtUtilsF77 = buildPerlPackage {
     pname = "ExtUtils-F77";
     version = "1.26";
     src = fetchurl {
@@ -10542,7 +10542,7 @@ with self; {
     };
   };
 
-  FutureAsyncAwait = buildPerlModule rec {
+  FutureAsyncAwait = buildPerlModule {
     pname = "Future-AsyncAwait";
     version = "0.66";
     src = fetchurl {
@@ -10776,7 +10776,7 @@ with self; {
     };
   };
 
-  GitAutofixup = buildPerlPackage rec {
+  GitAutofixup = buildPerlPackage {
     pname = "App-Git-Autofixup";
     version = "0.004001";
     src = fetchurl {
@@ -11387,7 +11387,7 @@ with self; {
     propagatedBuildInputs = [ DateCalc ];
     meta = {
       description = "Finnish APRS Parser (Fabulous APRS Parser)";
-      maintainers = with maintainers; [ ];
+      maintainers = [ ];
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -14621,7 +14621,7 @@ with self; {
     };
   };
 
-  LogJournald = buildPerlModule rec {
+  LogJournald = buildPerlModule {
     pname = "Log-Journald";
     version = "0.30";
     src = fetchurl {
@@ -15738,7 +15738,7 @@ with self; {
   };
 
   # TODO: use CPAN version
-  MHonArc = buildPerlPackage rec {
+  MHonArc = buildPerlPackage {
     pname = "MHonArc";
     version = "2.6.24";
 
@@ -16153,7 +16153,7 @@ with self; {
     };
   };
 
-  ModuleCompile = buildPerlPackage rec {
+  ModuleCompile = buildPerlPackage {
     pname = "Module-Compile";
     version = "0.38";
     src = fetchurl {
@@ -16847,7 +16847,7 @@ with self; {
     };
   };
 
-  Mojomysql = buildPerlPackage rec {
+  Mojomysql = buildPerlPackage {
     pname = "Mojo-mysql";
     version = "1.26";
     src = fetchurl {
@@ -18229,7 +18229,7 @@ with self; {
     };
   };
 
-  MySQLDiff = buildPerlPackage rec {
+  MySQLDiff = buildPerlPackage {
     pname = "MySQL-Diff";
     version = "0.60";
     src = fetchurl {
@@ -19179,7 +19179,7 @@ with self; {
     };
   };
 
-  NetSNPP = buildPerlPackage rec {
+  NetSNPP = buildPerlPackage {
     pname = "Net-SNPP";
     version = "1.17";
     src = fetchurl {
@@ -19559,7 +19559,7 @@ with self; {
     };
   };
 
-  OpenAPIClient = buildPerlPackage rec {
+  OpenAPIClient = buildPerlPackage {
     pname = "OpenAPI-Client";
     version = "1.07";
     src = fetchurl {
@@ -20270,7 +20270,7 @@ with self; {
     };
   };
 
-  PDL = buildPerlPackage rec {
+  PDL = buildPerlPackage {
     pname = "PDL";
     version = "2.025";
     src = fetchurl {
@@ -20615,7 +20615,7 @@ with self; {
     };
   };
 
-  PerlTidy = buildPerlPackage rec {
+  PerlTidy = buildPerlPackage {
     pname = "Perl-Tidy";
     version = "20230912";
     src = fetchurl {
@@ -22328,7 +22328,7 @@ with self; {
     };
   };
 
-  SearchXapian = buildPerlPackage rec {
+  SearchXapian = buildPerlPackage {
     pname = "Search-Xapian";
     version = "1.2.25.5";
     src = fetchurl {
@@ -22392,7 +22392,7 @@ with self; {
     };
   };
 
-  DeviceSerialPort = buildPerlPackage rec {
+  DeviceSerialPort = buildPerlPackage {
     pname = "Device-SerialPort";
     version = "1.04";
     src = fetchurl {
@@ -22423,7 +22423,7 @@ with self; {
     };
   };
 
-  SessionToken = buildPerlPackage rec {
+  SessionToken = buildPerlPackage {
     pname = "Session-Token";
     version = "1.503";
     src = fetchurl {
@@ -22498,7 +22498,7 @@ with self; {
     };
   };
 
-  SmartComments = buildPerlPackage rec {
+  SmartComments = buildPerlPackage {
     pname = "Smart-Comments";
     version = "1.06";
     src = fetchurl {
@@ -22992,7 +22992,7 @@ with self; {
     };
   };
 
-  StatisticsChiSquare = buildPerlPackage rec {
+  StatisticsChiSquare = buildPerlPackage {
     pname = "Statistics-ChiSquare";
     version = "1.0000";
     src = fetchurl {
@@ -25619,7 +25619,7 @@ with self; {
     };
   };
 
-  TestPerlTidy = buildPerlModule rec {
+  TestPerlTidy = buildPerlModule {
     pname = "Test-PerlTidy";
     version = "20230226";
     src = fetchurl {
