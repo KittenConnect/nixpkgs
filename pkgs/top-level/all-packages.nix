@@ -4792,9 +4792,7 @@ with pkgs;
 
   clipster = callPackage ../tools/misc/clipster { };
 
-  clockify = callPackage ../applications/office/clockify {
-    electron = electron_24;
-  };
+  clockify = callPackage ../applications/office/clockify { };
 
   contrast = callPackage ../applications/accessibility/contrast { };
 
