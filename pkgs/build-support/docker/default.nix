@@ -917,6 +917,8 @@ rec {
     , fakeRootCommands ? ""
     , enableFakechroot ? false
     , includeStorePaths ? true
+      # Generate a Nix DB inside the image. The same caveats as `buildImageWithNixDb` apply.
+    , includeNixDB ? false
     , passthru ? {}
     ,
     }:
@@ -954,7 +956,9 @@ rec {
         customisationLayer = symlinkJoin {
           name = "${baseName}-customisation-layer";
           paths = contentsList;
-          inherit extraCommands fakeRootCommands;
+          extraCommands =
+            (lib.optionalString includeNixDB (mkDbExtraCommand contents)) + extraCommands;
+          inherit fakeRootCommands;
           nativeBuildInputs = [
             fakeroot
           ] ++ optionals enableFakechroot [
@@ -1107,7 +1111,9 @@ rec {
 
         result = runCommand "stream-${baseName}"
           {
+            inherit conf;
             inherit (conf) imageName;
+            inherit streamScript;
             preferLocalBuild = true;
             passthru = passthru // {
               inherit (conf) imageTag;
@@ -1118,7 +1124,7 @@ rec {
             };
             nativeBuildInputs = [ makeWrapper ];
           } ''
-          makeWrapper ${streamScript} $out --add-flags ${conf}
+          makeWrapper $streamScript $out --add-flags $conf
         '';
       in
       result
