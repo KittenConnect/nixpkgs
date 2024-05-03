@@ -40914,10 +40914,8 @@ with pkgs;
     name = "bsd-setup-hook";
   } ../os-specific/bsd/setup-hook.sh;
 
-  freebsd = callPackages ../os-specific/bsd/freebsd { };
-  freebsdCross = callPackages ../os-specific/bsd/freebsd {
-    stdenv = crossLibcStdenv;
-  };
+  inherit (callPackage ../os-specific/bsd/freebsd { })
+    freebsd freebsdCross;
 
   netbsd = callPackage ../os-specific/bsd/netbsd { };
   netbsdCross = callPackage ../os-specific/bsd/netbsd {
