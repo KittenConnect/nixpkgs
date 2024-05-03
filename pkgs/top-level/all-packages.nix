@@ -311,8 +311,6 @@ with pkgs;
 
   asn1c = callPackage ../development/compilers/asn1c { };
 
-  assemblyscript = callPackage ../development/compilers/assemblyscript { };
-
   authz0 = callPackage ../tools/security/authz0 { };
 
   auth0-cli = callPackage ../tools/admin/auth0-cli { };
@@ -769,8 +767,6 @@ with pkgs;
   protoc-gen-prost-crate = callPackage ../development/tools/protoc-gen-prost-crate { };
 
   protoc-gen-prost-serde = callPackage ../development/tools/protoc-gen-prost-serde { };
-
-  protoc-gen-rust = callPackage ../development/tools/protoc-gen-rust { };
 
   protoc-gen-tonic = callPackage ../development/tools/protoc-gen-tonic { };
 
@@ -4897,8 +4893,6 @@ with pkgs;
 
   dante = callPackage ../servers/dante { };
 
-  dapr-cli = callPackage ../development/tools/dapr/cli { };
-
   dasel = callPackage ../applications/misc/dasel { };
 
   dasher = callPackage ../applications/accessibility/dasher { };
@@ -4973,8 +4967,6 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  refinery-cli = callPackage ../development/tools/refinery-cli { };
-
   digitemp = callPackage ../tools/misc/digitemp { };
 
   dijo = callPackage ../tools/misc/dijo {
@@ -5040,8 +5032,6 @@ with pkgs;
   dokuwiki = callPackage ../servers/web-apps/dokuwiki { };
 
   dolibarr = callPackage ../servers/web-apps/dolibarr { };
-
-  doppler = callPackage ../tools/security/doppler { };
 
   dosage = callPackage ../applications/graphics/dosage { };
 
@@ -5565,8 +5555,6 @@ with pkgs;
   hopper = qt5.callPackage ../development/tools/analysis/hopper { };
 
   hr = callPackage ../applications/misc/hr { };
-
-  humioctl = callPackage ../applications/logging/humioctl { };
 
   huniq = callPackage ../tools/text/huniq { };
 
@@ -11341,8 +11329,6 @@ with pkgs;
 
   ogdf = callPackage ../development/libraries/ogdf { };
 
-  oh-my-posh = callPackage ../development/tools/oh-my-posh { };
-
   oh-my-zsh = callPackage ../shells/zsh/oh-my-zsh { };
 
   ola = callPackage ../applications/misc/ola {
@@ -14091,8 +14077,6 @@ with pkgs;
 
   up = callPackage ../tools/misc/up { };
 
-  upbound = callPackage ../development/tools/upbound { };
-
   upterm = callPackage ../tools/misc/upterm { };
 
   upx = callPackage ../tools/compression/upx { };
@@ -16796,7 +16780,6 @@ with pkgs;
 
   cargo-nextest = callPackage ../development/tools/rust/cargo-nextest { };
   cargo-play = callPackage ../development/tools/rust/cargo-play { };
-  cargo-profiler = callPackage ../development/tools/rust/cargo-profiler { };
   cargo-raze = callPackage ../development/tools/rust/cargo-raze {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
@@ -16832,9 +16815,6 @@ with pkgs;
 
   cargo-valgrind = callPackage ../development/tools/rust/cargo-valgrind { };
   cargo-vet = callPackage ../development/tools/rust/cargo-vet {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  };
-  cargo-wasi = callPackage ../development/tools/rust/cargo-wasi {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
   cargo-watch = callPackage ../development/tools/rust/cargo-watch {
@@ -17772,10 +17752,6 @@ with pkgs;
 
   waagent = callPackage ../applications/networking/cluster/waagent { };
 
-  wapm-cli = callPackage ../tools/package-management/wapm/cli {
-    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
-  };
-
   wasm = ocamlPackages.wasm;
 
   wasm3 = callPackage ../development/interpreters/wasm3 { };
@@ -18697,8 +18673,6 @@ with pkgs;
   eask = callPackage ../development/tools/eask { };
 
   easypdkprog = callPackage ../development/embedded/easypdkprog { };
-
-  eclint = callPackage ../development/tools/eclint { };
 
   editorconfig-checker = callPackage ../development/tools/misc/editorconfig-checker { };
 
@@ -40402,8 +40376,6 @@ with pkgs;
 
   twitch-cli = callPackage ../development/tools/twitch-cli { };
 
-  twiggy = callPackage ../development/tools/twiggy { };
-
   uacme = callPackage ../tools/admin/uacme { };
 
   ufiformat = callPackage ../tools/system/ufiformat { };
@@ -40571,8 +40543,6 @@ with pkgs;
   wishbone-tool = callPackage ../development/tools/misc/wishbone-tool { };
 
   with-shell = callPackage ../applications/misc/with-shell { };
-
-  wizer = darwin.apple_sdk_11_0.callPackage ../development/tools/wizer { };
 
   wmutils-core = callPackage ../tools/X11/wmutils-core { };
 
