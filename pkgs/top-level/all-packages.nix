@@ -24360,8 +24360,6 @@ with pkgs;
     };
   });
 
-  SDL2_mixer = callPackage ../development/libraries/SDL2_mixer { };
-
   SDL2_gfx = callPackage ../development/libraries/SDL2_gfx { };
 
   SDL2_sound = callPackage ../development/libraries/SDL2_sound {
