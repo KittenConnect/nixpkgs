@@ -4862,8 +4862,6 @@ with pkgs;
 
   csv2latex = callPackage ../tools/misc/csv2latex { };
 
-  csvq = callPackage ../development/tools/csvq { };
-
   csvs-to-sqlite = callPackage ../tools/misc/csvs-to-sqlite { };
 
   cutemarked-ng = libsForQt5.callPackage ../applications/office/cutemarked-ng { };
