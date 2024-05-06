@@ -14118,6 +14118,7 @@
   };
   nazarewk = {
     name = "Krzysztof Nazarewski";
+    email = "nixpkgs@kdn.im";
     matrix = "@nazarewk:matrix.org";
     github = "nazarewk";
     githubId = 3494992;
