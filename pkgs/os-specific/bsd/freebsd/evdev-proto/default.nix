@@ -1,4 +1,12 @@
-{ lib, stdenv, makeLinuxHeaders, fetchurl, freebsd, runCommandCC, buildPackages }:
+{
+  lib,
+  stdenv,
+  linuxHeaders,
+  fetchurl,
+  freebsd,
+  runCommandCC,
+  buildPackages,
+}:
 let
   WRKSRC = "include/uapi/linux";
 in
@@ -12,11 +20,9 @@ stdenv.mkDerivation rec {
   };
   allFiles = [ "input.h" "input-event-codes.h" "joystick.h" "uinput.h" ];
 
-  nativeBuildInputs = [ buildPackages.freebsd.sed ];
+  nativeBuildInputs = [ buildPackages.freebsd.sed freebsd.makeMinimal ];
 
   useTempPrefix = true;
-
-  nativeBuildInputs = [ freebsd.makeMinimal ];
 
   ARCH = freebsd.makeMinimal.MACHINE_ARCH;
   OPSYS = "FreeBSD";
@@ -34,7 +40,7 @@ stdenv.mkDerivation rec {
   TOUCH = "touch";
   XARGS = "xargs";
 
-  ABI_FILE = runCommandCC "abifile" {} "$CC -shared -o $out";
+  ABI_FILE = runCommandCC "abifile" { } "$CC -shared -o $out";
   CLEAN_FETCH_ENV = true;
   INSTALL_AS_USER = true;
   NO_CHECKSUM = true;
