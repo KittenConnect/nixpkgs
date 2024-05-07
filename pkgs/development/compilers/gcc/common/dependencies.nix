@@ -15,6 +15,7 @@
 , libucontext ? null
 , libxcrypt ? null
 , cloog ? null
+, darwin ? null
 , isl ? null
 , zlib ? null
 , gnat-bootstrap ? null
@@ -86,6 +87,7 @@ in
   ++ optionals javaAwtGtk ([ gtk2 libart_lgpl ] ++ xlibs)
   ++ optionals (langGo && stdenv.hostPlatform.isMusl) [ libucontext ]
   ++ optionals (stdenv.hostPlatform.isFreeBSD) [ buildPackages.libiconvReal ]
+  ++ optionals (lib.versionAtLeast version "14" && stdenv.hostPlatform.isDarwin) [ darwin.apple_sdk.frameworks.CoreServices ]
   ;
 
   # threadsCross.package after gcc6 so i assume its okay for 4.8 and 4.9 too
