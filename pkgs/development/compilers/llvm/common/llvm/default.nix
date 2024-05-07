@@ -28,8 +28,7 @@
 , sysctl
 , buildLlvmTools
 , debugVersion ? false
-# , doCheck ? (!stdenv.isx86_32 /* TODO: why */) && (!stdenv.hostPlatform.isMusl) && (!stdenv.hostPlatform.isFreeBSD)
-, doCheck ? (!stdenv.hostPlatform.isFreeBSD) && (if lib.versionOlder release_version "15" then stdenv.isLinux else true)
+, doCheck ? !stdenv.hostPlatform.isFreeBSD && !stdenv.isAarch32 && (if lib.versionOlder release_version "15" then stdenv.isLinux else true)
   && (!stdenv.isx86_32 /* TODO: why */) && (!stdenv.hostPlatform.isMusl)
   && (stdenv.hostPlatform == stdenv.buildPlatform)
 , enableManpages ? false
