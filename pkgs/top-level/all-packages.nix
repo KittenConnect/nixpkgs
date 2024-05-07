@@ -6610,8 +6610,6 @@ with pkgs;
 
   ccze = callPackage ../tools/misc/ccze { };
 
-  cdecl = callPackage ../development/tools/cdecl { };
-
   cdi2iso = callPackage ../tools/cd-dvd/cdi2iso { };
 
   cdist = python3Packages.callPackage ../tools/admin/cdist { };
