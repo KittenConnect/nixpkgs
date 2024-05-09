@@ -9890,6 +9890,11 @@
     githubId = 1102396;
     name = "Jussi Maki";
   };
+  joanmassachs = {
+    github = "joanmassachs";
+    githubId = 22916782;
+    name = "Joan Massachs";
+  };
   joaquintrinanes = {
     email = "hi@joaquint.io";
     github = "JoaquinTrinanes";
