@@ -57,8 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs --build svnversion_regenerate.sh
   '';
 
-  dontAddWafCrossFlags = true;
-
   wafConfigureFlags = [
     "--classic"
     "--autostart=${if (optDbus != null) then "dbus" else "classic"}"
