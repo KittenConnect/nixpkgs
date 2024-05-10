@@ -20576,8 +20576,6 @@ with pkgs;
 
   directfb = callPackage ../development/libraries/directfb { };
 
-  discord-gamesdk = callPackage ../development/libraries/discord-gamesdk { };
-
   discord-rpc = callPackage ../development/libraries/discord-rpc {
     inherit (darwin.apple_sdk.frameworks) AppKit;
   };
