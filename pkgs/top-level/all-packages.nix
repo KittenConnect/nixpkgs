@@ -32965,8 +32965,6 @@ with pkgs;
     withConplay = false;
   };
 
-  mpg321 = callPackage ../applications/audio/mpg321 { };
-
   mpc-cli = callPackage ../applications/audio/mpc {
     inherit (python3Packages) sphinx;
   };
