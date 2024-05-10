@@ -1469,6 +1469,8 @@ self: super: with self; {
 
   beanhub-extract = callPackage ../development/python-modules/beanhub-extract { };
 
+  beanhub-forms = callPackage ../development/python-modules/beanhub-forms { };
+
   beanhub-import = callPackage ../development/python-modules/beanhub-import { };
 
   beanstalkc = callPackage ../development/python-modules/beanstalkc { };
