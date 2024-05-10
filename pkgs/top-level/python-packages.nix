@@ -1469,6 +1469,8 @@ self: super: with self; {
 
   beanhub-extract = callPackage ../development/python-modules/beanhub-extract { };
 
+  beanhub-import = callPackage ../development/python-modules/beanhub-import { };
+
   beanstalkc = callPackage ../development/python-modules/beanstalkc { };
 
   beartype = callPackage ../development/python-modules/beartype { };
