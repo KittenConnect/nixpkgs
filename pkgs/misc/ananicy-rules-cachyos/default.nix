@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitHub }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  unstableGitUpdater,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "ananicy-rules-cachyos";
@@ -21,6 +26,10 @@ stdenvNoCC.mkDerivation {
     cp -r * $out/etc/ananicy.d
     runHook postInstall
   '';
+
+  passthru.updateScript = unstableGitUpdater {
+    hardcodeZeroVersion = true;
+  };
 
   meta = {
     homepage = "https://github.com/CachyOS/ananicy-rules";
