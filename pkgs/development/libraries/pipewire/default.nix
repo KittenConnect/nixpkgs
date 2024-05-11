@@ -5,7 +5,6 @@
 , python3
 , meson
 , ninja
-, eudev
 , systemd
 , enableSystemd ? stdenv.isLinux
 , pkg-config
@@ -153,8 +152,7 @@ stdenv.mkDerivation(finalAttrs: {
     lilv
     ncurses
     readline
-    udev
-  ] ++ lib.optionals stdenv.isLinux (if enableSystemd then [ systemd ] else [ eudev ])
+  ] ++ lib.optionals stdenv.isLinux (if enableSystemd then [ systemd ] else [ udev ])
   ++ (if lib.meta.availableOn stdenv.hostPlatform webrtc-audio-processing_1 then [ webrtc-audio-processing_1 ] else [ webrtc-audio-processing ])
   ++ lib.optionals gstreamerSupport [ gst_all_1.gst-plugins-base gst_all_1.gstreamer ]
   ++ lib.optionals libcameraSupport [ libcamera ]
@@ -189,6 +187,7 @@ stdenv.mkDerivation(finalAttrs: {
     (lib.mesonEnable "libpulse" pulseTunnelSupport)
     (lib.mesonEnable "avahi" zeroconfSupport)
     (lib.mesonEnable "gstreamer" gstreamerSupport)
+    (lib.mesonEnable "systemd" enableSystemd)
     (lib.mesonEnable "systemd-system-service" enableSystemd)
     (lib.mesonEnable "systemd" enableSystemd)
     (lib.mesonEnable "selinux" stdenv.isLinux)
