@@ -113,5 +113,9 @@ stdenv.mkDerivation rec {
     broken = stdenv.isFreeBSD;
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ citadelcore ];
+    badPlatforms = [
+      # Mandatory shared libraries.
+      lib.systems.inspect.platformPatterns.isStatic
+    ];
   };
 }
