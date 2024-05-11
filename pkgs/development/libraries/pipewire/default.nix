@@ -67,7 +67,7 @@
 , xorg
 , mysofaSupport ? true
 , libmysofa
-, ffadoSupport ? x11Support && stdenv.buildPlatform.canExecute stdenv.hostPlatform && stdenv.isLinux
+, ffadoSupport ? x11Support && stdenv.buildPlatform.canExecute stdenv.hostPlatform && lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform && stdenv.isLinux
 , ffado
 , libselinux
 , epoll-shim
