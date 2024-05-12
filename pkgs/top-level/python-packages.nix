@@ -4838,8 +4838,6 @@ self: super: with self; {
 
   glob2 = callPackage ../development/python-modules/glob2 { };
 
-  globre = callPackage ../development/python-modules/globre { };
-
   globus-sdk = callPackage ../development/python-modules/globus-sdk { };
 
   glom = callPackage ../development/python-modules/glom { };
