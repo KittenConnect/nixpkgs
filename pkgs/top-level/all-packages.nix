@@ -19533,8 +19533,6 @@ with pkgs;
 
   scala-cli = callPackage ../development/tools/build-managers/scala-cli { };
 
-  scc = callPackage ../development/tools/misc/scc { };
-
   scss-lint = callPackage ../development/tools/scss-lint { };
 
   segger-ozone = callPackage ../development/tools/misc/segger-ozone { };
