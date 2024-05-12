@@ -1760,8 +1760,6 @@ with pkgs;
 
   donkey = callPackage ../tools/security/donkey { };
 
-  dualsensectl = callPackage ../tools/games/dualsensectl { };
-
   dwarfs = callPackage ../tools/filesystems/dwarfs { };
 
   dysk = callPackage ../tools/filesystems/dysk { };
