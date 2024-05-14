@@ -341,6 +341,7 @@ stdenv.mkDerivation (rec {
     "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
     "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.hostPlatform.config}"
     "-DLLVM_ENABLE_DUMP=ON"
+    (lib.cmakeBool "LLVM_ENABLE_TERMINFO" enableTerminfo)
   ] ++ optionals (!doCheck) [
     "-DLLVM_INCLUDE_TESTS=OFF"
   ] ++ optionals stdenv.hostPlatform.isStatic [

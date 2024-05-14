@@ -52,7 +52,7 @@ let
 in
 
 stdenv.mkDerivation ({
-  inherit pname version patches;
+  inherit pname version;
 
   src = src';
   sourceRoot = if lib.versionOlder release_version "13" then null
@@ -122,7 +122,7 @@ stdenv.mkDerivation ({
 
   outputs = [ "out" "dev" ];
 
-  patches = [
+  patches = patches ++ [
     ./X86-support-extension.patch # Add support for i486 i586 i686 by reusing i386 config
     ./gnu-install-dirs.patch
     # ld-wrapper dislikes `-rpath-link //nix/store`, so we normalize away the
@@ -159,18 +159,17 @@ stdenv.mkDerivation ({
   '') + ''
     substituteInPlace lib/builtins/int_util.c \
       --replace "#include <stdlib.h>" ""
-  '' + lib.optionalString (useLLVM && !haveLibc && !stdenv.hostPlatform.isFreeBSD) ''
+  '' + (if stdenv.hostPlatform.isFreeBSD then
+    # As per above, but in FreeBSD assert is a macro and simply allowing it to be implicitly declared causes Issues!!!!!
+    ''
+    substituteInPlace lib/builtins/clear_cache.c lib/builtins/cpu_model.c \
+      --replace "#include <assert.h>" "#define assert(e) ((e)?(void)0:__assert(__FUNCTION__,__FILE__,__LINE__,#e))"
+    '' else ''
     substituteInPlace lib/builtins/clear_cache.c \
       --replace "#include <assert.h>" ""
     substituteInPlace lib/builtins/cpu_model${lib.optionalString (lib.versionAtLeast version "18") "/x86"}.c \
       --replace "#include <assert.h>" ""
-  '' + lib.optionalString (useLLVM && !haveLibc && stdenv.hostPlatform.isFreeBSD) ''
-    # As per above, but in FreeBSD assert is a macro and simply allowing it to be implicitly declared causes Issues!!!!!
-    substituteInPlace lib/builtins/clear_cache.c \
-      --replace "#include <assert.h>" "#define assert(e) ((e)?(void)0:__assert(__FUNCTION__,__FILE__,__LINE__,#e))"
-    substituteInPlace lib/builtins/cpu_model.c \
-      --replace "#include <assert.h>" "#define assert(e) ((e)?(void)0:__assert(__FUNCTION__,__FILE__,__LINE__,#e))"
-  '';
+  ''));
 
   # Hack around weird upsream RPATH bug
   postInstall = lib.optionalString (stdenv.hostPlatform.isDarwin) ''
