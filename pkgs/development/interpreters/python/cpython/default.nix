@@ -122,7 +122,7 @@ let
     versionOlder
   ;
 
-  # mixes libcc and libxcrypt headers and libs and causes segfautlts on importing crypt
+  # mixes libc and libxcrypt headers and libs and causes segfaults on importing crypt
   libxcrypt = if stdenv.hostPlatform.isFreeBSD then null else inputs.libxcrypt;
 
   buildPackages = pkgsBuildHost;
@@ -453,7 +453,11 @@ in with passthru; stdenv.mkDerivation (finalAttrs: {
     "LDFLAGS=-static"
   ];
 
-  preConfigure = optionalString (pythonOlder "3.12") ''
+  preConfigure = ''
+    # Attempt to purify some of the host info collection
+    sed -E -i -e 's/uname -r/echo/g' -e 's/uname -n/echo nixpkgs/g' config.guess
+    sed -E -i -e 's/uname -r/echo/g' -e 's/uname -n/echo nixpkgs/g' configure
+  '' + optionalString (pythonOlder "3.12") ''
     # Improve purity
     for path in /usr /sw /opt /pkg; do
       substituteInPlace ./setup.py --replace-warn $path /no-such-path
@@ -487,10 +491,10 @@ in with passthru; stdenv.mkDerivation (finalAttrs: {
   postInstall = let
     # References *not* to nuke from (sys)config files
     keep-references = concatMapStringsSep " " (val: "-e ${val}") ([
-      (placeholder "out") ] ++ ((optionals (libxcrypt != null)) [libxcrypt])
-    ++ optionals tzdataSupport [
-      tzdata
-    ]);
+      (placeholder "out")
+    ] ++ lib.optional (libxcrypt != null) libxcrypt
+      ++ lib.optional tzdataSupport tzdata
+    );
   in lib.optionalString enableFramework ''
     for dir in include lib share; do
       ln -s $out/Library/Frameworks/Python.framework/Versions/Current/$dir $out/$dir
