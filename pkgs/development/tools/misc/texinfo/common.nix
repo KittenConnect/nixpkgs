@@ -65,7 +65,7 @@ stdenv.mkDerivation {
   installTargets = [ "install" "install-tex" ];
 
   nativeCheckInputs = [ procps ]
-    ++ optional stdenv.buildPlatform.isFreeBSD [ freebsd.locale ];
+    ++ optionals stdenv.buildPlatform.isFreeBSD [ freebsd.locale ];
 
   doCheck = interactive
     && !stdenv.isDarwin
