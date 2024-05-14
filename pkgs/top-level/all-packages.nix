@@ -1843,8 +1843,6 @@ with pkgs;
 
   goflow = callPackage ../tools/networking/goflow { };
 
-  goflow2 = callPackage ../tools/networking/goflow2 { };
-
   gofu = callPackage ../applications/misc/gofu { };
 
   godspeed = callPackage ../tools/networking/godspeed { };
