@@ -69,6 +69,9 @@ python3.pkgs.buildPythonApplication rec {
     # Nixpkgs cctools does not have bitcode support.
     ./006-disable-bitcode.patch
 
+    # This edge case is explicitly part of meson but is wrong for nix
+    ./007-freebsd-pkgconfig-path.patch
+
     # Fix cross-compilation of proc-macro (and mesa)
     # https://github.com/mesonbuild/meson/issues/12973
     ./0001-Revert-rust-recursively-pull-proc-macro-dependencies.patch
