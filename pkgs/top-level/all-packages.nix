@@ -5348,8 +5348,6 @@ with pkgs;
 
   gb-backup = callPackage ../tools/backup/gamerbackup { };
 
-  gbsplay = callPackage ../applications/audio/gbsplay { };
-
   gdrive = callPackage ../applications/networking/gdrive { };
 
   gdrive3 = callPackage ../applications/networking/gdrive3 { };
