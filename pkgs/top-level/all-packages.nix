@@ -25201,6 +25201,10 @@ with pkgs;
 
   leaps = callPackage ../development/tools/leaps { };
 
+  ### DEVELOPMENT / HARE
+
+  hareHook = callPackage ../by-name/ha/hare/hook.nix { };
+
   ### DEVELOPMENT / JAVA MODULES
 
   javaPackages = recurseIntoAttrs (callPackage ./java-packages.nix { });
