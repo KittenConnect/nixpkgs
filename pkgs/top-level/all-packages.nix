@@ -1499,8 +1499,6 @@ with pkgs;
 
   abduco = callPackage ../tools/misc/abduco { };
 
-  ablog = callPackage ../applications/misc/ablog { };
-
   acct = callPackage ../tools/system/acct { };
 
   accuraterip-checksum = callPackage ../tools/audio/accuraterip-checksum { };
