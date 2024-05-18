@@ -16,8 +16,8 @@
 , minimal ? true
 , withOpenssl ? !minimal, openssl
 , withPrefix ? false
-, singleBinary ? "symlinks" # you can also pass "shebangs" or false
-, withAutoreconf ? true,
+, singleBinary ? if stdenv.isFreeBSD then false else "symlinks" # you can also pass "shebangs" or false
+, withAutoreconf ? true
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus cannot use
