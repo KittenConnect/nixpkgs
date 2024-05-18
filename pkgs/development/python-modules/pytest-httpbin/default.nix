@@ -1,19 +1,19 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  httpbin,
-  pytest,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  six,
+{ lib
+, buildPythonPackage
+, fetchFromGitHub
+, httpbin
+, pytest
+, pytestCheckHook
+, pythonOlder
+, requests
+, setuptools
+, six
 }:
 
 buildPythonPackage rec {
   pname = "pytest-httpbin";
   version = "2.0.0";
-  format = "setuptools";
+  pyproject = true;
 
   disabled = pythonOlder "3.7";
 
@@ -24,11 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-tq9nz2na94HkLACt7xB1MUanh9/JOoe2vyEm5sAq0/4=";
   };
 
-  buildInputs = [ pytest ];
+  build-system = [
+    setuptools
+  ];
+
+  buildInputs = [
+    pytest
+  ];
 
   propagatedBuildInputs = [
     httpbin
-    six
   ];
 
   nativeCheckInputs = [
@@ -48,6 +53,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Test your HTTP library against a local copy of httpbin.org";
     homepage = "https://github.com/kevin1024/pytest-httpbin";
+    changelog = "https://github.com/kevin1024/pytest-httpbin/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
