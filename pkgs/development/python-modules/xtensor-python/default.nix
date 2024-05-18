@@ -21,11 +21,21 @@ toPythonModule (stdenv.mkDerivation(finalAttrs: {
     sha256 = "sha256-Cy/aXuiriE/qxSd4Apipzak30DjgE7jX8ai1ThJ/VnE=";
   };
 
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ pybind11 ];
-    nativeCheckInputs = [ gtest ];
-    doCheck = true;
-    cmakeFlags = [ "-DBUILD_TESTS=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}" ];
+  nativeBuildInputs = [
+    cmake
+  ];
+  buildInputs = [
+    pybind11
+  ];
+  nativeCheckInputs = [
+    gtest
+  ];
+  doCheck = true;
+  cmakeFlags = [
+    # Always build the tests, even if not running them, because testing whether
+    # they can be built is a test in itself.
+    "-DBUILD_TESTS=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}"
+  ]; 
 
     propagatedBuildInputs = [
       xtensor
