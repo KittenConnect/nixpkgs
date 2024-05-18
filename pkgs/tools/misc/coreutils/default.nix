@@ -107,6 +107,7 @@ stdenv.mkDerivation rec {
   ]
   ++ optionals stdenv.hostPlatform.isCygwin [
     # due to patch
+    autoreconfHook
     texinfo
   ];
 
