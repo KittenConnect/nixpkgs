@@ -27681,6 +27681,7 @@ with pkgs;
 
   odin = callPackage ../development/compilers/odin {
     inherit (pkgs.darwin.apple_sdk_11_0) MacOSX-SDK;
+    inherit (pkgs.darwin.apple_sdk_11_0.frameworks) Security;
   };
 
   odp-dpdk = callPackage ../os-specific/linux/odp-dpdk { };
