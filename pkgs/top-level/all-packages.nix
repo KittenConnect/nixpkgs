@@ -28226,10 +28226,6 @@ with pkgs;
 
   anarchism = callPackage ../data/documentation/anarchism { };
 
-  ananicy = callPackage ../misc/ananicy { };
-
-  ananicy-cpp = callPackage ../misc/ananicy-cpp { };
-
   ananicy-rules-cachyos = callPackage ../misc/ananicy-rules-cachyos { };
 
   andagii = callPackage ../data/fonts/andagii { };
