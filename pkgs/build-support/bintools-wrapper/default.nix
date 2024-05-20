@@ -60,9 +60,7 @@
 , postLinkSignHook ? null, signingUtils ? null
 }:
 
-with lib;
-
-assert propagateDoc -> bintools ? "man";
+assert propagateDoc -> bintools ? man;
 assert nativeTools -> !propagateDoc && nativePrefix != "";
 assert !nativeTools -> bintools != null && coreutils != null && gnugrep != null;
 assert !(nativeLibc && noLibc);
