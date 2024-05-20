@@ -219,7 +219,7 @@ in stdenv.mkDerivation (finalAttrs: {
     directory = "vendor"
     EOF
   '' + lib.optionalString (stdenv.isFreeBSD) ''
-    # lzma-sys bundles an old version of xz that doesn't build properly
+    # lzma-sys bundles an old version of xz that doesn't build
     # on modern FreeBSD, use the system one instead
     substituteInPlace src/bootstrap/src/core/build_steps/tool.rs \
         --replace 'cargo.env("LZMA_API_STATIC", "1");' ' '
