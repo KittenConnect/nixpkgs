@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, libiconv, bash
+{ stdenv, lib, fetchurl, libiconv, bash, updateAutotoolsGnuConfigScriptsHook
 , enableStatic ? false
 }:
 
@@ -53,6 +53,9 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
+  nativeBuildInputs = [
+    updateAutotoolsGnuConfigScriptsHook
+  ];
   buildInputs = lib.optionals (!stdenv.hostPlatform.isMinGW) [
     bash
   ]
