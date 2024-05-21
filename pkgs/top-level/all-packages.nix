@@ -4685,8 +4685,6 @@ with pkgs;
 
   shotman = callPackage ../tools/wayland/shotman { };
 
-  slurp = callPackage ../tools/wayland/slurp { };
-
   sway-unwrapped = callPackage ../by-name/sw/sway-unwrapped/package.nix {
     wlroots = wlroots_0_17;
   };
