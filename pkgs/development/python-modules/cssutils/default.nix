@@ -1,16 +1,18 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchPypi
-, setuptools
-, setuptools-scm
-, cssselect
-, jaraco-test
-, lxml
-, mock
-, pytest7CheckHook
-, importlib-resources
+{
+  lib,
+  buildPythonPackage,
+  pythonAtLeast,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchPypi,
+  setuptools,
+  setuptools-scm,
+  cssselect,
+  jaraco-test,
+  lxml,
+  mock,
+  pytest7CheckHook,
+  importlib-resources,
 }:
 
 buildPythonPackage rec {
@@ -20,7 +22,6 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.8";
 
-
   src = fetchFromGitHub {
     owner = "jaraco";
     repo = "cssutils";
@@ -28,9 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-1sAn6pFwWsnYS1eHQmyDNGTo6kdhL1vJBwUptADvHyo=";
   };
 
-  build-system = [
-    setuptools-scm
-  ];
+  build-system = [ setuptools-scm ];
 
   nativeCheckInputs = [
     cssselect

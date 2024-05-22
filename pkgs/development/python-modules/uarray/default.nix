@@ -1,15 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, setuptools
-, setuptools-scm
-, matchpy
-, numpy
-, astunparse
-, typing-extensions
-, pytest7CheckHook
-, pytest-cov
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  setuptools,
+  setuptools-scm,
+  matchpy,
+  numpy,
+  astunparse,
+  typing-extensions,
+  pytest7CheckHook,
+  pytest-cov,
 }:
 
 buildPythonPackage rec {
@@ -24,9 +25,23 @@ buildPythonPackage rec {
     hash = "sha256-wTKqOw64b+/kdZpSYLwCJATOuo807BWCtVHB4pH58fY=";
   };
 
-  nativeBuildInputs = [ setuptools setuptools-scm ];
-  nativeCheckInputs = [ pytestCheckHook pytest-cov ];
-  propagatedBuildInputs = [ matchpy numpy astunparse typing-extensions ];
+  nativeBuildInputs = [
+    setuptools
+    setuptools-scm
+  ];
+  build-system = [ setuptools ];
+
+  dependencies = [
+    astunparse
+    matchpy
+    numpy
+    typing-extensions
+  ];
+
+  nativeCheckInputs = [
+    pytest7CheckHook
+    pytest-cov
+  ];
 
   # Tests must be run from outside the source directory
   preCheck = ''

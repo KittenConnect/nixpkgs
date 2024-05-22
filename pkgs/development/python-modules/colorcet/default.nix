@@ -1,14 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, setuptools-scm
-, param
-, pyct
-, pytest-mpl
-, pytestCheckHook
-, setuptools
-, setuptools-scm
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  setuptools-scm,
+  param,
+  pyct,
+  pytest-mpl,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -31,11 +30,6 @@ buildPythonPackage rec {
     pyct
   ];
 
-  build-system = [
-    setuptools-scm
-    setuptools
-  ];
-
   nativeCheckInputs = [
     pytest-mpl
     pytestCheckHook
@@ -48,13 +42,9 @@ buildPythonPackage rec {
     ln -s $HOME/.config/matplotlib $HOME/.matplotlib
   '';
 
-  disabledTests = [
-    "matplotlib_default_colormap_plot"
-  ];
+  disabledTests = [ "matplotlib_default_colormap_plot" ];
 
-  pythonImportsCheck = [
-    "colorcet"
-  ];
+  pythonImportsCheck = [ "colorcet" ];
 
   meta = with lib; {
     description = "Collection of perceptually uniform colormaps";

@@ -1,12 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, django
-, djangorestframework
-, pytestCheckHook
-, pytest-django
-, pytz
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  django,
+  djangorestframework,
+  pytestCheckHook,
+  pytest-django,
+  pytz,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
 
   dependencies = [ django ];
 
-  pythonImportsCheck = [
-    "django_filters"
-  ];
+  pythonImportsCheck = [ "django_filters" ];
 
   nativeCheckInputs = [
     djangorestframework

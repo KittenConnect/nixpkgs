@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, setuptools-scm
-, fonttools
-, fontpens
-, pytestCheckHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  setuptools-scm,
+  fonttools,
+  fontpens,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -22,23 +23,15 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     fonttools
-  ]
-  ++ fonttools.optional-dependencies.ufo
-  ++ fonttools.optional-dependencies.unicode;
+  ] ++ fonttools.optional-dependencies.ufo ++ fonttools.optional-dependencies.unicode;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "defcon"
-  ];
+  pythonImportsCheck = [ "defcon" ];
 
   disabledTests = lib.optionals stdenv.isFreeBSD [
     "test_delitem"

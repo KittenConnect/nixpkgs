@@ -1,40 +1,41 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pythonRelaxDepsHook
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pythonRelaxDepsHook,
 
-# build-system
-, hatchling
+  # build-system
+  hatchling,
 
-# dependencies
-, starlette
-, pydantic
-, typing-extensions
+  # dependencies
+  starlette,
+  pydantic,
+  typing-extensions,
 
-# tests
-, dirty-equals
-, flask
-, passlib
-, pytest-asyncio
-, pytestCheckHook
-, python-jose
-, sqlalchemy
-, trio
+  # tests
+  dirty-equals,
+  flask,
+  passlib,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-jose,
+  sqlalchemy,
+  trio,
 
-# optional-dependencies
-, httpx
-, jinja2
-, python-multipart
-, itsdangerous
-, pyyaml
-, ujson
-, orjson
-, email-validator
-, uvicorn
-, pydantic-settings
-, pydantic-extra-types
+  # optional-dependencies
+  httpx,
+  jinja2,
+  python-multipart,
+  itsdangerous,
+  pyyaml,
+  ujson,
+  orjson,
+  email-validator,
+  uvicorn,
+  pydantic-settings,
+  pydantic-extra-types,
 }:
 
 buildPythonPackage rec {
@@ -68,20 +69,23 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  passthru.optional-dependencies.all = [
-    httpx
-    jinja2
-    python-multipart
-    itsdangerous
-    pyyaml
-    ujson
-    orjson
-    email-validator
-    uvicorn
-  ] ++ lib.optionals (lib.versionAtLeast pydantic.version "2") [
-    pydantic-settings
-    pydantic-extra-types
-  ] ++ uvicorn.optional-dependencies.standard;
+  passthru.optional-dependencies.all =
+    [
+      httpx
+      jinja2
+      python-multipart
+      itsdangerous
+      pyyaml
+      ujson
+      orjson
+      email-validator
+      uvicorn
+    ]
+    ++ lib.optionals (lib.versionAtLeast pydantic.version "2") [
+      pydantic-settings
+      pydantic-extra-types
+    ]
+    ++ uvicorn.optional-dependencies.standard;
 
   nativeCheckInputs = [
     dirty-equals
@@ -92,8 +96,7 @@ buildPythonPackage rec {
     python-jose
     trio
     sqlalchemy
-  ] ++ passthru.optional-dependencies.all
-  ++ python-jose.optional-dependencies.cryptography;
+  ] ++ passthru.optional-dependencies.all ++ python-jose.optional-dependencies.cryptography;
 
   pytestFlagsArray = [
     # ignoring deprecation warnings to avoid test failure from
@@ -117,9 +120,7 @@ buildPythonPackage rec {
     "tests/test_tutorial/test_security/test_tutorial005_an_py310.py"
   ];
 
-  pythonImportsCheck = [
-    "fastapi"
-  ];
+  pythonImportsCheck = [ "fastapi" ];
 
   meta = with lib; {
     changelog = "https://github.com/tiangolo/fastapi/releases/tag/${version}";

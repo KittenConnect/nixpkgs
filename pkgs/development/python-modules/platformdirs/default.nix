@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, appdirs
-, buildPythonPackage
-, fetchFromGitHub
-, hatch-vcs
-, hatchling
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
+{
+  lib,
+  stdenv,
+  appdirs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatch-vcs,
+  hatchling,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
@@ -35,9 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [
-    "platformdirs"
-  ];
+  pythonImportsCheck = [ "platformdirs" ];
 
   disabledTests = lib.optionals stdenv.isFreeBSD [
     # possibly related to incomplete build isolation on FreeBSD

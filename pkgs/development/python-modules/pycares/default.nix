@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, aiodns
-, buildPythonPackage
-, c-ares
-, cffi
-, fetchPypi
-, idna
-, pythonOlder
-, tornado
-, freebsd
+{
+  lib,
+  stdenv,
+  aiodns,
+  buildPythonPackage,
+  c-ares,
+  cffi,
+  fetchPypi,
+  idna,
+  pythonOlder,
+  tornado,
+  freebsd,
 }:
 
 buildPythonPackage rec {
@@ -23,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-9HV51Qjy9W7d0WznIEV4KtOxs7Z4CYaZ4rahswcz4cI=";
   };
 
-  buildInputs = [
-    c-ares
-  ] ++ lib.optionals stdenv.hostPlatform.isFreeBSD [
+  buildInputs = [ c-ares ] ++ lib.optionals stdenv.hostPlatform.isFreeBSD [
     freebsd.libkvm
   ];
 
@@ -34,9 +33,7 @@ buildPythonPackage rec {
     idna
   ];
 
-  propagatedNativeBuildInputs = [
-    cffi
-  ];
+  propagatedNativeBuildInputs = [ cffi ];
 
   # Requires network access
   doCheck = false;
@@ -45,9 +42,7 @@ buildPythonPackage rec {
     inherit aiodns tornado;
   };
 
-  pythonImportsCheck = [
-    "pycares"
-  ];
+  pythonImportsCheck = [ "pycares" ];
 
   meta = with lib; {
     description = "Python interface for c-ares";
