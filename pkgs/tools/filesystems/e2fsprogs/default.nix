@@ -1,5 +1,5 @@
 { lib, stdenv, buildPackages, fetchurl, fetchpatch, pkg-config, libuuid, gettext, texinfo
-, withFuse ? stdenv.isLinux, fuse
+, withFuse ? stdenv.isLinux, fuse3
 , shared ? !stdenv.hostPlatform.isStatic
 , e2fsprogs, runCommand
 }:
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config texinfo ];
   buildInputs = [ gettext ]
     ++ lib.optionals (!stdenv.hostPlatform.isFreeBSD) [ libuuid ]
-    ++ lib.optionals withFuse [ fuse ];
+    ++ lib.optionals withFuse [ fuse3 ];
 
   patches = [
     # Avoid trouble with older systems like NixOS 23.05.
