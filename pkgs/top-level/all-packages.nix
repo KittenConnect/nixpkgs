@@ -32963,11 +32963,10 @@ with pkgs;
     inherit lua;
   };
 
-  shaka-packager = callPackage ../applications/video/shaka-packager { };
+  # Wrap avoiding rebuild
+  mpv = mpv-unwrapped.wrapper { mpv = mpv-unwrapped; };
 
-  # Wraps without triggering a rebuild
-  wrapMpv = callPackage ../applications/video/mpv/wrapper.nix { };
-  mpv = wrapMpv mpv-unwrapped { };
+  shaka-packager = callPackage ../applications/video/shaka-packager { };
 
   mpvpaper = callPackage ../tools/wayland/mpvpaper { };
 
