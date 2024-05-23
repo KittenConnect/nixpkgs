@@ -1,4 +1,13 @@
-{ lib, fetchPypi, buildPythonPackage, pythonAtLeast }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchPypi,
+  pythonOlder,
+  pythonAtLeast,
+  setuptools,
+  versioneer,
+}:
 
 buildPythonPackage rec {
   pname = "ed25519";
