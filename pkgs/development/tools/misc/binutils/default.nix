@@ -172,7 +172,7 @@ stdenv.mkDerivation (finalAttrs: {
     # As binutils takes part in the stdenv building, we don't want references
     # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
     NIX_CFLAGS_COMPILE =
-      if hostPlatform.isDarwin
+      if (hostPlatform.isDarwin || hostPlatform.isFreeBSD)
       then "-Wno-string-plus-int -Wno-deprecated-declarations"
       else if stdenv.cc.isGNU
       then "-static-libgcc"
