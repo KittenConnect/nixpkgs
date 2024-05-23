@@ -12706,6 +12706,12 @@
     githubId = 427866;
     name = "Matthias Beyer";
   };
+  matthiasdotsh = {
+    email = "git@matthias.sh";
+    name = "Matthias";
+    github = "matthiasdotsh";
+    githubId = 142118899;
+  };
   matthiasq = {
     email = "matthias.queitsch@mailbox.org";
     github = "matthias-Q";
