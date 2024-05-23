@@ -6192,8 +6192,6 @@ with pkgs;
 
   socklog = callPackage ../tools/system/socklog { };
 
-  soju = callPackage ../applications/networking/soju { };
-
   spacevim = callPackage ../applications/editors/spacevim { };
 
   srvc = callPackage ../applications/version-management/srvc { };
