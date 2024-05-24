@@ -6,7 +6,6 @@
 , elfutils
 , expat
 , fetchCrate
-, fetchpatch
 , fetchurl
 , file
 , flex
