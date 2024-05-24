@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ] ++ lib.optionals enableDocumentation [
     hotdoc
-  ] ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [
+  ] ++ lib.optionals (gst-plugins-base.waylandEnabled && (stdenv.isLinux || stdenv.isFreeBSD)) [
     wayland # for wayland-scanner
   ];
 
@@ -211,7 +211,7 @@ stdenv.mkDerivation rec {
     bluez
   ] ++ lib.optionals microdnsSupport [
     libmicrodns
-  ] ++ lib.optionals stdenv.isLinux [
+  ] ++ lib.optionals (gst-plugins-base.waylandEnabled && stdenv.isLinux) [
     libva # vaapi requires libva -> libdrm -> libpciaccess, which is Linux-only in nixpkgs
     wayland
     wayland-protocols
@@ -318,6 +318,7 @@ stdenv.mkDerivation rec {
   ++ lib.optionals (!stdenv.isLinux) [
     "-Ddoc=disabled" # needs gstcuda to be enabled which is Linux-only
     "-Dnvcodec=disabled" # Linux-only
+  ] ++ lib.optionals (!stdenv.isLinux || !gst-plugins-base.waylandEnabled) [
     "-Dva=disabled" # see comment on `libva` in `buildInputs`
   ] ++ lib.optionals (!stdenv.isLinux || !guiSupport) [
     "-Ddirectfb=disabled"
@@ -341,8 +342,8 @@ stdenv.mkDerivation rec {
     "-Duvch264=disabled"
     "-Dv4l2codecs=disabled"
     "-Dsbc=disabled"
-  ] ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64) [
-    "-Dqsv=disabled" # Linux (and Windows) x86 only
+  ] ++ lib.optionals (!stdenv.isLinux || !stdenv.isx86_64 || !gst-plugins-base.waylandEnabled) [
+    "-Dqsv=disabled" # Linux (and Windows) x86 only, makes va required
   ] ++ lib.optionals (!gst-plugins-base.glEnabled) [
     "-Dgl=disabled"
   ] ++ lib.optionals (!gst-plugins-base.waylandEnabled || !guiSupport) [
