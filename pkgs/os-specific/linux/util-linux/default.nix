@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, pkg-config, zlib, shadow
+{ lib, stdenv, fetchurl, pkg-config
+, zlib, shadow
 , capabilitiesSupport ? stdenv.isLinux
 , libcap_ng
 , libxcrypt
@@ -8,6 +9,7 @@
 , linux-pam
 , systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
 , systemd
+, sqlite
 , nlsSupport ? true
 , translateManpages ? true
 , po4a
