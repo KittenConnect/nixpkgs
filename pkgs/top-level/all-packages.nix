@@ -20449,8 +20449,6 @@ with pkgs;
 
   libchardet = callPackage ../development/libraries/libchardet { };
 
-  libchewing = callPackage ../development/libraries/libchewing { };
-
   libchipcard = callPackage ../development/libraries/aqbanking/libchipcard.nix { };
 
   libcrafter = callPackage ../development/libraries/libcrafter { };
