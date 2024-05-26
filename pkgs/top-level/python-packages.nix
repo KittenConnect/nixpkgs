@@ -8656,6 +8656,8 @@ self: super: with self; {
 
   nomadnet = callPackage ../development/python-modules/nomadnet { };
 
+  noneprompt = callPackage ../development/python-modules/noneprompt {  };
+
   nox = callPackage ../development/python-modules/nox { };
 
   nanomsg-python = callPackage ../development/python-modules/nanomsg-python {
