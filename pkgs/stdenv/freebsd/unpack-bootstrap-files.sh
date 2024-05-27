@@ -1,21 +1,35 @@
-$mkdir -p $out
-$unxz <$bootstrapFiles | $tar --delay-directory-restore --no-same-permissions -C $out -x
-PATH=$out/bin
-$chmod +w -R $out
+$src/libexec/ld-elf.so.1 $src/bin/mkdir $out
+$src/libexec/ld-elf.so.1 $src/bin/tar -I "$src/libexec/ld-elf.so.1 $src/bin/xz" -C $out -xf $stage1
+export LD_LIBRARY_PATH=$out/lib
+
+BADLIST=ld-elf.so.1
+
+oobpatch() {
+    $out/libexec/ld-elf.so.1 $src/bin/cp $1 ./tmp
+    $out/libexec/ld-elf.so.1 $out/bin/patchelf --set-rpath $out/lib --set-interpreter $out/libexec/ld-elf.so.1 ./tmp
+    $out/libexec/ld-elf.so.1 $src/bin/mv ./tmp $1
+    BADLIST="$BADLIST|${1##*/}"
+}
+
+oobpatch $out/bin/patchelf
+oobpatch $out/lib/libthr.so.3
+oobpatch $out/lib/libc.so.7
+
+for f in $($out/libexec/ld-elf.so.1 $out/bin/find $out/lib -type f); do
+    $out/libexec/ld-elf.so.1 $out/bin/grep -E "$BADLIST" <<<"$f" && continue
+    $out/libexec/ld-elf.so.1 $out/bin/patchelf --set-rpath $out/lib $f
+done
 for f in $out/bin/* $out/bin/.*; do
-    patchelf --set-rpath $out/lib --set-interpreter $out/libexec/ld-elf.so.? $f
+    $out/libexec/ld-elf.so.1 $out/bin/grep -E "$BADLIST" <<<"$f" &>/dev/null && continue
+    $out/libexec/ld-elf.so.1 $out/bin/patchelf --set-rpath $out/lib --set-interpreter $out/libexec/ld-elf.so.1 $f
 done
-for f in $out/lib/* $out/lib/.*; do
-    patchelf --set-rpath $out/lib $f
-done
-for f in $($out/bin/find $out/lib -type f); do
-    patchelf --set-rpath $out/lib $f
-done
-for f in $($out/bin/find $out -type f); do
-    grep -I /nix/store $f >/dev/null && sed -E -i -e 's_/nix/store/[^/":]+_'"$out"'_g' $f
-done
-$out/bin/cp $mkdir $tar $unxz $out/bin
-$out/bin/cp $builder $out/bin/bash
+
+unset LD_LIBRARY_PATH
+export PATH=$out/bin
+
+# sanity check
+$out/bin/true || exit 1
+
 # scorched earth
 for f in $(find $out -type f); do
     while true; do
