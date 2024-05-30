@@ -1750,6 +1750,9 @@ let
       RGL_USE_NULL = "true";
     });
 
+    Rdisop = old.Rdisop.overrideAttrs (_: {
+      hardeningDisable = ["format"];
+    });
 
     opencv = let
       opencvGtk = pkgs.opencv.override (old : { enableGtk2 = true; });
