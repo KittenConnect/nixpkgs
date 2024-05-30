@@ -1795,6 +1795,10 @@ let
       '';
     });
 
+    oligo = old.oligo.overrideAttrs (_: {
+      hardeningDisable = ["format"];
+    });
+
     tesseract = old.tesseract.overrideAttrs (_: {
       preConfigure = ''
         substituteInPlace configure \
