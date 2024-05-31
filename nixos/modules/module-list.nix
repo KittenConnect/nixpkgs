@@ -217,6 +217,7 @@
   ./programs/kbdlight.nix
   ./programs/kclock.nix
   ./programs/kdeconnect.nix
+  ./programs/ladybird.nix
   ./programs/lazygit.nix
   ./programs/kubeswitch.nix
   ./programs/less.nix
