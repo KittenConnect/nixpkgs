@@ -1746,6 +1746,8 @@ let
       preConfigure = "patchShebangs configure";
     });
 
+    dbarts = old.dbarts.override { platforms = lib.platforms.x86_64 ++ lib.platforms.x86; };
+
     geomorph = old.geomorph.overrideAttrs (attrs: {
       RGL_USE_NULL = "true";
     });
