@@ -21272,6 +21272,12 @@
     githubId = 245573;
     name = "Dmitry Kalinkin";
   };
+  vglfr = {
+    email = "vf.velt@gmail.com";
+    github = "vglfr";
+    githubId = 20283252;
+    name = "vglfr";
+  };
   vgskye = {
     name = "Skye Green";
     email = "me@skye.vg";
