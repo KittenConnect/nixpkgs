@@ -11,6 +11,7 @@
 , wrapGAppsHook4
 , gdk-pixbuf
 , glib
+, clapper
 , gtk4
 , libadwaita
 , libxml2
@@ -25,21 +26,21 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "newsflash";
-  version = "3.1.6";
+  version = "3.3.0";
 
   src = fetchFromGitLab {
     owner = "news-flash";
     repo = "news_flash_gtk";
     rev = "refs/tags/v.${finalAttrs.version}";
-    hash = "sha256-zEf61aKtiuTCmhzkfVkTLtIRCb4DVXVtI+9Az9dU9HE=";
+    hash = "sha256-s8h/OIJJzMmsCsaQJ0SOjCAVXfYQbjOupdDtLOqM9d0=";
   };
 
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "news-flash-2.3.0-alpha.0" = "sha256-Gr7EyAbIFABZx9GR/WvshF0vfJaul7wz4pro2EbwSM8=";
-      "newsblur_api-0.2.0" = "sha256-eysCB19znQF8mRwQ64nSp6KuvJ1Trot4g4WCdQDedo8=";
-      "article_scraper-2.0.0" = "sha256-URiteEJ1kXoGfRopGoRI/4iPbzd+F9bQaMJKpkrh/sE=";
+      "clapper-0.1.0" = "sha256-xQ7l6luO5E4PMjtN9elg0bkJa7IhWzA7KuYDJ+m/VY0=";
+      "news-flash-2.3.0-alpha.0" = "sha256-ZgX6tQmPDMSpLcYD04u2ReQXdzeGzQTwGaUy/y4z4do=";
+      "newsblur_api-0.3.0" = "sha256-m2178zdJzeskl3BQpZr6tlxTAADehxz8uYcZzi15nhQ=";
     };
   };
 
@@ -74,6 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
+    clapper
     gtk4
     libadwaita
     libxml2
