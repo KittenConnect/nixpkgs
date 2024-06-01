@@ -57,6 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs build-aux/cargo.sh
   '';
 
+  strictDeps = true;
+
   nativeBuildInputs = [
     meson
     ninja
