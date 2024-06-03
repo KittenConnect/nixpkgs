@@ -15583,6 +15583,8 @@ self: super: with self; {
 
   typer = callPackage ../development/python-modules/typer { };
 
+  typer-shell = callPackage ../development/python-modules/typer-shell { };
+
   type-infer = callPackage ../development/python-modules/type-infer { };
 
   types-aiobotocore = callPackage ../development/python-modules/types-aiobotocore { };
