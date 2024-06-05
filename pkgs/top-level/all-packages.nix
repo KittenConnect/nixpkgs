@@ -25263,7 +25263,7 @@ with pkgs;
   # Clasp Common Lisp
   clasp-common-lisp = wrapLisp {
     pkg = callPackage ../development/compilers/clasp { };
-    faslExt = "fasp";
+    faslExt = "fasl";
   };
 
   # CLISP
