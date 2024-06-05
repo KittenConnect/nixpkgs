@@ -28286,8 +28286,6 @@ with pkgs;
 
   brise = callPackage ../data/misc/brise { };
 
-  apl386 = callPackage ../data/fonts/apl386 { };
-
   bqn386 = callPackage ../data/fonts/bqn386 { };
 
   cacert = callPackage ../data/misc/cacert { };
