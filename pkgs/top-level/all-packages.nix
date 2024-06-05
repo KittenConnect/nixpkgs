@@ -28352,8 +28352,6 @@ with pkgs;
 
   comixcursors = callPackage ../data/icons/comixcursors { };
 
-  corefonts = callPackage ../data/fonts/corefonts { };
-
   courier-prime = callPackage ../data/fonts/courier-prime { };
 
   cozette = callPackage ../data/fonts/cozette { };
