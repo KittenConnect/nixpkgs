@@ -28,6 +28,9 @@ stdenv.mkDerivation (finalAttrs: {
     # - Musl   report: https://github.com/xtensor-stack/xsimd/issues/798
     # Also manifests on FreeBSD
     # ./disable-exp10-test.patch # TODO: re-enable if needed
+  ] ++ lib.optionals stdenv.isDarwin [
+    # https://github.com/xtensor-stack/xsimd/issues/1030
+    ./disable-test_error_gamma.patch
   ];
 
   nativeBuildInputs = [
