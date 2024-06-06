@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
@@ -89,7 +88,5 @@ buildPythonPackage rec {
     changelog = "https://github.com/pydicom/pynetdicom/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
-    # Tests are not passing on Darwin/Aarch64, thus it's assumed that it doesn't work
-    broken = stdenv.isDarwin || stdenv.isAarch64;
   };
 }
