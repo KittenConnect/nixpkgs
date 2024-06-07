@@ -16764,6 +16764,8 @@ self: super: with self; {
 
   voluptuous = callPackage ../development/python-modules/voluptuous { };
 
+  voluptuous-openapi = callPackage ../development/python-modules/voluptuous-openapi { };
+
   voluptuous-serialize = callPackage ../development/python-modules/voluptuous-serialize { };
 
   voluptuous-stubs = callPackage ../development/python-modules/voluptuous-stubs { };
