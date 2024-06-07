@@ -505,7 +505,7 @@ with self; {
     };
     buildInputs = [ CanaryStability ];
     meta = {
-      description = "The DBI of event loop programming";
+      description = "DBI of event loop programming";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -2122,7 +2122,7 @@ with self; {
     propagatedBuildInputs = [ DigestSHA1 Error IPCShareLite ];
     doCheck = false; # randomly fails
     meta = {
-      description = "The Cache Interface";
+      description = "Cache Interface";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -2581,7 +2581,7 @@ with self; {
       hash = "sha256-s54zllkDwAWD4BgOPdUopUkg9SB83wUmBcoTgoz6wTw=";
     };
     meta = {
-      description = "The Catalyst developer's manual";
+      description = "Catalyst developer's manual";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -2611,7 +2611,7 @@ with self; {
     buildInputs = [ TestFatal TypeTiny ];
     propagatedBuildInputs = [ CGISimple CGIStruct ClassC3AdoptNEXT DataDump HTTPBody ModulePluggable MooseXEmulateClassAccessorFast MooseXGetopt MooseXMethodAttributes MooseXRoleWithOverloading PathClass PerlIOutf8_strict PlackMiddlewareFixMissingBodyInRedirect PlackMiddlewareMethodOverride PlackMiddlewareRemoveRedundantBody PlackMiddlewareReverseProxy PlackTestExternalServer SafeIsa StringRewritePrefix TaskWeaken TextSimpleTable TreeSimpleVisitorFactory URIws ];
     meta = {
-      description = "The Catalyst Framework Runtime";
+      description = "Catalyst Framework Runtime";
       homepage = "http://dev.catalyst.perl.org";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
       mainProgram = "catalyst.pl";
@@ -4684,7 +4684,7 @@ with self; {
     propagatedBuildInputs = [ AnyEvent Guard commonsense ];
     buildInputs = [ CanaryStability ];
     meta = {
-      description = "The only real threads in perl";
+      description = "Only real threads in perl";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -5101,7 +5101,7 @@ with self; {
     propagatedBuildInputs = [ ClassMix ];
     perlPreHook = lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC";
     meta = {
-      description = "The Eksblowfish block cipher";
+      description = "Eksblowfish block cipher";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -5461,7 +5461,7 @@ with self; {
       hash = "sha256-WIFVXWGHlyojgqoNTbLXTJcLBndMYhtspSNzkjbS1QE=";
     };
     meta = {
-      description = "The Twofish Encryption Algorithm";
+      description = "Twofish Encryption Algorithm";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
       maintainers = [ maintainers.sgo ];
     };
@@ -5606,7 +5606,7 @@ with self; {
     buildInputs = [ TestFatal ];
     propagatedBuildInputs = [ DigestHMAC DigestSHA3 Moo TypeTiny namespaceautoclean strictures ];
     meta = {
-      description = "The PBKDF2 password hash algorithm";
+      description = "PBKDF2 password hash algorithm";
       homepage = "https://metacpan.org/release/Crypt-PBKDF2";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
       maintainers = [ maintainers.sgo ];
@@ -13752,7 +13752,7 @@ with self; {
     propagatedBuildInputs = [ EncodeLocale FileListing HTMLParser HTTPCookieJar HTTPCookies HTTPDate HTTPMessage HTTPNegotiate LWPMediaTypes NetHTTP TryTiny URI WWWRobotRules ];
     meta = {
       homepage = "https://github.com/libwww-perl/libwww-perl";
-      description = "The World-Wide Web library for Perl";
+      description = "World-Wide Web library for Perl";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -14706,7 +14706,7 @@ with self; {
     doCheck = !stdenv.isDarwin;
     nativeCheckInputs = [ HTTPDaemon TestFatal TestNeeds TestRequiresInternet ];
     meta = {
-      description = "The World-Wide Web library for Perl";
+      description = "World-Wide Web library for Perl";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -18704,7 +18704,7 @@ with self; {
     propagatedBuildInputs = [ BitVector ClassGomor NetIPv6Addr ];
     preCheck = "rm t/13-gethostsubs.t"; # it performs DNS queries
     meta = {
-      description = "The base framework for frame crafting";
+      description = "Base framework for frame crafting";
       license = with lib.licenses; [ artistic1 ];
     };
   };
@@ -19633,7 +19633,7 @@ with self; {
     };
     propagatedBuildInputs = [ ArchiveZip XMLTwig ];
     meta = {
-      description = "The Perl Open OpenDocument Connector";
+      description = "Perl Open OpenDocument Connector";
       license = with lib.licenses; [ lgpl21Only ];
       maintainers = [ maintainers.wentasah ];
     };
@@ -22661,7 +22661,7 @@ with self; {
       hash = "sha256-7WpMz6sJTJzRZPVkAk6YvSHZT0MSzKxNYkbSKzQIGs8=";
     };
     meta = {
-      description = "The fastest way to sort anything in Perl";
+      description = "Fastest way to sort anything in Perl";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
@@ -29119,7 +29119,7 @@ with self; {
     propagatedBuildInputs = [ ClassMethodModifiers JSONValidator Mojolicious MojoliciousPluginI18N MojoliciousPluginOpenAPI RoleTiny ];
     meta = {
       homepage = "http://preaction.me/yancy/";
-      description = "The Best Web Framework Deserves the Best CMS";
+      description = "Best Web Framework Deserves the Best CMS";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
