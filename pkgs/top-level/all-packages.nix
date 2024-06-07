@@ -20912,6 +20912,7 @@ with pkgs;
   };
 
   gdcm = callPackage ../development/libraries/gdcm {
+    inherit (darwin) DarwinTools;
     inherit (darwin.apple_sdk.frameworks) ApplicationServices Cocoa;
   };
 
