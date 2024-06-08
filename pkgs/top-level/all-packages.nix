@@ -27594,8 +27594,6 @@ with pkgs;
 
   gotraceui = callPackage ../development/tools/gotraceui { };
 
-  govers = callPackage ../development/tools/govers { };
-
   goverview = callPackage ../tools/security/goverview { };
 
   go-tools = callPackage ../development/tools/go-tools {
