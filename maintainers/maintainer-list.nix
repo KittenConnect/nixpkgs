@@ -17866,6 +17866,11 @@
     githubId = 7439756;
     name = "Rowan Goemans";
   };
+  roydubnium = {
+    github = "RoyDubnium";
+    githubId = 72664566;
+    name = "Roy Davison";
+  };
   royneary = {
     email = "christian@ulrich.earth";
     github = "royneary";
