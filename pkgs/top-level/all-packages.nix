@@ -34730,6 +34730,8 @@ with pkgs;
 
   termimage = callPackage ../tools/graphics/termimage { };
 
+  terminaltexteffects = with python3Packages; toPythonApplication terminaltexteffects ;
+
   terminal-notifier = callPackage ../applications/misc/terminal-notifier { };
 
   textplots = callPackage ../tools/graphics/textplots { };
