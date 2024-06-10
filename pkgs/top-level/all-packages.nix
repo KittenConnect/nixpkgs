@@ -12261,8 +12261,6 @@ with pkgs;
 
   redpanda-client = callPackage ../servers/redpanda { };
 
-  redpanda-server = redpanda-client.server;
-
   redsocks = callPackage ../tools/networking/redsocks { };
 
   rep = callPackage ../development/tools/rep { };
