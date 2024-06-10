@@ -5567,8 +5567,6 @@ with pkgs;
 
   jellyfin-mpv-shim = python3Packages.callPackage ../applications/video/jellyfin-mpv-shim { };
 
-  jellyfin-web = callPackage ../servers/jellyfin/web.nix { };
-
   jellyseerr = callPackage ../servers/jellyseerr { };
 
   jiten = callPackage ../applications/misc/jiten { };
