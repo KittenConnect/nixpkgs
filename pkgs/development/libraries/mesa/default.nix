@@ -297,6 +297,9 @@ self = stdenv.mkDerivation {
     (lib.mesonEnable "lmsensors" false)
     # Don’t build with glvnd support to make sure Mesa builds libGL on Darwin
     (lib.mesonEnable "glvnd" false)
+    # This gets enabled by mesonAutoFeatures and fails on aarch64-darwin,
+    # which makes no sense because Darwin has neither Intel nor RT, but OK
+    (lib.mesonEnable "intel-rt" false)
   ] ++ lib.optionals stdenv.isFreeBSD [
     (lib.mesonEnable "lmsensors" false)
   ] ++ lib.optionals enableOpenCL [
