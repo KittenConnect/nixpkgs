@@ -13610,8 +13610,6 @@ with pkgs;
     pkgs = pkgs.__splicedPackages;
   });
 
-  tmsu = callPackage ../tools/filesystems/tmsu { };
-
   tncattach = callPackage ../applications/radio/tncattach { };
 
   to-html = callPackage ../tools/text/to-html { };
