@@ -37705,6 +37705,8 @@ with pkgs;
 
   marvin = callPackage ../applications/science/chemistry/marvin { };
 
+  molbar = with python3Packages; toPythonApplication molbar;
+
   molden = callPackage ../applications/science/chemistry/molden { };
 
   mopac = callPackage ../applications/science/chemistry/mopac { };
