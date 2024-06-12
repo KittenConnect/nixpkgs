@@ -37989,8 +37989,6 @@ with pkgs;
 
   opkg-utils = callPackage ../tools/package-management/opkg-utils { };
 
-  OSCAR = qt5.callPackage ../applications/misc/OSCAR { };
-
   pgmanage = callPackage ../applications/misc/pgmanage { };
 
   pgadmin4 = callPackage ../tools/admin/pgadmin { };
