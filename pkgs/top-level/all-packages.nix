@@ -17852,7 +17852,6 @@ with pkgs;
   ant = apacheAnt;
 
   inherit (callPackages ../servers/apache-kafka { })
-    apacheKafka_3_5
     apacheKafka_3_6
     apacheKafka_3_7;
 
