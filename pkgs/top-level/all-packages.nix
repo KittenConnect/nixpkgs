@@ -9222,8 +9222,6 @@ with pkgs;
 
   iroh = callPackage ../applications/networking/iroh { };
 
-  irrd = callPackage ../servers/misc/irrd { };
-
   ised = callPackage ../tools/misc/ised { };
 
   isl = isl_0_20;
