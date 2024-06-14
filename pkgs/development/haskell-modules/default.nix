@@ -10,6 +10,7 @@
 , configurationArm ? import ./configuration-arm.nix
 , configurationDarwin ? import ./configuration-darwin.nix
 , configurationFreeBSD ? import ./configuration-freebsd.nix
+, configurationJS ? import ./configuration-ghcjs-9.x.nix
 }:
 
 let
@@ -29,7 +30,10 @@ let
     (configurationDarwin { inherit pkgs haskellLib; })
   ] ++ lib.optionals stdenv.hostPlatform.isFreeBSD [
     (configurationFreeBSD { inherit pkgs haskellLib; })
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isGhcjs [
+    (configurationJS { inherit pkgs haskellLib; })
+  ]
+  ;
 
   extensions = lib.composeManyExtensions ([
     (nonHackagePackages { inherit pkgs haskellLib; })
