@@ -25,31 +25,23 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "hgrecco";
     repo = "flexcache";
-    rev = version;
+    rev = "refs/tags/${version}";
     hash = "sha256-MAbTe7NxzfRPzo/Wnb5SnPJvJWf6zVeYsaw/g9OJYSE=";
   };
 
-  build-system = [
-    setuptools
-    setuptools-scm
-    wheel
-  ];
+  build-system = [ setuptools-scm ];
 
   dependencies = [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mpl
-    pytest-subtests
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "flexcache" ];
 
-  meta = with lib; {
+  meta = {
     description = "An robust and extensible package to cache on disk the result of expensive calculations";
     homepage = "https://github.com/hgrecco/flexcache";
     changelog = "https://github.com/hgrecco/flexcache/blob/${src.rev}/CHANGES";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [ doronbehar ];
   };
 }
