@@ -25,31 +25,23 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "hgrecco";
     repo = "flexparser";
-    rev = version;
+    rev = "refs/tags/${version}";
     hash = "sha256-9ImG8uh1SZ+pAbqzWBkTVn+3EBAGzzdP8vqqP59IgIw=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-    wheel
-  ];
+  build-system = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ typing-extensions ];
+  dependencies = [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mpl
-    pytest-subtests
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "flexparser" ];
 
-  meta = with lib; {
+  meta = {
     description = "Parsing made fun ... using typing";
     homepage = "https://github.com/hgrecco/flexparser";
     changelog = "https://github.com/hgrecco/flexparser/blob/${src.rev}/CHANGES";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [ doronbehar ];
   };
 }
