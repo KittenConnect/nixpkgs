@@ -4,7 +4,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-  pythonRelaxDepsHook,
 
   # build-system
   hatchling,
@@ -54,7 +53,6 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [
     hatchling
-    pythonRelaxDepsHook
   ];
 
   pythonRelaxDeps = [

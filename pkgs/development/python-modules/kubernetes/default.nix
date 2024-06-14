@@ -10,7 +10,6 @@
   pytestCheckHook,
   python-dateutil,
   pythonOlder,
-  pythonRelaxDepsHook,
   pyyaml,
   requests,
   requests-oauthlib,
@@ -42,6 +41,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     adal
+  ];
+
+  build-system = [
+    setuptools
+  ];
+
+  dependencies = [
     certifi
     google-auth
     python-dateutil
@@ -52,11 +58,6 @@ buildPythonPackage rec {
     websocket-client
   ];
   pythonRelaxDeps = [ "urllib3" ];
-
-  build-system = [
-    pythonRelaxDepsHook
-    setuptools
-  ];
 
   passthru.optional-dependencies = {
     adal = [ adal ];
