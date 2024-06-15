@@ -7155,6 +7155,13 @@
     githubId = 77672306;
     name = "Florian Agbuya";
   };
+  fsnkty = {
+    name = "fsnkty";
+    github = "fsnkty";
+    githubId = 153512689;
+    email = "fsnkty@shimeji.cafe";
+    matrix = "@nuko:shimeji.cafe";
+  };
   fstamour = {
     email = "fr.st-amour@gmail.com";
     github = "fstamour";
@@ -15239,13 +15246,6 @@
     matrix = "@numkem:matrix.org";
     github = "numkem";
     githubId = 332423;
-  };
-  nu-nu-ko = {
-    email = "nuko@shimeji.cafe";
-    matrix = "@nuko:shimeji.cafe";
-    github = "nu-nu-ko";
-    githubId = 153512689;
-    name = "nuko";
   };
   nviets = {
     email = "nathan.g.viets@gmail.com";
