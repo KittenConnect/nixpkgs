@@ -2,6 +2,7 @@
   lib,
   stdenv,
   buildPythonPackage,
+  pythonAtLeast,
   pythonOlder,
   pythonAtLeast,
   fetchFromGitHub,
@@ -117,6 +118,10 @@ buildPythonPackage rec {
       "test_cython"
       # Could not fetch remote image: http://localhost:7777/sphinx.png
       "test_copy_images"
+    ]
+    ++ lib.optionals (pythonAtLeast "3.12") [
+      # https://github.com/sphinx-doc/sphinx/issues/12430
+      "test_autodoc_type_aliases"
     ]
     ++ lib.optionals isPyPy [
       # PyPy has not __builtins__ which get asserted
