@@ -146,6 +146,7 @@
     "intel-nullhw"
   ],
   mesa,
+  makeSetupHook,
 }:
 
 # When updating this package, please verify at least these build (assuming x86_64-linux):
@@ -527,5 +528,10 @@ stdenv.mkDerivation {
         mesa.drivers
       ];
     };
+
+    llvmpipeHook = makeSetupHook {
+      name = "llvmpipe-hook";
+      substitutions.drivers = mesa.drivers;
+    } ./llvmpipe-hook.sh;
   };
 }
