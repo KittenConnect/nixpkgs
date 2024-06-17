@@ -13327,8 +13327,6 @@ with pkgs;
 
   systrayhelper = callPackage ../tools/misc/systrayhelper { };
 
-  Sylk = callPackage ../applications/networking/Sylk { };
-
   privoxy = callPackage ../tools/networking/privoxy {
     w3m = w3m-batch;
   };
