@@ -1,10 +1,10 @@
 {
   lib,
   config,
+  addDriverRunpath,
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-  addOpenGLRunpath,
   setuptools,
   pytestCheckHook,
   cmake,
@@ -58,19 +58,23 @@ buildPythonPackage rec {
 
   postPatch =
     let
-      # Bash was getting weird without linting,
-      # but basically upstream contains [cc, ..., "-lcuda", ...]
-      # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
-      old = [ "-lcuda" ];
-      new = [
-        "-lcuda"
-        "-L${addOpenGLRunpath.driverLink}"
-        "-L${cudaPackages.cuda_cudart}/lib/stubs/"
-      ];
-
       quote = x: ''"${x}"'';
-      oldStr = lib.concatMapStringsSep ", " quote old;
-      newStr = lib.concatMapStringsSep ", " quote new;
+      subs.ldFlags =
+        let
+          # Bash was getting weird without linting,
+          # but basically upstream contains [cc, ..., "-lcuda", ...]
+          # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
+          old = [ "-lcuda" ];
+          new = [
+            "-lcuda"
+            "-L${addDriverRunpath.driverLink}"
+            "-L${cudaPackages.cuda_cudart}/lib/stubs/"
+          ];
+        in
+        {
+          oldStr = lib.concatMapStringsSep ", " quote old;
+          newStr = lib.concatMapStringsSep ", " quote new;
+        };
     in
     ''
       # Use our `cmakeFlags` instead and avoid downloading dependencies
@@ -85,11 +89,17 @@ buildPythonPackage rec {
       substituteInPlace unittest/CMakeLists.txt \
         --replace "include (\''${CMAKE_CURRENT_SOURCE_DIR}/googletest.cmake)" ""\
         --replace "include(GoogleTest)" "find_package(GTest REQUIRED)"
+
+      cat << \EOF > python/triton/common/build.py
+
+      def libcuda_dirs():
+          return [ "${addDriverRunpath.driverLink}/lib" ]
+      EOF
     ''
     + lib.optionalString cudaSupport ''
       # Use our linker flags
       substituteInPlace python/triton/common/build.py \
-        --replace '${oldStr}' '${newStr}'
+        --replace '${subs.ldFlags.oldStr}' '${subs.ldFlags.newStr}'
     '';
 
   nativeBuildInputs = [
