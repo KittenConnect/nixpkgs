@@ -17,15 +17,15 @@
 
 buildPythonPackage rec {
   pname = "typed-settings";
-  version = "24.2.0";
-  format = "pyproject";
+  version = "24.3.0";
+  pyproject = true;
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     pname = "typed_settings";
     inherit version;
-    hash = "sha256-BuosfIlCgCD+h7eA/6/oE98zdURaT3eik+dysBpJR+Y=";
+    hash = "sha256-x1ojSSZNrKkBHKE9dWw7NzX/G6ggRYRIQ5MMahwL1Ps=";
   };
 
   build-system = [ hatchling ];
