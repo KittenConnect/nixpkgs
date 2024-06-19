@@ -17,12 +17,13 @@
 
 buildPythonPackage rec {
   pname = "localstack-ext";
-  version = "3.3.0";
-  pyproject = true;
+  version = "3.5.0";
+  format = "setuptools";
 
   src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-04ks+m+2W/QTIwdcmUH8pBhwCz3JSHnuAB0D5F231To=";
+    pname = "localstack_ext";
+    inherit version;
+    hash = "sha256-tJNgNqCzlebbDOOgkScOKaf04bLTVIjP+BaFiDLo/Gs=";
   };
 
   postPatch = ''
