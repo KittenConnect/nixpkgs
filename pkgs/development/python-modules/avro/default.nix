@@ -6,7 +6,7 @@
   pythonAtLeast,
   fetchPypi,
   typing-extensions,
-  pytestCheckHook,
+  pytest7CheckHook,
 }:
 
 buildPythonPackage rec {
@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [ pytest7CheckHook ];
 
   disabledTests = [
     # Requires network access
