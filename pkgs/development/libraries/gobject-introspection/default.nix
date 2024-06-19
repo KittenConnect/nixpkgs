@@ -34,6 +34,7 @@ let
   pythonModules = pp: [
     pp.mako
     pp.markdown
+    pp.setuptools
   ];
 
   # https://discourse.gnome.org/t/dealing-with-glib-and-gobject-introspection-circular-dependency/18701
