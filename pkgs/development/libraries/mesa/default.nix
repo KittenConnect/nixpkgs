@@ -391,30 +391,29 @@ stdenv.mkDerivation {
     buildPackages.stdenv.cc
   ];
 
-  nativeBuildInputs =
-    [
-      meson
-      pkg-config
-      ninja
-      intltool
-      bison
-      flex
-      file
-      python3Packages.python
-      python3Packages.pycparser
-      python3Packages.mako
-      python3Packages.ply
-      jdupes
-      glslang
-      rustc
-      rust-bindgen
-      rust-cbindgen
-      rustPlatform.bindgenHook
-      wayland-scanner
-    ]
-    ++ lib.optionals needNativeCLC [
-      buildPackages.mesa.driversdev
-    ];
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    intltool
+    bison
+    flex
+    file
+    python3Packages.python
+    python3Packages.packaging
+    python3Packages.pycparser
+    python3Packages.mako
+    python3Packages.ply
+    jdupes
+    glslang
+    rustc
+    rust-bindgen
+    rust-cbindgen
+    rustPlatform.bindgenHook
+    wayland-scanner
+  ] ++ lib.optionals needNativeCLC [
+    buildPackages.mesa.driversdev
+  ];
 
   disallowedRequisites = lib.optionals needNativeCLC [
     buildPackages.mesa.driversdev
