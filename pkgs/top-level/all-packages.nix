@@ -24914,8 +24914,6 @@ with pkgs;
 
   xlslib = callPackage ../development/libraries/xlslib { };
 
-  xsimd = callPackage ../development/libraries/xsimd { };
-
   xtensor = callPackage ../development/libraries/xtensor { };
 
   xtl = callPackage ../development/libraries/xtl { };
