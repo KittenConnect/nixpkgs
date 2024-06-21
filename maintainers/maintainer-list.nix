@@ -7388,12 +7388,6 @@
     github = "gmacon";
     githubId = 238853;
   };
-  gmemstr = {
-    email = "git@gmem.ca";
-    github = "gmemstr";
-    githubId = 1878840;
-    name = "Gabriel Simmer";
-  };
   gnxlxnxx = {
     email = "gnxlxnxx@web.de";
     github = "gnxlxnxx";
