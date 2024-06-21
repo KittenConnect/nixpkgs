@@ -17077,8 +17077,6 @@ with pkgs;
     jdk = jdk21;
   };
 
-  clojure-lsp = callPackage ../development/tools/misc/clojure-lsp { };
-
   clooj = callPackage ../development/interpreters/clojure/clooj.nix { };
 
   dhall = haskell.lib.compose.justStaticExecutables haskellPackages.dhall;
