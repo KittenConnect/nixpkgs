@@ -28528,7 +28528,6 @@ with pkgs;
   kopia = callPackage ../tools/backup/kopia { };
 
   kora-icon-theme = callPackage ../data/icons/kora-icon-theme {
-    inherit (gnome) adwaita-icon-theme;
     inherit (libsForQt5.kdeFrameworks) breeze-icons;
   };
 
@@ -28769,7 +28768,6 @@ with pkgs;
   };
 
   numix-icon-theme = callPackage ../data/icons/numix-icon-theme {
-    inherit (gnome) adwaita-icon-theme;
     inherit (plasma5Packages) breeze-icons;
   };
 
@@ -28876,9 +28874,7 @@ with pkgs;
 
   pop-gtk-theme = callPackage ../data/themes/pop-gtk { };
 
-  pop-icon-theme = callPackage ../data/icons/pop-icon-theme {
-    inherit (gnome) adwaita-icon-theme;
-  };
+  pop-icon-theme = callPackage ../data/icons/pop-icon-theme { };
 
   powerline-fonts = callPackage ../data/fonts/powerline-fonts { };
 
@@ -29036,9 +29032,7 @@ with pkgs;
 
   recursive = callPackage ../data/fonts/recursive { };
 
-  reversal-icon-theme = callPackage ../data/icons/reversal-icon-theme {
-    inherit (gnome) adwaita-icon-theme;
-  };
+  reversal-icon-theme = callPackage ../data/icons/reversal-icon-theme { };
 
   rubik = callPackage ../data/fonts/rubik { };
 
@@ -29122,7 +29116,6 @@ with pkgs;
   the-neue-black = callPackage ../data/fonts/the-neue-black { };
 
   tela-circle-icon-theme = callPackage ../data/icons/tela-circle-icon-theme {
-    inherit (gnome) adwaita-icon-theme;
     inherit (libsForQt5) breeze-icons;
   };
 
@@ -30873,7 +30866,6 @@ with pkgs;
   };
 
   firefox-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
-    inherit (gnome) adwaita-icon-theme;
     channel = "release";
     generated = import ../applications/networking/browsers/firefox-bin/release_sources.nix;
   };
@@ -30883,7 +30875,6 @@ with pkgs;
   };
 
   firefox-beta-bin-unwrapped = firefox-bin-unwrapped.override {
-    inherit (gnome) adwaita-icon-theme;
     channel = "beta";
     generated = import ../applications/networking/browsers/firefox-bin/beta_sources.nix;
   };
@@ -30894,7 +30885,6 @@ with pkgs;
   };
 
   firefox-devedition-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
-    inherit (gnome) adwaita-icon-theme;
     channel = "developer-edition";
     generated = import ../applications/networking/browsers/firefox-bin/developer-edition_sources.nix;
   };
@@ -33769,7 +33759,6 @@ with pkgs;
   quiterss = libsForQt5.callPackage ../applications/networking/newsreaders/quiterss { };
 
   quodlibet = callPackage ../applications/audio/quodlibet {
-    inherit (gnome) adwaita-icon-theme;
     kakasi = null;
     keybinder3 = null;
     libappindicator-gtk3 = null;
@@ -34590,7 +34579,6 @@ with pkgs;
     desktopName = "Thunderbird";
   };
   thunderbird-bin-unwrapped = callPackage ../applications/networking/mailreaders/thunderbird-bin {
-    inherit (gnome) adwaita-icon-theme;
     generated = import ../applications/networking/mailreaders/thunderbird-bin/release_sources.nix;
   };
 
