@@ -30328,8 +30328,6 @@ with pkgs;
 
   epgstation = callPackage ../applications/video/epgstation { };
 
-  inherit (gnome) epiphany;
-
   ephemeral = callPackage ../applications/networking/browsers/ephemeral { };
 
   epic5 = callPackage ../applications/networking/irc/epic5 { };
