@@ -7674,8 +7674,6 @@ with pkgs;
 
   emscriptenStdenv = stdenv // { mkDerivation = buildEmscriptenPackage; };
 
-  efibootmgr = callPackage ../tools/system/efibootmgr { };
-
   efivar = callPackage ../tools/system/efivar { };
 
   eget = callPackage ../tools/misc/eget { };
