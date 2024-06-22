@@ -648,7 +648,6 @@ in {
       type = types.package;
       default = occ;
       defaultText = literalMD "generated script";
-      internal = true;
       description = ''
         The nextcloud-occ program preconfigured to target this Nextcloud instance.
       '';
