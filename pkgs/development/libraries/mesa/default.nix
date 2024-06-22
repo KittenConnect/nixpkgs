@@ -1,56 +1,53 @@
-{
-  stdenv,
-  lib,
-  bison,
-  buildPackages,
-  directx-headers,
-  elfutils,
-  expat,
-  fetchCrate,
-  fetchurl,
-  file,
-  flex,
-  glslang,
-  intltool,
-  jdupes,
-  libdrm,
-  libffi,
-  libglvnd,
-  libomxil-bellagio,
-  libunwind,
-  libva-minimal,
-  libvdpau,
-  llvmPackages,
-  lm_sensors,
-  meson,
-  ninja,
-  openssl,
-  pkg-config,
-  python3Packages,
-  rust-bindgen,
-  rust-cbindgen,
-  rustPlatform,
-  rustc,
-  spirv-llvm-translator,
-  udev,
-  valgrind-light,
-  vulkan-loader,
-  wayland,
-  wayland-protocols,
-  wayland-scanner,
-  xcbutilkeysyms,
-  xorg,
-  zstd,
-  OpenGL,
-  Xplugin,
-  withValgrind ?
-    lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken,
-  withLibunwind ? lib.meta.availableOn stdenv.hostPlatform libunwind,
-  enableGalliumNine ? stdenv.isLinux,
-  enableOSMesa ? (stdenv.isLinux || stdenv.isFreeBSD),
-  enableOpenCL ? stdenv.isLinux && stdenv.isx86_64,
-  enableTeflon ? stdenv.isLinux && stdenv.isAarch64, # currently only supports aarch64 SoCs, may change in the future
-  enablePatentEncumberedCodecs ? true,
+{ lib
+, bison
+, buildPackages
+, directx-headers
+, elfutils
+, expat
+, fetchCrate
+, fetchurl
+, file
+, flex
+, glslang
+, intltool
+, jdupes
+, libdrm
+, libffi
+, libglvnd
+, libomxil-bellagio
+, libunwind
+, libva-minimal
+, libvdpau
+, llvmPackages
+, lm_sensors
+, meson
+, ninja
+, openssl
+, pkg-config
+, python3Packages
+, rust-bindgen
+, rust-cbindgen
+, rustPlatform
+, rustc
+, spirv-llvm-translator
+, stdenv
+, udev
+, valgrind-light
+, vulkan-loader
+, wayland
+, wayland-protocols
+, wayland-scanner
+, xcbutilkeysyms
+, xorg
+, zstd
+, OpenGL, Xplugin
+, withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken
+, withLibunwind ? lib.meta.availableOn stdenv.hostPlatform libunwind
+, enableGalliumNine ? stdenv.isLinux
+, enableOSMesa ? (stdenv.isLinux || stdenv.isFreeBSD)
+, enableOpenCL ? stdenv.isLinux && stdenv.isx86_64
+, enableTeflon ? stdenv.isLinux && stdenv.isAarch64 # currently only supports aarch64 SoCs, may change in the future
+, enablePatentEncumberedCodecs ? true,
 
   galliumDrivers ?
     if stdenv.isLinux then
@@ -319,76 +316,75 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  buildInputs =
-    with xorg;
-    [
-      directx-headers
-      elfutils
-      expat
-      glslang
-      libffi
-      libglvnd
-      libomxil-bellagio
-      libpthreadstubs
-      libunwind
-      libva-minimal
-      libvdpau
-      libX11
-      libxcb
-      libXext
-      libXfixes
-      libXrandr
-      libxshmfence
-      libXt
-      libXvMC
-      libpthreadstubs
-      libxcb
-      libxshmfence
-      xcbutilkeysyms
-      xorgproto
-    ]
-    ++ lib.optionals withLibunwind [
-      libunwind
-    ]
-    ++ [
-      python3Packages.python # for shebang
-    ]
-    ++ lib.optionals haveWayland [
-      wayland
-      wayland-protocols
-    ]
-    ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [
-      libva-minimal
-      llvmPackages.clang
-      llvmPackages.clang-unwrapped
-      llvmPackages.libclc
-      llvmPackages.libllvm
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      libomxil-bellagio
-      libva-minimal
-      lm_sensors
-      openssl
-      python3Packages.python # for shebang
-      spirv-llvm-translator
-      udev
-      lm_sensors
-    ]
-    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform elfutils) [
-      elfutils
-    ]
-    ++ lib.optionals enableOpenCL [
-      llvmPackages.clang
-    ]
-    ++ lib.optionals withValgrind [
-      valgrind-light
-      vulkan-loader
-      wayland
-      wayland-protocols
-      xcbutilkeysyms
-      xorgproto
-      zstd
-    ];
+  buildInputs = with xorg; [
+    directx-headers
+    elfutils
+    expat
+    glslang
+    libffi
+    libglvnd
+    libomxil-bellagio
+    libpthreadstubs
+    libunwind
+    libva-minimal
+    libvdpau
+    libX11
+    libxcb
+    libXext
+    libXfixes
+    libXrandr
+    libxshmfence
+    libXxf86vm
+    libXt
+    libXvMC
+    libpthreadstubs
+    libxcb
+    libxshmfence
+    xcbutilkeysyms
+    xorgproto
+  ]
+  ++ lib.optionals withLibunwind [
+    libunwind
+  ]
+  ++ [
+    python3Packages.python # for shebang
+  ]
+  ++ lib.optionals haveWayland [
+    wayland
+    wayland-protocols
+  ]
+  ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [
+    libva-minimal
+    llvmPackages.clang
+    llvmPackages.clang-unwrapped
+    llvmPackages.libclc
+    llvmPackages.libllvm
+  ]
+  ++ lib.optionals stdenv.isLinux [
+    libomxil-bellagio
+    libva-minimal
+    lm_sensors
+    openssl
+    python3Packages.python # for shebang
+    spirv-llvm-translator
+    udev
+    lm_sensors
+  ]
+  ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform elfutils) [
+    elfutils
+  ]
+  ++ lib.optionals enableOpenCL [
+    llvmPackages.clang
+  ]
+  ++ lib.optionals withValgrind [
+    valgrind-light
+    vulkan-loader
+    wayland
+    wayland-protocols
+    xcbutilkeysyms
+    xorgproto
+    zstd
+  ];
 
   depsBuildBuild = [
     pkg-config
@@ -424,11 +420,7 @@ stdenv.mkDerivation {
     buildPackages.mesa.driversdev
   ];
 
-  propagatedBuildInputs = with xorg; [
-    libXdamage
-    libXxf86vm
-    libdrm
-  ];
+  propagatedBuildInputs = [ libdrm ];
 
   doCheck = false;
 
