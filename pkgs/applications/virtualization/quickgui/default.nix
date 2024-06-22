@@ -4,6 +4,8 @@
 , autoPatchelfHook
 , dpkg
 , wrapGAppsHook3
+, quickemu
+, zenity
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -22,6 +24,8 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     wrapGAppsHook3
+    quickemu
+    zenity
   ];
 
   strictDeps = true;
@@ -38,7 +42,7 @@ stdenvNoCC.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ quickemu gnome.zenity ]}
+      --prefix PATH : ${lib.makeBinPath [ quickemu zenity ]}
     )
   '';
 
