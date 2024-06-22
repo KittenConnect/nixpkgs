@@ -22,13 +22,13 @@
 , polkit
 , accountsservice
 , gtk-doc
-, gnome
 , gobject-introspection
 , vala
 , fetchpatch
 , withQt5 ? false
 , qtbase
 , yelp-tools
+, yelp-xsl
 }:
 
 stdenv.mkDerivation rec {
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
     yelp-tools
-    gnome.yelp-xsl
+    yelp-xsl
     gobject-introspection
     gtk-doc
     intltool
