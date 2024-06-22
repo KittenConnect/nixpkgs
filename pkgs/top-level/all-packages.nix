@@ -29607,8 +29607,6 @@ with pkgs;
 
   awesomebump = libsForQt5.callPackage ../applications/graphics/awesomebump { };
 
-  inherit (gnome) baobab;
-
   badwolf = callPackage ../applications/networking/browsers/badwolf { };
 
   backintime-common = callPackage ../applications/networking/sync/backintime/common.nix { };
