@@ -10098,6 +10098,8 @@ self: super: with self; {
 
   pylddwrap = callPackage ../development/python-modules/pylddwrap { };
 
+  pyloadapi = callPackage ../development/python-modules/pyloadapi { };
+
   pyngo = callPackage ../development/python-modules/pyngo { };
 
   pyngrok = callPackage ../development/python-modules/pyngrok { };
