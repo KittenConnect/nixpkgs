@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "aws-c-common";
-  version = "0.9.21";
+  version = "0.9.23";
 
   src = fetchFromGitHub {
     owner = "awslabs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-lJCQPatwZeHpuzQni6SMMGYBH4iESQH8ofFgmRbxtnM=";
+    hash = "sha256-VN+fy1vWx8ubcsFYOW2STXFNDbmZKcjmCkv5qw2Sp2Y=";
   };
 
   propagatedBuildInputs = lib.optionals (stdenv.hostPlatform.isFreeBSD) [libexecinfo];
