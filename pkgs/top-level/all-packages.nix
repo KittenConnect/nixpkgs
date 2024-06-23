@@ -31530,7 +31530,7 @@ with pkgs;
 
   pixeluvo = callPackage ../applications/graphics/pixeluvo { };
 
-  pixinsight = libsForQt5.callPackage ../applications/graphics/pixinsight { };
+  pixinsight = qt6Packages.callPackage ../applications/graphics/pixinsight { };
 
   planner = callPackage ../applications/office/planner { };
 
