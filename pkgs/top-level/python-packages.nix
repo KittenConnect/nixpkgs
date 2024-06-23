@@ -5372,6 +5372,8 @@ self: super: with self; {
 
   hatch-nodejs-version = callPackage ../development/python-modules/hatch-nodejs-version { };
 
+  hatch-regex-commit = callPackage ../development/python-modules/hatch-regex-commit { };
+
   hatch-requirements-txt = callPackage ../development/python-modules/hatch-requirements-txt { };
 
   haversine = callPackage ../development/python-modules/haversine { };
