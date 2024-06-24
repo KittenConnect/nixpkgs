@@ -21329,7 +21329,6 @@ with pkgs;
     icu64
     icu66
     icu67
-    icu68
     icu69
     icu70
     icu71
