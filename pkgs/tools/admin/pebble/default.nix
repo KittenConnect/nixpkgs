@@ -19,6 +19,11 @@ buildGo122Module rec {
 
   vendorHash = null;
 
+  ldflags = [
+    "-s" "-w"
+    "-X main.version=${version}"
+  ];
+
   passthru.tests = {
     smoke-test = nixosTests.acme;
   };
@@ -27,8 +32,10 @@ buildGo122Module rec {
     # ca/ca.go:374:67: 9223372038 (untyped int constant) overflows uint
     broken = stdenv.hostPlatform.is32bit;
     homepage = "https://github.com/letsencrypt/pebble";
-    description = "Miniature version of Boulder, Pebble is a small RFC 8555 ACME test server not suited for a production CA";
+    description = "Small RFC 8555 ACME test server";
+    longDescription = "Miniature version of Boulder, Pebble is a small RFC 8555 ACME test server not suited for a production CA";
     license = [ lib.licenses.mpl20 ];
+    mainProgram = "pebble";
     maintainers = lib.teams.acme.members;
   };
 }
