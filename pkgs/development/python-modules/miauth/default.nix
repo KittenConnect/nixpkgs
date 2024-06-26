@@ -1,18 +1,15 @@
 {
   lib,
+  bluepy,
   buildPythonPackage,
+  cryptography,
   fetchPypi,
+  pytestCheckHook,
   pythonOlder,
 
   # build-system
+  pythonRelaxDepsHook,
   setuptools,
-
-  # dependencies
-  bluepy,
-  cryptography,
-
-  # tests
-  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
@@ -27,13 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-2/4nFInpdY8fb/b+sXhgT6ZPtEgBV+KHMyLnxIp6y/U=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  build-system = [ setuptools ];
+
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   pythonRelaxDeps = [ "cryptography" ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     bluepy
     cryptography
   ];
@@ -44,9 +41,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Authenticate and interact with Xiaomi devices over BLE";
-    mainProgram = "miauth";
     homepage = "https://github.com/dnandha/miauth";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
+    mainProgram = "miauth";
   };
 }
