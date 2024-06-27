@@ -36578,10 +36578,6 @@ with pkgs;
 
   graphwar = callPackage ../games/graphwar { };
 
-  gtetrinet = callPackage ../games/gtetrinet {
-    inherit (gnome2) GConf libgnome libgnomeui;
-  };
-
   gtypist = callPackage ../games/gtypist { };
 
   gweled = callPackage ../games/gweled { };
