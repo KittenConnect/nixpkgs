@@ -6292,8 +6292,6 @@ with pkgs;
 
   mongoaudit = callPackage ../tools/security/mongoaudit { };
 
-  mongodb-compass = callPackage ../tools/misc/mongodb-compass { };
-
   mongodb-tools = callPackage ../tools/misc/mongodb-tools { };
 
   moosefs = callPackage ../tools/filesystems/moosefs { };
