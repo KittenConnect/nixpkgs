@@ -29960,10 +29960,6 @@ with pkgs;
 
   coreth = callPackage ../applications/networking/coreth { };
 
-  coriander = callPackage ../applications/video/coriander {
-    inherit (gnome2) libgnomeui GConf;
-  };
-
   cpeditor = libsForQt5.callPackage ../applications/editors/cpeditor { };
 
   csa = callPackage ../applications/audio/csa { };
