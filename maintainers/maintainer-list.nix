@@ -3430,6 +3430,12 @@
     githubId = 977929;
     name = "Cody Allen";
   };
+  Celibistrial = {
+    email = "ryan80222@gmail.com";
+    github = "Celibistrial";
+    githubId = 82810795;
+    name = "Gaurav Choudhury";
+  };
   centromere = {
     email = "nix@centromere.net";
     github = "centromere";
