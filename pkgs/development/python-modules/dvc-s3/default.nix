@@ -26,14 +26,19 @@ buildPythonPackage rec {
 
   # dvc-s3 uses boto3 directly, we add in propagatedBuildInputs
   postPatch = ''
-    substituteInPlace setup.cfg --replace 'aiobotocore[boto3]' 'aiobotocore'
+    substituteInPlace pyproject.toml \
+      --replace-fail "aiobotocore[boto3]" "aiobotocore"
   '';
 
-  nativeBuildInputs = [
+  build-system = [
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+  ];
+
+  dependencies = [
     aiobotocore
     boto3
     dvc-objects
