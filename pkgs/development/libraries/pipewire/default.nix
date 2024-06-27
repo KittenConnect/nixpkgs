@@ -1,7 +1,6 @@
 { stdenv
 , lib
 , fetchFromGitLab
-, fetchpatch
 , python3
 , meson
 , ninja
@@ -78,7 +77,7 @@ assert ldacbtSupport -> bluezSupport;
 
 stdenv.mkDerivation(finalAttrs: {
   pname = "pipewire";
-  version = "1.0.7";
+  version = "1.2.0";
 
   outputs = [
     "out"
@@ -94,7 +93,7 @@ stdenv.mkDerivation(finalAttrs: {
     owner = "pipewire";
     repo = "pipewire";
     rev = finalAttrs.version;
-    sha256 = "sha256-YzI+hkX1ZdeTfxuKaw5P9OYPtkWtUg9cNo32wLCgjNU=";
+    sha256 = "sha256-hjjiH7+JoyRTcdbPDvkUEpO72b5p8CbTD6Un/vZrHL8=";
   };
 
   patches = [
@@ -228,6 +227,7 @@ stdenv.mkDerivation(finalAttrs: {
     (lib.mesonBool "rlimits-install" false) # installs to /etc, we won't use this anyway
     (lib.mesonEnable "compress-offload" true)
     (lib.mesonEnable "man" true)
+    (lib.mesonEnable "snap" false) # we don't currently have a working snapd
   ];
 
   env.CFLAGS = lib.optionalString stdenv.isFreeBSD "-Dthread_local=_Thread_local";
