@@ -38260,6 +38260,7 @@ with pkgs;
     coqPackages_8_17 coq_8_17
     coqPackages_8_18 coq_8_18
     coqPackages_8_19 coq_8_19
+    coqPackages_8_20 coq_8_20
     coqPackages      coq
   ;
 
