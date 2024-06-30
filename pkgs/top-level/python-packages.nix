@@ -4477,6 +4477,8 @@ self: super: with self; {
 
   flit-core = callPackage ../development/python-modules/flit-core { };
 
+  flit-gettext = callPackage ../development/python-modules/flit-gettext { };
+
   flit-scm = callPackage ../development/python-modules/flit-scm { };
 
   floret = callPackage ../development/python-modules/floret { };
