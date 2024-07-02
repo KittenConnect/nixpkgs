@@ -12352,12 +12352,6 @@
     githubId = 33522919;
     name = "Marshall Arruda";
   };
-  martfont = {
-    name = "Martino Fontana";
-    email = "tinozzo123@tutanota.com";
-    github = "SuperSamus";
-    githubId = 40663462;
-  };
   martijnvermaat = {
     email = "martijn@vermaat.name";
     github = "martijnvermaat";
