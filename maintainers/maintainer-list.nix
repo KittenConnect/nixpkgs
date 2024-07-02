@@ -8039,12 +8039,6 @@
     githubId = 222664;
     name = "Matthew Leach";
   };
-  hexchen = {
-    email = "nix@lilwit.ch";
-    github = "hexchen";
-    githubId = 41522204;
-    name = "hexchen";
-  };
   hexclover = {
     email = "hexclover@outlook.com";
     github = "hexclover";
