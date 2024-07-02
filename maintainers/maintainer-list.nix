@@ -11444,12 +11444,6 @@
     githubId = 54189319;
     name = "Lilly Cham";
   };
-  lilyball = {
-    email = "lily@sb.org";
-    github = "lilyball";
-    githubId = 714;
-    name = "Lily Ballard";
-  };
   limeytexan = {
     email = "limeytexan@gmail.com";
     github = "limeytexan";
