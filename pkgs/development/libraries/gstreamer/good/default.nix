@@ -224,6 +224,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.lgpl2Plus;
     platforms = platforms.linux ++ platforms.darwin ++ platforms.freebsd;
-    maintainers = with maintainers; [ matthewbauer lilyinstarlight ];
+    maintainers = with maintainers; [ matthewbauer ];
   };
 }
