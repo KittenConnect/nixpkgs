@@ -18999,10 +18999,6 @@ with pkgs;
 
   nix-build-uncached = callPackage ../development/tools/misc/nix-build-uncached { };
 
-  nexus = callPackage ../development/tools/repository-managers/nexus {
-    jre_headless = jre8_headless;
-  };
-
   nexusmods-app-unfree = callPackage ../by-name/ne/nexusmods-app/package.nix {
     enableUnfree = true;
   };
