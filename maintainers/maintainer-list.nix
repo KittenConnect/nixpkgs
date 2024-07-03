@@ -18073,6 +18073,12 @@
     githubId = 11613056;
     name = "Scott Dier";
   };
+  seanrmurphy = {
+    email = "sean@gopaddy.ch";
+    github = "seanrmurphy";
+    githubId = 540360;
+    name = "Sean Murphy";
+  };
   SeanZicari = {
     email = "sean.zicari@gmail.com";
     github = "SeanZicari";
