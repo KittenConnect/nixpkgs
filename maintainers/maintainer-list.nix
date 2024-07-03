@@ -2605,6 +2605,11 @@
     githubId = 30630233;
     name = "Timo Triebensky";
   };
+  birdee = {
+    name = "birdee";
+    github = "BirdeeHub";
+    githubId = 85372418;
+  };
   birkb = {
     email = "birk@batchworks.de";
     github = "birkb";
