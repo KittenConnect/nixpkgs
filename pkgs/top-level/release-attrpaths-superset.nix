@@ -77,9 +77,8 @@ let
     pkgs = true;
     test-pkgs = true;
 
-    buildHaskellPackages = true;
     buildPackages = true;
-    generateOptparseApplicativeCompletions = true;
+    buildFreebsd = true;
 
     callPackage = true;
     mkDerivation = true;
