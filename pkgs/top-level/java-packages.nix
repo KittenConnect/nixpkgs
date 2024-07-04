@@ -15,6 +15,44 @@ in {
   inherit openjfx11 openjfx17 openjfx19 openjfx20 openjfx21 openjfx22;
 
   compiler = let
+
+    gnomeArgs = {
+      inherit (gnome2) GConf gnome_vfs;
+    };
+
+    bootstrapArgs = gnomeArgs // {
+      openjfx = openjfx11; /* need this despite next line :-( */
+      enableJavaFX = false;
+      headless = true;
+    };
+
+    mkAdoptopenjdk = path-linux: path-darwin: let
+      package-linux  = import path-linux { inherit stdenv lib; };
+      package-darwin = import path-darwin { inherit lib; };
+      package = if stdenv.isLinux
+        then package-linux
+        else package-darwin;
+    in {
+      inherit package-linux package-darwin;
+
+      jdk-hotspot = callPackage package.jdk-hotspot {};
+      jre-hotspot = callPackage package.jre-hotspot {};
+    } // lib.optionalAttrs (package?jdk-openj9) {
+      jdk-openj9  = callPackage package.jdk-openj9  {};
+    } // lib.optionalAttrs (package?jre-openj9) {
+      jre-openj9  = callPackage package.jre-openj9  {};
+    };
+
+    mkBootstrap = adoptopenjdk: path: args:
+      /* adoptopenjdk not available for i686, so fall back to our old builds for bootstrapping */
+      if   !stdenv.hostPlatform.isi686
+      then
+        # only linux has the gtkSupport option
+        if stdenv.isLinux
+        then adoptopenjdk.jdk-hotspot.override { gtkSupport = false; }
+        else adoptopenjdk.jdk-hotspot
+      else callPackage path args;
+
     mkOpenjdk = path-linux: path-darwin: args:
       if stdenv.isLinux
       then mkOpenjdkLinuxOnly path-linux args
