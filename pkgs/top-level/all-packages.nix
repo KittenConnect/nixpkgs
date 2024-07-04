@@ -8130,8 +8130,6 @@ with pkgs;
 
   glogg = libsForQt5.callPackage ../tools/text/glogg { };
 
-  glxinfo = callPackage ../tools/graphics/glxinfo { };
-
   gmrender-resurrect = callPackage ../tools/networking/gmrender-resurrect {
     inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav;
   };
@@ -19878,9 +19876,9 @@ with pkgs;
       intel-media-driver
       intel-vaapi-driver
       mesa
+      mesa-demos
       libva-vdpau-driver
       libvdpau-va-gl
-      glxinfo
       vdpauinfo;
   };
 
