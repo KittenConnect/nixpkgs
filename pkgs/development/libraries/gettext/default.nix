@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.gnu.org/software/gettext/";
 
-    maintainers = with maintainers; [ zimbatm vrthra ];
+    maintainers = with maintainers; [ zimbatm ];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };
