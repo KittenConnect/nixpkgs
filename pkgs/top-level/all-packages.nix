@@ -12721,8 +12721,6 @@ with pkgs;
 
   shocco = callPackage ../tools/text/shocco { };
 
-  shopify-cli = callPackage ../development/web/shopify-cli { };
-
   shopify-themekit = callPackage ../development/web/shopify-themekit { };
 
   shorewall = callPackage ../tools/networking/shorewall { };
