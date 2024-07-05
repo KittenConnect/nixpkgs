@@ -7537,7 +7537,8 @@
     name = "Yacine Hmito";
   };
   gracicot = {
-    email = "gracicot42@gmail.com";
+    email = "dev@gracicot.com";
+    matrix = "@gracicot-59e8f173d73408ce4f7ac803:gitter.im";
     github = "gracicot";
     githubId = 2906673;
     name = "Guillaume Racicot";
