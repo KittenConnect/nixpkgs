@@ -1,12 +1,12 @@
 {
   lib,
   buildPythonPackage,
-  pythonAtLeast,
   pythonOlder,
   fetchFromGitHub,
   fetchPypi,
   setuptools,
   setuptools-scm,
+  more-itertools,
   cssselect,
   jaraco-test,
   lxml,
@@ -30,6 +30,8 @@ buildPythonPackage rec {
   };
 
   build-system = [ setuptools-scm ];
+
+  dependencies = [ more-itertools ];
 
   nativeCheckInputs = [
     cssselect
