@@ -11873,8 +11873,6 @@ with pkgs;
 
   pretender = callPackage ../tools/security/pretender { };
 
-  prettierd = callPackage ../development/tools/prettierd { };
-
   pretty-simple = callPackage ../development/tools/pretty-simple { };
 
   prettyping = callPackage ../tools/networking/prettyping { };
