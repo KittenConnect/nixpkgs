@@ -5,7 +5,6 @@
   fetchFromGitHub,
   poetry-core,
   pdm-backend,
-  pythonRelaxDepsHook,
   pytestCheckHook,
   pythonOlder,
   pytz,
