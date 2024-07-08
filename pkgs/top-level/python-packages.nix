@@ -10151,8 +10151,6 @@ self: super: with self; {
 
   pynobo = callPackage ../development/python-modules/pynobo { };
 
-  pynose = callPackage ../development/python-modules/pynose { };
-
   pynotifier = callPackage ../development/python-modules/pynotifier { };
 
   pynuki = callPackage ../development/python-modules/pynuki { };
