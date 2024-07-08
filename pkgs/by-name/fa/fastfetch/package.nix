@@ -134,6 +134,10 @@ stdenv'.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_XRANDR" x11Support)
   ];
 
+  postPatch = ''
+    substituteInPlace completions/fastfetch.fish --replace-fail python3 '${python3.interpreter}'
+  '';
+
   postInstall = ''
     wrapProgram $out/bin/fastfetch \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
