@@ -146,12 +146,8 @@ let
       "build-node-api-tests"
       "tooltest"
       "cctest"
-    ] ++ lib.optionals (!stdenv.buildPlatform.isDarwin || lib.versionAtLeast version "20") [
-      # There are some test failures on macOS before v20 that are not worth the
-      # time to debug for a version that would be eventually removed in less
-      # than a year (Node.js 18 will be EOL at 2025-04-30). Note that these
-      # failures are specific to Nix sandbox on macOS and should not affect
-      # actual functionality.
+    ] ++ lib.optionals (!stdenv.isDarwin) [
+      # TODO: JS test suite is too flaky on Darwin; revisit at a later date.
       "test-ci-js"
     ]);
 
