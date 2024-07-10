@@ -9416,6 +9416,8 @@ self: super: with self; {
 
   optax = callPackage ../development/python-modules/optax { };
 
+  optimistix = callPackage ../development/python-modules/optimistix { };
+
   optimum = callPackage ../development/python-modules/optimum { };
 
   optree = callPackage ../development/python-modules/optree { };
