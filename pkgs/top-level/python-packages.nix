@@ -4510,6 +4510,8 @@ self: super: with self; {
 
   flowlogs-reader = callPackage ../development/python-modules/flowlogs-reader { };
 
+  flowmc = callPackage ../development/python-modules/flowmc { };
+
   fluent-logger = callPackage ../development/python-modules/fluent-logger { };
 
   flufl-bounce = callPackage ../development/python-modules/flufl/bounce.nix { };
