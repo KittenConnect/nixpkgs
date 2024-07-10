@@ -2182,9 +2182,7 @@ with pkgs;
 
   commitlint = nodePackages."@commitlint/cli";
 
-  conform = callPackage ../applications/version-management/conform {
-    buildGoModule = buildGo122Module;
-  };
+  conform = callPackage ../applications/version-management/conform { };
 
   datalad = callPackage ../applications/version-management/datalad { };
 
