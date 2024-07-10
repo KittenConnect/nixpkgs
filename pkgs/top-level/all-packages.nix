@@ -18601,9 +18601,7 @@ with pkgs;
 
   gtranslator = callPackage ../tools/text/gtranslator { };
 
-  gtree = callPackage ../tools/text/gtree {
-    buildGoModule = buildGo122Module;
-  };
+  gtree = callPackage ../tools/text/gtree { };
 
   guff = callPackage ../tools/graphics/guff { };
 
