@@ -31332,12 +31332,7 @@ with pkgs;
 
   spotify-cli-linux = callPackage ../applications/audio/spotify-cli-linux { };
 
-  spotifyd = callPackage ../applications/audio/spotifyd {
-    withALSA = stdenv.isLinux;
-    withPulseAudio = config.pulseaudio or stdenv.isLinux;
-    withPortAudio = stdenv.isDarwin;
-    withMpris = stdenv.isLinux;
-  };
+  spotifyd = callPackage ../applications/audio/spotifyd { };
 
   srain = callPackage ../applications/networking/irc/srain { };
 
