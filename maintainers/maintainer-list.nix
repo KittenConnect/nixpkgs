@@ -17383,6 +17383,12 @@
     githubId = 449990;
     name = "Cedric Cellier";
   };
+  rixxc = {
+    email = "a_kaiser+nixpkgs@posteo.de";
+    github = "Rixxc";
+    githubId = 30271441;
+    name = "Aaron Kaiser";
+  };
   rizary = {
     email = "andika@numtide.com";
     github = "Rizary";
