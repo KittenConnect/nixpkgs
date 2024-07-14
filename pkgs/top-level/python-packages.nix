@@ -14957,6 +14957,8 @@ self: super: with self; {
 
   striprtf = callPackage ../development/python-modules/striprtf { };
 
+  strpdatetime = callPackage ../development/python-modules/strpdatetime { };
+
   structlog = callPackage ../development/python-modules/structlog { };
 
   stubserver = callPackage ../development/python-modules/stubserver { };
