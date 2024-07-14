@@ -9605,6 +9605,8 @@ self: super: with self; {
 
   ossfs = callPackage ../development/python-modules/ossfs { };
 
+  osxphotos = callPackage ../development/python-modules/osxphotos { };
+
   ots-python = callPackage ../development/python-modules/ots-python { };
 
   outcome = callPackage ../development/python-modules/outcome { };
