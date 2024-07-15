@@ -92,6 +92,7 @@ mapAliases ({
   # Post 24.11 branch-off, this should throw an error
   addOpenGLRunpath = addDriverRunpath; # Added 2024-05-25
   aether = throw "aether has been removed from nixpkgs; upstream unmaintained, security issues"; # Added 2023-10-03
+  aeon = throw "aeon has been removed from nixpkgs, as it was broken and unmaintained"; # Added 2024-07-15
   afl = throw "afl has been removed as the upstream project was archived. Consider using 'aflplusplus'"; # Added 2024-04-21
   agda-pkg = throw "agda-pkg has been removed due to being unmaintained"; # Added 2024-09-10"
   agebox = throw "agebox has been removed due to lack of upstream maintenance"; # Added 2024-07-13
