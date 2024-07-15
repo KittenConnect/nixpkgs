@@ -35,6 +35,8 @@ in
 
   ess-R-object-popup = callPackage ./manual-packages/ess-R-object-popup { };
 
+  enlight = callPackage ./manual-packages/enlight { };
+
   evil-markdown = callPackage ./manual-packages/evil-markdown { };
 
   font-lock-plus = callPackage ./manual-packages/font-lock-plus { };
@@ -121,4 +123,8 @@ in
   emacsSessionManagement = self.session-management-for-emacs;
   rectMark = self.rect-mark;
   sunriseCommander = self.sunrise-commander;
+}
+### Aliases
+// lib.optionalAttrs pkgs.config.allowAliases {
+  ess-R-object-popup = throw "emacsPackages.ess-R-object-popup was deleted, since the upstream repo looks abandoned."; # Added 2024-07-15
 }
