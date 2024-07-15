@@ -20603,8 +20603,6 @@ with pkgs;
 
   geogram = callPackage ../development/libraries/geogram { };
 
-  geographiclib = callPackage ../development/libraries/geographiclib { };
-
   geoip = callPackage ../development/libraries/geoip { };
 
   geoipjava = callPackage ../development/libraries/java/geoipjava { };
