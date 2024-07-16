@@ -14528,6 +14528,11 @@
     github = "dev-nis";
     githubId = 132921300;
   };
+  nishimara = {
+    name = "nishimara";
+    github = "Nishimara";
+    githubId = 59232119;
+  };
   nitsky = {
     name = "nitsky";
     github = "nitsky";
