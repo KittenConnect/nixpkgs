@@ -30,7 +30,6 @@
 , ApplicationServices
 , Foundation
 , testers
-, imagemagick
 , nixos-icons
 , perlPackages
 , python3
