@@ -17329,6 +17329,8 @@ self: super: with self; {
 
   whoisdomain = callPackage ../development/python-modules/whoisdomain { };
 
+  whool = callPackage ../development/python-modules/whool { };
+
   whoosh = callPackage ../development/python-modules/whoosh { };
 
   widgetsnbextension = callPackage ../development/python-modules/widgetsnbextension { };
