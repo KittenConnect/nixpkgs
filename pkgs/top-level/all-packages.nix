@@ -8480,8 +8480,6 @@ with pkgs;
 
   gpp = callPackage ../development/tools/gpp { };
 
-  gnuastro = callPackage ../applications/science/astronomy/gnuastro { };
-
   gpredict = callPackage ../applications/science/astronomy/gpredict {
     hamlib = hamlib_4;
   };
