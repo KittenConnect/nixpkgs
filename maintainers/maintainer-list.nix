@@ -10150,6 +10150,12 @@
     githubId = 12773748;
     matrix = "@j.r:chaos.jetzt";
   };
+  jukremer = {
+    email = "nixpkgs@jankremer.eu";
+    github = "jukremer";
+    githubId = 79042825;
+    name = "Jan Kremer";
+  };
   juliendehos = {
     email = "dehos@lisic.univ-littoral.fr";
     github = "juliendehos";
