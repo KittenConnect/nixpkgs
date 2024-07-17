@@ -134,7 +134,14 @@ let
 
     strictDeps = true;
 
-    env = lib.optionalAttrs (stdenv.isDarwin && stdenv.isx86_64) {
+    env = {
+      # Tell ninja to avoid ANSI sequences, otherwise we don’t see build
+      # progress in Nix logs.
+      #
+      # Note: do not set TERM=dumb environment variable globally, it is used in
+      # test-ci-js test suite to skip tests that otherwise run fine.
+      NINJA = "TERM=dumb ninja";
+    } // lib.optionalAttrs (stdenv.isDarwin && stdenv.isx86_64) {
       # Make sure libc++ uses `posix_memalign` instead of `aligned_alloc` on x86_64-darwin.
       # Otherwise, nodejs would require the 11.0 SDK and macOS 10.15+.
       NIX_CFLAGS_COMPILE = "-D__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__=101300";
@@ -216,12 +223,6 @@ let
 
     enableParallelBuilding = true;
 
-    makeFlags = [
-      # Tell ninja to avoid ANSI sequences, otherwise we don’t see build
-      # progress in Nix logs.
-      "TERM=dumb"
-    ];
-
     # Don't allow enabling content addressed conversion as `nodejs`
     # checksums it's image before conversion happens and image loading
     # breaks:
@@ -246,6 +247,9 @@ let
 
     doCheck = canExecute;
 
+    # See https://github.com/nodejs/node/issues/22006
+    enableParallelChecking = false;
+
     # Some dependencies required for tools/doc/node_modules (and therefore
     # test-addons, jstest and others) target are not included in the tarball.
     # Run test targets that do not require network access.
@@ -254,8 +258,12 @@ let
       "build-node-api-tests"
       "tooltest"
       "cctest"
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-      # TODO: JS test suite is too flaky on Darwin; revisit at a later date.
+    ] ++ lib.optionals (!stdenv.buildPlatform.isDarwin || lib.versionAtLeast version "20") [
+      # There are some test failures on macOS before v20 that are not worth the
+      # time to debug for a version that would be eventually removed in less
+      # than a year (Node.js 18 will be EOL at 2025-04-30). Note that these
+      # failures are specific to Nix sandbox on macOS and should not affect
+      # actual functionality.
       "test-ci-js"
     ]);
 
