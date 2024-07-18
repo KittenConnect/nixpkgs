@@ -65,6 +65,12 @@ stdenv.mkDerivation rec {
     libevent
     libdrm
 
+    # hotplugging
+    systemd
+
+    # pycamera
+    python3Packages.pybind11
+
     # yamlparser
     libyaml
 
@@ -80,7 +86,6 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
     python3Packages.jinja2
-    python3Packages.pybind11
     python3Packages.pyyaml
     python3Packages.ply
     python3Packages.sphinx
