@@ -1056,7 +1056,7 @@ with pkgs;
 
   inherit ({
     mysql-shell_8 = callPackage ../development/tools/mysql-shell/8.nix {
-      inherit (darwin) cctools DarwinTools;
+      inherit (darwin) DarwinTools;
       inherit (darwin.apple_sdk.frameworks) CoreServices;
       antlr = antlr4_10;
       icu =  icu73;
@@ -1067,7 +1067,7 @@ with pkgs;
   ;
 
   mysql-shell-innovation = callPackage ../development/tools/mysql-shell/innovation.nix {
-    inherit (darwin) cctools DarwinTools;
+    inherit (darwin) DarwinTools;
     inherit (darwin.apple_sdk.frameworks) CoreServices;
     antlr = antlr4_10;
     icu =  icu73;
@@ -3808,9 +3808,7 @@ with pkgs;
 
   glyr = callPackage ../tools/audio/glyr { };
 
-  google-amber = callPackage ../tools/graphics/amber {
-    inherit (darwin) cctools;
-  };
+  google-amber = callPackage ../tools/graphics/amber { };
 
   hakrawler = callPackage ../tools/security/hakrawler { };
 
@@ -5443,7 +5441,6 @@ with pkgs;
   hocr-tools = with python3Packages; toPythonApplication hocr-tools;
 
   homepage-dashboard = callPackage ../servers/homepage-dashboard {
-    inherit (darwin) cctools;
     inherit (darwin.apple_sdk.frameworks) IOKit;
   };
 
@@ -7908,7 +7905,7 @@ with pkgs;
   lpd8editor = libsForQt5.callPackage ../applications/audio/lpd8editor {};
 
   lp_solve = callPackage ../applications/science/math/lp_solve {
-    inherit (darwin) cctools autoSignDarwinBinariesHook;
+    inherit (darwin) autoSignDarwinBinariesHook;
   };
 
   fabric-installer = callPackage ../tools/games/minecraft/fabric-installer { };
@@ -10322,7 +10319,7 @@ with pkgs;
   bubblemail = callPackage ../applications/networking/mailreaders/bubblemail { };
 
   mailpit = callPackage ../servers/mail/mailpit {
-    libtool = if stdenv.isDarwin then darwin.cctools else libtool;
+    libtool = if stdenv.isDarwin then cctools else libtool;
   };
 
   mailsend = callPackage ../tools/networking/mailsend { };
@@ -12623,9 +12620,7 @@ with pkgs;
 
   selectdefaultapplication = libsForQt5.callPackage ../applications/misc/selectdefaultapplication { };
 
-  semantic-release = callPackage ../development/tools/semantic-release {
-    inherit (darwin) cctools;
-  };
+  semantic-release = callPackage ../development/tools/semantic-release { };
 
   semgrep = python3.pkgs.callPackage ../tools/security/semgrep { };
   semgrep-core = callPackage ../tools/security/semgrep/semgrep-core.nix { };
@@ -14232,7 +14227,6 @@ with pkgs;
 
   unicorn = callPackage ../development/libraries/unicorn {
     inherit (darwin.apple_sdk.frameworks) IOKit;
-    inherit (darwin) cctools;
   };
 
   unittest-cpp = callPackage ../development/libraries/unittest-cpp { };
@@ -15009,9 +15003,7 @@ with pkgs;
     stdenv = gccStdenv;
   };
 
-  chez = callPackage ../development/compilers/chez {
-    inherit (darwin) cctools;
-  };
+  chez = callPackage ../development/compilers/chez { };
 
   chez-racket = callPackage ../development/compilers/chez-racket { };
 
@@ -17305,7 +17297,7 @@ with pkgs;
     inherit (darwin) libobjc;
   };
   defaultGemConfig = callPackage ../development/ruby-modules/gem-config {
-    inherit (darwin) DarwinTools cctools autoSignDarwinBinariesHook;
+    inherit (darwin) DarwinTools autoSignDarwinBinariesHook;
     inherit (darwin.apple_sdk.frameworks) CoreServices;
   };
   bundix = callPackage ../development/ruby-modules/bundix { };
@@ -17801,7 +17793,7 @@ with pkgs;
   bazel = bazel_6;
 
   bazel_5 = callPackage ../development/tools/build-managers/bazel/bazel_5 {
-    inherit (darwin) cctools sigtool;
+    inherit (darwin) sigtool;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation CoreServices Foundation;
     buildJdk = jdk11_headless;
     runJdk = jdk11_headless;
@@ -17812,7 +17804,7 @@ with pkgs;
   };
 
   bazel_6 = darwin.apple_sdk_11_0.callPackage ../development/tools/build-managers/bazel/bazel_6 {
-    inherit (darwin) cctools sigtool;
+    inherit (darwin) sigtool;
     inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation CoreServices Foundation;
     buildJdk = jdk11_headless;
     runJdk = jdk11_headless;
@@ -17824,7 +17816,7 @@ with pkgs;
   };
 
   bazel_7 = darwin.apple_sdk_11_0.callPackage ../development/tools/build-managers/bazel/bazel_7 {
-    inherit (darwin) cctools sigtool;
+    inherit (darwin) sigtool;
     inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation CoreServices Foundation IOKit;
     buildJdk = jdk17_headless;
     runJdk = jdk17_headless;
@@ -19544,7 +19536,7 @@ with pkgs;
   jhiccup = callPackage ../development/tools/java/jhiccup { };
 
   valgrind = callPackage ../development/tools/analysis/valgrind {
-    inherit (buildPackages.darwin) xnu bootstrap_cmds cctools;
+    inherit (buildPackages.darwin) xnu bootstrap_cmds;
   };
   valgrind-light = res.valgrind.override { gdb = null; };
 
@@ -20827,7 +20819,6 @@ with pkgs;
 
   gobject-introspection-unwrapped = callPackage ../development/libraries/gobject-introspection {
     nixStoreDir = config.nix.storeDir or builtins.storeDir;
-    inherit (darwin) cctools;
   };
 
   goocanvas = callPackage ../development/libraries/goocanvas { };
@@ -20875,7 +20866,6 @@ with pkgs;
   };
 
   gpac = callPackage ../applications/video/gpac {
-    inherit (darwin) cctools;
     inherit (darwin.apple_sdk.frameworks) Carbon;
   };
 
@@ -22877,7 +22867,7 @@ with pkgs;
   lirc = callPackage ../development/libraries/lirc { };
 
   liquid-dsp = callPackage ../development/libraries/liquid-dsp {
-    inherit (darwin) autoSignDarwinBinariesHook cctools;
+    inherit (darwin) autoSignDarwinBinariesHook;
   };
 
   liquidfun = callPackage ../development/libraries/liquidfun { };
@@ -25842,14 +25832,12 @@ with pkgs;
   mongodb-5_0 = callPackage ../servers/nosql/mongodb/5.0.nix {
     sasl = cyrus_sasl;
     boost = boost179.override { enableShared = false; };
-    inherit (darwin) cctools;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
   };
 
   mongodb-6_0 = darwin.apple_sdk_11_0.callPackage ../servers/nosql/mongodb/6.0.nix {
     sasl = cyrus_sasl;
     boost = boost178.override { enableShared = false; };
-    inherit (darwin) cctools;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
     stdenv = if stdenv.isDarwin then
       darwin.apple_sdk_11_0.stdenv.override (old: {
@@ -25873,7 +25861,7 @@ with pkgs;
   influxdb2 = callPackage ../servers/nosql/influxdb2/combined.nix { };
 
   mysql80 = callPackage ../servers/sql/mysql/8.0.x.nix {
-    inherit (darwin) cctools developer_cmds DarwinTools;
+    inherit (darwin) developer_cmds DarwinTools;
     inherit (darwin.apple_sdk.frameworks) CoreServices;
     boost = boost177; # Configure checks for specific version.
     icu = icu69;
@@ -26156,7 +26144,7 @@ with pkgs;
 
   rethinkdb = callPackage ../servers/nosql/rethinkdb {
     stdenv = clangStdenv;
-    libtool = darwin.cctools;
+    libtool = cctools;
     protobuf = protobuf_21;
   };
 
@@ -28747,7 +28735,7 @@ with pkgs;
   session-desktop = callPackage ../applications/networking/instant-messengers/session-desktop { };
 
   shaderc = callPackage ../development/compilers/shaderc {
-    inherit (darwin) autoSignDarwinBinariesHook cctools;
+    inherit (darwin) autoSignDarwinBinariesHook;
   };
 
   shades-of-gray-theme = callPackage ../data/themes/shades-of-gray { };
@@ -32178,7 +32166,7 @@ with pkgs;
 
   mac = callPackage ../development/libraries/mac { };
 
-  macdylibbundler = callPackage ../development/tools/misc/macdylibbundler { inherit (darwin) cctools; };
+  macdylibbundler = callPackage ../development/tools/misc/macdylibbundler { };
 
   magic-wormhole = with python3Packages; toPythonApplication magic-wormhole;
 
@@ -34826,14 +34814,12 @@ with pkgs;
   openvscode-server = callPackage ../servers/openvscode-server {
     nodejs = nodejs_18;
     inherit (darwin.apple_sdk.frameworks) AppKit Cocoa Security;
-    inherit (darwin) cctools;
     inherit (nodePackages) node-gyp;
   };
 
   code-server = callPackage ../servers/code-server {
     nodejs = nodejs_18;
     inherit (darwin.apple_sdk.frameworks) AppKit Cocoa CoreServices Security;
-    inherit (darwin) cctools;
     inherit (nodePackages) node-gyp;
   };
 
@@ -36223,9 +36209,7 @@ with pkgs;
 
   garden-of-coloured-lights = callPackage ../games/garden-of-coloured-lights { allegro = allegro4; };
 
-  gargoyle = callPackage ../games/gargoyle {
-    inherit (darwin) cctools;
-  };
+  gargoyle = callPackage ../games/gargoyle { };
 
   gav = callPackage ../games/gav { };
 
@@ -36691,7 +36675,6 @@ with pkgs;
   scid-vs-pc = callPackage ../games/scid-vs-pc { };
 
   scummvm = callPackage ../games/scummvm {
-    inherit (darwin) cctools;
     inherit (darwin.apple_sdk.frameworks) Cocoa AudioToolbox Carbon CoreMIDI AudioUnit;
   };
 
@@ -40085,7 +40068,7 @@ with pkgs;
 
   check-uptime = callPackage ../servers/monitoring/plugins/uptime.nix { };
 
-  ghc-standalone-archive = callPackage ../os-specific/darwin/ghc-standalone-archive { inherit (darwin) cctools; };
+  ghc-standalone-archive = callPackage ../os-specific/darwin/ghc-standalone-archive { };
 
   vdr = callPackage ../applications/video/vdr { };
   vdrPlugins = recurseIntoAttrs (callPackage ../applications/video/vdr/plugins.nix { });
