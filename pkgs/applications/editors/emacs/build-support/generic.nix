@@ -4,7 +4,8 @@
 
 let
   inherit (lib) optionalAttrs getLib;
-  handledArgs = [ "buildInputs" "packageRequires" "meta" ];
+  handledArgs = [ "buildInputs" "packageRequires" "propagatedUserEnvPkgs" "meta" ]
+    ++ lib.optionals (emacs.withNativeCompilation or false) [ "nativeBuildInputs" "postInstall" ];
 
   setupHook = writeText "setup-hook.sh" ''
     source ${./emacs-funcs.sh}
@@ -25,7 +26,10 @@ in
 { pname
 , version
 , buildInputs ? []
+, nativeBuildInputs ? []
 , packageRequires ? []
+, propagatedUserEnvPkgs ? []
+, postInstall ? ""
 , meta ? {}
 , turnCompilationWarningToError ? false
 , ignoreCompilationError ? true
@@ -53,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: ({
 
   buildInputs = [emacs texinfo] ++ packageRequires ++ buildInputs;
   propagatedBuildInputs = packageRequires;
-  propagatedUserEnvPkgs = packageRequires;
+  propagatedUserEnvPkgs = packageRequires ++ propagatedUserEnvPkgs;
 
   inherit setupHook;
 
@@ -71,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: ({
 
   LIBRARY_PATH = "${getLib stdenv.cc.libc}/lib";
 
-  nativeBuildInputs = [ gcc ];
+  nativeBuildInputs = [ gcc ] ++ nativeBuildInputs;
 
   addEmacsNativeLoadPath = true;
 
@@ -86,14 +90,12 @@ stdenv.mkDerivation (finalAttrs: ({
     addEmacsVars "$out"
 
     find $out/share/emacs -type f -name '*.el' -print0 \
-      | xargs --verbose -0 -I {} -n 1 -P $NIX_BUILD_CORES sh -c \
-          "emacs \
-             --batch \
-             --eval '(setq large-file-warning-threshold nil)' \
-             --eval '(setq byte-compile-error-on-warn ${if finalAttrs.turnCompilationWarningToError then "t" else "nil"})' \
-             -f batch-native-compile {} \
-           || exit ${if finalAttrs.ignoreCompilationError then "0" else "\\$?"}"
-  '';
+      | xargs -0 -I {} -n 1 -P $NIX_BUILD_CORES sh -c \
+          "emacs --batch \
+            --eval '(setq large-file-warning-threshold nil)' \
+            --eval '(setq byte-compile-error-on-warn ${if finalAttrs.turnCompilationWarningToError then "t" else "nil"})' \
+           -f batch-native-compile {} || true"
+  '' + postInstall;
 }
 
 // removeAttrs args handledArgs))
