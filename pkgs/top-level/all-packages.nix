@@ -30278,8 +30278,6 @@ with pkgs;
 
   flamp = callPackage ../applications/radio/flamp { };
 
-  flexget = callPackage ../applications/networking/flexget { };
-
   fldigi = callPackage ../applications/radio/fldigi {
     hamlib = hamlib_4;
   };
