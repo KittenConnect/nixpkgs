@@ -6754,6 +6754,8 @@ self: super: with self; {
 
   leather = callPackage ../development/python-modules/leather { };
 
+  leanblueprint = callPackage ../development/python-modules/leanblueprint { };
+
   leb128 = callPackage ../development/python-modules/leb128 { };
 
   led-ble = callPackage ../development/python-modules/led-ble { };
