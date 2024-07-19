@@ -22203,6 +22203,12 @@
     githubId = 3705333;
     name = "Dmitry V.";
   };
+  yash-garg = {
+    email = "me@yashgarg.dev";
+    github = "yash-garg";
+    githubId = 33605526;
+    name = "Yash Garg";
+  };
   yavko = {
     name = "Yavor Kolev";
     email = "yavornkolev@gmail.com";
