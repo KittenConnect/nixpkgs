@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   nativeBuildInputs = [ autoreconfHook groff makeWrapper pkg-config zstd ];
   buildInputs = [ libpipeline db groff ] # (Yes, 'groff' is both native and build input)
-  ++ lib.optionals stdenv.isFreeBSD [ libiconvReal ];
-  nativeCheckInputs = if stdenv.isFreeBSD then [ libiconvReal ] else [ libiconv /* for 'iconv' binary */ ];
+    ++ lib.optional stdenv.isFreeBSD libiconvReal;
+  nativeCheckInputs = [ (if stdenv.isFreeBSD then libiconvReal else libiconv) ]; # for 'iconv' binary; make very sure it matches buildinput libiconv
 
   patches = [
     ./systemwide-man-db-conf.patch
