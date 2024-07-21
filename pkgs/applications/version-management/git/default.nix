@@ -3,7 +3,7 @@
 , gnugrep, gnused, gawk, coreutils, findutils # needed at runtime by git-filter-branch etc
 , openssh, pcre2, bash
 , asciidoc, texinfo, xmlto, docbook2x, docbook_xsl, docbook_xml_dtd_45
-, libxslt, tcl, tk, makeWrapper, libiconvReal, libiconv, iconv
+, libxslt, tcl, tk, makeWrapper, libiconv, libiconvReal
 , svnSupport ? false, subversionClient, perlLibs, smtpPerlLibs
 , perlSupport ? stdenv.buildPlatform == stdenv.hostPlatform
 , nlsSupport ? true
@@ -89,10 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ gettext perlPackages.perl makeWrapper pkg-config ]
     ++ lib.optionals withManual [ asciidoc texinfo xmlto docbook2x
          docbook_xsl docbook_xml_dtd_45 libxslt ];
-  buildInputs = lib.optionals doInstallCheck [ findutils ]
-    ++ [ curl openssl zlib expat cpio bash ]
-    ++ lib.optionals (!stdenv.isFreeBSD) [ libiconv iconv ]
-    ++ lib.optionals (stdenv.isFreeBSD) [ (lib.getLib libiconvReal) (lib.getBin libiconvReal) ]
+  buildInputs = [ curl openssl zlib expat cpio (if stdenv.isFreeBSD then libiconvReal else libiconv) bash ]
     ++ lib.optionals perlSupport [ perlPackages.perl ]
     ++ lib.optionals guiSupport [tcl tk]
     ++ lib.optionals withpcre2 [ pcre2 ]
@@ -309,7 +306,7 @@ stdenv.mkDerivation (finalAttrs: {
     "PERL_PATH=${buildPackages.perl}/bin/perl"
   ];
 
-  nativeInstallCheckInputs = lib.optional stdenv.isDarwin sysctl;
+  nativeInstallCheckInputs = lib.optional (stdenv.isDarwin || stdenv.isFreeBSD) sysctl;
 
   preInstallCheck = ''
     installCheckFlagsArray+=(
