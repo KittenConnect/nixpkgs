@@ -159,7 +159,7 @@ let
   ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     buildPackages.stdenv.cc
     pythonOnBuildForHost
-  ] ++ optionals (stdenv.cc.isClang && !stdenv.isDarwin && (!stdenv.hostPlatform.useAndroidPrebuilt or false) && (enableLTO || enableOptimizations)) [
+  ] ++ optionals (stdenv.cc.isClang && (!stdenv.hostPlatform.useAndroidPrebuilt or false) && (enableLTO || enableOptimizations)) [
     stdenv.cc.cc.libllvm.out
   ] ++ optionals stdenv.hostPlatform.isFreeBSD [
     deterministic-uname
