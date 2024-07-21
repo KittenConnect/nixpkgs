@@ -15,7 +15,6 @@
 , alsa-lib
 , libjack2
 , libusb1
-, udev
 , libsndfile
 , vulkanSupport ? true
 , vulkan-headers
@@ -27,14 +26,11 @@
 , lilv
 , makeFontsConf
 , nixosTests
-, withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind
 , valgrind
 , libcameraSupport ? !stdenv.isFreeBSD
 , libcamera
 , libdrm
-, gstreamerSupport ? true
 , gst_all_1
-, ffmpegSupport ? true
 , ffmpeg
 , bluezSupport ? stdenv.isLinux
 , bluez
@@ -43,15 +39,11 @@
 , liblc3
 , fdk_aac
 , libopus
-, ldacbtSupport ? bluezSupport && lib.meta.availableOn stdenv.hostPlatform ldacbt
 , ldacbt
 , nativeHspSupport ? true
 , nativeHfpSupport ? true
 , nativeModemManagerSupport ? stdenv.isLinux
 , modemmanager
-, ofonoSupport ? true
-, hsphfpdSupport ? true
-, pulseTunnelSupport ? true
 , libpulseaudio
 , zeroconfSupport ? true
 , avahi
@@ -63,7 +55,6 @@
 , x11Support ? true
 , libcanberra
 , xorg
-, mysofaSupport ? true
 , libmysofa
 , ffadoSupport ? x11Support && stdenv.buildPlatform.canExecute stdenv.hostPlatform && lib.systems.equals stdenv.buildPlatform stdenv.hostPlatform && stdenv.isLinux
 , ffado
@@ -71,9 +62,6 @@
 , epoll-shim
 , libinotify-kqueue
 }:
-
-# Bluetooth codec only makes sense if general bluetooth enabled
-assert ldacbtSupport -> bluezSupport;
 
 stdenv.mkDerivation(finalAttrs: {
   pname = "pipewire";
@@ -149,36 +137,41 @@ stdenv.mkDerivation(finalAttrs: {
 
   buildInputs = [
     alsa-lib
+    bluez
     dbus
+    fdk_aac
+    ffmpeg
     glib
+    gst_all_1.gst-plugins-base
+    gst_all_1.gstreamer
+    libcamera
     libjack2
+    libfreeaptx
+    liblc3
+    libmysofa
+    libopus
+    libpulseaudio
     libusb1
     libsndfile
     lilv
+    modemmanager
     ncurses
     readline
+    sbc
   ] ++ lib.optionals stdenv.isLinux (if enableSystemd then [ systemd ] else [ udev ])
   ++ (if lib.meta.availableOn stdenv.hostPlatform webrtc-audio-processing_1 then [ webrtc-audio-processing_1 ] else [ webrtc-audio-processing ])
-  ++ lib.optionals gstreamerSupport [ gst_all_1.gst-plugins-base gst_all_1.gstreamer ]
-  ++ lib.optionals libcameraSupport [ libcamera ]
-  ++ lib.optional ffmpegSupport ffmpeg
-  ++ lib.optionals bluezSupport [ bluez libfreeaptx liblc3 sbc fdk_aac libopus ]
-  ++ lib.optional ldacbtSupport ldacbt
-  ++ lib.optional nativeModemManagerSupport modemmanager
-  ++ lib.optional opusSupport libopus
-  ++ lib.optional pulseTunnelSupport libpulseaudio
+  ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform ldacbt) ldacbt
   ++ lib.optional zeroconfSupport avahi
   ++ lib.optional raopSupport openssl
   ++ lib.optional rocSupport roc-toolkit
   ++ lib.optionals vulkanSupport [ libdrm vulkan-headers vulkan-loader ]
   ++ lib.optionals x11Support [ libcanberra xorg.libX11 xorg.libXfixes ]
-  ++ lib.optional mysofaSupport libmysofa
   ++ lib.optional ffadoSupport ffado
   ++ lib.optional stdenv.isLinux libselinux
   ++ lib.optionals stdenv.isFreeBSD [ epoll-shim libinotify-kqueue libdrm ];
 
   # Valgrind binary is required for running one optional test.
-  nativeCheckInputs = lib.optional withValgrind valgrind;
+  nativeCheckInputs =  lib.optional (lib.meta.availableOn stdenv.hostPlatform valgrind) valgrind;
 
   mesonFlags = [
     (lib.mesonEnable "docs" true)
@@ -186,15 +179,15 @@ stdenv.mkDerivation(finalAttrs: {
     (lib.mesonEnable "installed_tests" true)
     (lib.mesonOption "installed_test_prefix" (placeholder "installedTests"))
     (lib.mesonOption "libjack-path" "${placeholder "jack"}/lib")
-    (lib.mesonEnable "libcamera" libcameraSupport)
+    (lib.mesonEnable "libcamera" true)
     (lib.mesonEnable "libffado" ffadoSupport)
     (lib.mesonEnable "roc" rocSupport)
-    (lib.mesonEnable "libpulse" pulseTunnelSupport)
+    (lib.mesonEnable "libpulse" true)
     (lib.mesonEnable "avahi" zeroconfSupport)
     (lib.mesonEnable "gstreamer" gstreamerSupport)
+    (lib.mesonEnable "gstreamer-device-provider" gstreamerSupport)
     (lib.mesonEnable "systemd" enableSystemd)
     (lib.mesonEnable "systemd-system-service" enableSystemd)
-    (lib.mesonEnable "systemd" enableSystemd)
     (lib.mesonEnable "selinux" stdenv.isLinux)
     (lib.mesonEnable "avb" stdenv.isLinux)
     (lib.mesonEnable "v4l2" stdenv.isLinux)
@@ -212,9 +205,9 @@ stdenv.mkDerivation(finalAttrs: {
     (lib.mesonEnable "bluez5-backend-hsphfpd" hsphfpdSupport)
     # source code is not easily obtainable
     (lib.mesonEnable "bluez5-codec-lc3plus" false)
-    (lib.mesonEnable "bluez5-codec-lc3" bluezSupport)
-    (lib.mesonEnable "bluez5-codec-ldac" ldacbtSupport)
-    (lib.mesonEnable "opus" opusSupport)
+    (lib.mesonEnable "bluez5-codec-lc3" true)
+    (lib.mesonEnable "bluez5-codec-ldac" true)
+    (lib.mesonEnable "opus" true)
     (lib.mesonOption "sysconfdir" "/etc")
     (lib.mesonEnable "raop" raopSupport)
     (lib.mesonOption "session-managers" "")
@@ -222,7 +215,7 @@ stdenv.mkDerivation(finalAttrs: {
     (lib.mesonEnable "x11" x11Support)
     (lib.mesonEnable "x11-xfixes" x11Support)
     (lib.mesonEnable "libcanberra" x11Support)
-    (lib.mesonEnable "libmysofa" mysofaSupport)
+    (lib.mesonEnable "libmysofa" true)
     (lib.mesonEnable "sdl2" false) # required only to build examples, causes dependency loop
     (lib.mesonBool "rlimits-install" false) # installs to /etc, we won't use this anyway
     (lib.mesonEnable "compress-offload" true)
