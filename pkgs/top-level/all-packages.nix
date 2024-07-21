@@ -3814,8 +3814,6 @@ with pkgs;
 
   harsh = callPackage ../applications/misc/harsh { };
 
-  harvid = callPackage ../tools/video/harvid { };
-
   headset = callPackage ../applications/audio/headset { };
 
   hilbish = callPackage ../shells/hilbish { };
