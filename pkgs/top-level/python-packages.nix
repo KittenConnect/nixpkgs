@@ -10415,8 +10415,7 @@ self: super: with self; {
 
   python-xapp = callPackage ../development/python-modules/python-xapp {
     inherit (pkgs.buildPackages) meson;
-    inherit (pkgs) gtk3 gobject-introspection polkit;
-    inherit (pkgs.cinnamon) xapp;
+    inherit (pkgs) gtk3 gobject-introspection polkit xapp;
   };
 
   python-tado = callPackage ../development/python-modules/python-tado { };
