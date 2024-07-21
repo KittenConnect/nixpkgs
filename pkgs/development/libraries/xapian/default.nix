@@ -7,6 +7,9 @@
 
 # tests
 , mu
+, perlPackages
+, python3
+, xapian-omega
 }:
 
 let
@@ -47,7 +50,9 @@ let
     '';
 
     passthru.tests = {
-      inherit mu;
+      inherit mu xapian-omega;
+      inherit (perlPackages) SearchXapian;
+      python-xapian = python3.pkgs.xapian;
     };
 
     meta = with lib; {
