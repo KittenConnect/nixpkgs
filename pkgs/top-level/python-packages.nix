@@ -17417,6 +17417,8 @@ self: super: with self; {
   
   webmin-xmlrpc = callPackage ../development/python-modules/webmin-xmlrpc { };
 
+  weblate-schemas = callPackage ../development/python-modules/weblate-schemas { };
+
   webob = callPackage ../development/python-modules/webob { };
 
   webrtc-noise-gain = callPackage ../development/python-modules/webrtc-noise-gain { };
