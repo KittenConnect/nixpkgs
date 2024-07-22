@@ -17413,6 +17413,8 @@ self: super: with self; {
 
   webexteamssdk = callPackage ../development/python-modules/webexteamssdk { };
 
+  weblate-language-data = callPackage ../development/python-modules/weblate-language-data { };
+  
   webmin-xmlrpc = callPackage ../development/python-modules/webmin-xmlrpc { };
 
   webob = callPackage ../development/python-modules/webob { };
