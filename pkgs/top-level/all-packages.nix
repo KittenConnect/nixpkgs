@@ -10772,8 +10772,6 @@ with pkgs;
 
   ngrep = callPackage ../tools/networking/ngrep { };
 
-  ngrok = callPackage ../tools/networking/ngrok { };
-
   nifi = callPackage ../servers/web-apps/nifi { };
 
   noip = callPackage ../tools/networking/noip { };
