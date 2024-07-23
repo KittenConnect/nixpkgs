@@ -9639,6 +9639,8 @@ self: super: with self; {
 
   outcome = callPackage ../development/python-modules/outcome { };
 
+  outdated = callPackage ../development/python-modules/outdated { };
+
   outspin = callPackage ../development/python-modules/outspin { };
 
   ovh = callPackage ../development/python-modules/ovh { };
