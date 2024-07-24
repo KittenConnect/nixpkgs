@@ -7542,12 +7542,6 @@
     githubId = 605072;
     name = "Daniel Goertzen";
   };
-  goibhniu = {
-    email = "cillian.deroiste@gmail.com";
-    github = "cillianderoiste";
-    githubId = 643494;
-    name = "Cillian de Róiste";
-  };
   GoldsteinE = {
     email = "root@goldstein.rs";
     github = "GoldsteinE";
