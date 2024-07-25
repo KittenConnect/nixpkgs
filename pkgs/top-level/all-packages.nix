@@ -39498,8 +39498,6 @@ with pkgs;
 
   terraform-backend-git = callPackage ../applications/networking/cluster/terraform-backend-git { };
 
-  terraform-docs = callPackage ../applications/networking/cluster/terraform-docs { };
-
   terraform-inventory = callPackage ../applications/networking/cluster/terraform-inventory { };
 
   terraform-landscape = callPackage ../applications/networking/cluster/terraform-landscape { };
