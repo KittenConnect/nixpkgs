@@ -38903,8 +38903,6 @@ with pkgs;
 
   narrowlink = callPackage ../tools/networking/narrowlink { };
 
-  nar-serve = callPackage ../tools/nix/nar-serve { };
-
   neo = callPackage ../applications/misc/neo { };
 
   networkd-dispatcher = callPackage ../tools/networking/networkd-dispatcher { };
