@@ -6339,8 +6339,6 @@ with pkgs;
     usePoppler = true;
   };
 
-  beanstalkd = callPackage ../servers/beanstalkd { };
-
   beetsPackages = lib.recurseIntoAttrs (callPackage ../tools/audio/beets { });
   inherit (beetsPackages) beets beets-unstable;
 
