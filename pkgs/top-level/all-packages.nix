@@ -3306,8 +3306,6 @@ with pkgs;
 
   aws-sso-creds = callPackage ../tools/admin/aws-sso-creds { };
 
-  aws-vault = callPackage ../tools/admin/aws-vault { };
-
   iamy = callPackage ../tools/admin/iamy { };
 
   iam-policy-json-to-terraform = callPackage ../tools/misc/iam-policy-json-to-terraform { };
