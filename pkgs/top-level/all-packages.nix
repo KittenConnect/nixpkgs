@@ -23804,8 +23804,6 @@ with pkgs;
 
   round = callPackage ../applications/graphics/round { };
 
-  ronn = callPackage ../development/tools/ronn { };
-
   router = callPackage ../servers/http/router { };
 
   rover = callPackage ../development/tools/rover { };
