@@ -16590,8 +16590,6 @@ with pkgs;
 
   typescript = callPackage ../development/compilers/typescript { };
 
-  bupc = callPackage ../development/compilers/bupc { };
-
   ubports-click = python3Packages.callPackage ../development/tools/click { };
 
   uasm = callPackage ../development/compilers/uasm { };
