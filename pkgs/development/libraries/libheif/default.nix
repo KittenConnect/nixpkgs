@@ -17,6 +17,7 @@
 , imagemagick
 , imlib2Full
 , imv
+, python3Packages
 , vips
 }:
 
@@ -62,6 +63,7 @@ stdenv.mkDerivation rec {
 
   passthru.tests = {
     inherit gimp imagemagick imlib2Full imv vips;
+    inherit (python3Packages) pillow-heif;
   };
 
   meta = {
