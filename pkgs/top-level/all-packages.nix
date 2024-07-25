@@ -916,8 +916,6 @@ with pkgs;
 
   dippi = callPackage ../tools/graphics/dippi { };
 
-  dispad = callPackage ../tools/X11/dispad { };
-
   diswall = callPackage ../applications/networking/diswall { };
 
   dupeguru = callPackage ../applications/misc/dupeguru {
