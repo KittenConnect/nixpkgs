@@ -31761,8 +31761,6 @@ with pkgs;
 
   kubectl-cnpg = callPackage ../applications/networking/cluster/kubectl-cnpg { };
 
-  kubectl-doctor = callPackage ../applications/networking/cluster/kubectl-doctor { };
-
   kubectl-example = callPackage ../applications/networking/cluster/kubectl-example { };
 
   kubectl-explore = callPackage ../applications/networking/cluster/kubectl-explore { };
