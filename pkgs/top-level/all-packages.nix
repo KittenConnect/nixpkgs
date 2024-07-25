@@ -11310,8 +11310,6 @@ with pkgs;
 
   oxlint = callPackage ../development/tools/oxlint { };
 
-  ovh-ttyrec = callPackage ../tools/misc/ovh-ttyrec { };
-
   ovito = libsForQt5.callPackage ../applications/graphics/ovito {
     inherit (darwin.apple_sdk.frameworks) VideoDecodeAcceleration;
   };
