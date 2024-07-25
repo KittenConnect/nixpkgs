@@ -5333,8 +5333,6 @@ with pkgs;
 
   girsh = callPackage ../tools/networking/girsh { };
 
-  gist = callPackage ../tools/text/gist { };
-
   gitjacker = callPackage ../tools/security/gitjacker { };
 
   gixy = callPackage ../tools/admin/gixy { };
