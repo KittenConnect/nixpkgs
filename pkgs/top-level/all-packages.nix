@@ -9503,7 +9503,7 @@ with pkgs;
     pythonPackages = python3Packages;
   };
 
-  nanoemoji = python3Packages.callPackage ../tools/misc/nanoemoji { };
+  nanoemoji = with python3Packages; toPythonApplication nanoemoji;
 
   nagelfar = callPackage ../development/tools/nagelfar { };
 
