@@ -39119,8 +39119,6 @@ with pkgs;
 
   nixfmt-classic = haskellPackages.nixfmt.bin;
 
-  nixpkgs-fmt = callPackage ../tools/nix/nixpkgs-fmt { };
-
   nixpkgs-hammering = callPackage ../tools/nix/nixpkgs-hammering { };
 
   nixpkgs-lint-community = callPackage ../tools/nix/nixpkgs-lint { };
