@@ -40166,8 +40166,6 @@ with pkgs;
 
   coz = callPackage ../development/tools/analysis/coz { };
 
-  keycard-cli = callPackage ../tools/security/keycard-cli { };
-
   sieveshell = with python3.pkgs; toPythonApplication managesieve;
 
   gortr = callPackage ../servers/gortr { };
