@@ -10,6 +10,7 @@
 , file
 , flex
 , glslang
+, spirv-tools
 , intltool
 , jdupes
 , libdrm
@@ -327,6 +328,7 @@ stdenv.mkDerivation {
     expat
     glslang
     libffi
+    spirv-tools
     libglvnd
     libomxil-bellagio
     libpthreadstubs
@@ -410,7 +412,9 @@ stdenv.mkDerivation {
     python3Packages.mako
     python3Packages.ply
     jdupes
-    glslang
+    # Use bin output from glslang to not propagate the dev output at
+    # the build time with the host glslang.
+    (lib.getBin glslang)
     rustc
     rust-bindgen
     rust-cbindgen
