@@ -26401,8 +26401,6 @@ with pkgs;
 
   fit-trackee = callPackage ../servers/geospatial/fit-trackee { };
 
-  geoserver = callPackage ../servers/geospatial/geoserver { };
-
   mapcache = callPackage ../servers/geospatial/mapcache { };
 
   mapproxy = callPackage ../servers/geospatial/mapproxy { };
