@@ -1,5 +1,6 @@
 { lib
 , stdenv
+, llvmPackages
 , fetchurl
 , pkg-config
 , freetype
@@ -21,7 +22,11 @@ stdenv.mkDerivation (finalAttrs: {
   outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [ pkg-config cmake ];
-  buildInputs = [ freetype ];
+  buildInputs = [ freetype ]
+    ++ lib.optional (stdenv.targetPlatform.useLLVM or false)
+      (llvmPackages.compiler-rt.override {
+        doFakeLibgcc = true;
+      });
 
   patches = lib.optionals stdenv.isDarwin [ ./macosx.patch ];
   postPatch = ''
