@@ -13363,8 +13363,6 @@ self: super: with self; {
 
   ratelimit = callPackage ../development/python-modules/ratelimit { };
 
-  rauth = callPackage ../development/python-modules/rauth { };
-
   raven = callPackage ../development/python-modules/raven { };
 
   rawkit = callPackage ../development/python-modules/rawkit { };
