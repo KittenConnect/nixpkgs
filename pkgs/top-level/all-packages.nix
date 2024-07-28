@@ -28460,8 +28460,6 @@ with pkgs;
     '';
   };
 
-  nuclear = callPackage ../applications/audio/nuclear { };
-
   nuclei = callPackage ../tools/security/nuclei { };
 
   nullmailer = callPackage ../servers/mail/nullmailer {
