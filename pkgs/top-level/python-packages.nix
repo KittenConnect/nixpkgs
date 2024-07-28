@@ -9146,8 +9146,6 @@ self: super: with self; {
 
   nose2pytest = callPackage ../development/python-modules/nose2pytest { };
 
-  nose3 = callPackage ../development/python-modules/nose3 { };
-
   notebook = callPackage ../development/python-modules/notebook { };
 
   notebook-shim = callPackage ../development/python-modules/notebook-shim { };
