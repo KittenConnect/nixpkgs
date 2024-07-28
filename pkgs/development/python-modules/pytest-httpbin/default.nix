@@ -52,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kevin1024/pytest-httpbin";
     changelog = "https://github.com/kevin1024/pytest-httpbin/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = [ ];
   };
 }

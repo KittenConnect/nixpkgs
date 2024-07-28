@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/hoene/libmysofa";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = [ ];
   };
 }
