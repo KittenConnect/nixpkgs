@@ -1,21 +1,25 @@
 {
   lib,
-  stdenv,
   buildPythonPackage,
-  fetchPypi,
+  fetchFromGitHub,
   setuptools,
-  nose,
-  pkgs,
+  pkg-config,
+  swig,
+  libcdio,
+  libiconv,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {
   pname = "pycdio";
-  version = "2.1.1";
-  format = "setuptools";
+  version = "2.1.1-unstable-2024-02-26";
+  pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "61734db8c554b7b1a2cb2da2e2c15d3f9f5973a57cfb06f8854c38029004a9f8";
+  src = fetchFromGitHub {
+    owner = "rocky";
+    repo = "pycdio";
+    rev = "806c6a2eeeeb546055ce2ac9a0ae6a14ea53ae35"; # no tag for this version (yet)
+    hash = "sha256-bOm82mBUIaw4BGHj3Y24Fv5+RfAew+Ma1u4QENXoRiU=";
   };
 
   prePatch = ''
@@ -31,26 +35,27 @@ buildPythonPackage rec {
     patchShebangs .
   '';
 
+  build-system = [ setuptools ];
+
   nativeBuildInputs = [
-    nose
-    pkgs.pkg-config
-    pkgs.swig
+    pkg-config
+    swig
   ];
+
   buildInputs = [
-    setuptools
-    pkgs.libcdio
-  ] ++ lib.optional stdenv.isDarwin pkgs.libiconv;
+    libcdio
+    libiconv
+  ];
 
-  # Run tests using nosetests but first need to install the binaries
-  # to the root source directory where they can be found.
-  checkPhase = ''
-    ./setup.py install_lib -d .
-    nosetests
-  '';
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  meta = with lib; {
+  pytestFlagsArray = [ "test/test-*.py" ];
+
+  meta = {
     homepage = "https://www.gnu.org/software/libcdio/";
+    changelog = "https://github.com/rocky/pycdio/blob/${src.rev}/ChangeLog";
     description = "Wrapper around libcdio (CD Input and Control library)";
-    license = licenses.gpl3Plus;
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ sigmanificient ];
   };
 }
