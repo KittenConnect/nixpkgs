@@ -19205,8 +19205,6 @@ with pkgs;
     cudaPackages = cudaPackages_11;
   };
 
-  ndn-cxx = callPackage ../development/libraries/ndn-cxx { };
-
   ndn-tools = callPackage ../tools/networking/ndn-tools { };
 
   nfd = callPackage ../servers/nfd { };
