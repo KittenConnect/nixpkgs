@@ -13032,8 +13032,6 @@ self: super: with self; {
 
   pyuseragents = callPackage ../development/python-modules/pyuseragents { };
 
-  pyutilib = callPackage ../development/python-modules/pyutilib { };
-
   pyuv = callPackage ../development/python-modules/pyuv { };
 
   py-vapid = callPackage ../development/python-modules/py-vapid { };
