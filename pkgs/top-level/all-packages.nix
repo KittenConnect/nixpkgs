@@ -30931,8 +30931,6 @@ with pkgs;
 
   pixelnuke = callPackage ../applications/graphics/pixelnuke { };
 
-  pixelorama = callPackage ../applications/editors/pixelorama { };
-
   pixeluvo = callPackage ../applications/graphics/pixeluvo { };
 
   pixinsight = qt6Packages.callPackage ../applications/graphics/pixinsight { };
