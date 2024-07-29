@@ -9,12 +9,13 @@
   pyexcel,
   pytestCheckHook,
   pytest-cov,
+  setuptools,
 }:
 
 buildPythonPackage rec {
   pname = "pyexcel-xls";
   version = "0.7.0";
-  format = "setuptools";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pyexcel";
@@ -33,7 +34,9 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [
+  build-system = [ setuptools ];
+
+  dependencies = [
     pyexcel-io
     xlrd
     xlwt
