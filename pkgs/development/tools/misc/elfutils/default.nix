@@ -1,8 +1,8 @@
 { lib, stdenv, fetchurl, fetchpatch, pkg-config, musl-fts
 , musl-obstack, m4, zlib, zstd, bzip2, bison, flex, gettext, xz, setupDebugInfoDirs
-, argp-standalone, gnulib, autoreconfHook
+, argp-standalone, gnulib
 , enableDebuginfod ? lib.meta.availableOn stdenv.hostPlatform libarchive, sqlite, curl, libmicrohttpd, libarchive
-, gitUpdater
+, gitUpdater, autoreconfHook
 }:
 
 # TODO: Look at the hardcoded paths to kernel, modules etc.
@@ -106,7 +106,10 @@ stdenv.mkDerivation rec {
         sed -E -i -e 's/\.orig//g' $out
       '';
     })
-  ];
+  ]
+  # Prevent headers and binaries from colliding which results in an error.
+  # https://sourceware.org/pipermail/elfutils-devel/2024q3/007281.html
+  ++ lib.optional (stdenv.targetPlatform.useLLVM or false) ./cxx-header-collision.patch;
 
   postPatch = ''
     patchShebangs tests/*.sh
@@ -149,7 +152,7 @@ stdenv.mkDerivation rec {
   # as the host-bzip2 will be in the path.
   nativeBuildInputs = [ m4 bison flex gettext bzip2 ]
     ++ lib.optional enableDebuginfod pkg-config
-    ++ lib.optionals stdenv.isFreeBSD [autoreconfHook];
+    ++ lib.optionals (stdenv.isFreeBSD || (stdenv.targetPlatform.useLLVM or false)) [autoreconfHook];
   buildInputs = [ zlib zstd bzip2 xz ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [
     argp-standalone
