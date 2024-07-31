@@ -26791,8 +26791,6 @@ with pkgs;
 
   linuxConsoleTools = callPackage ../os-specific/linux/consoletools { };
 
-  linux-wifi-hotspot = callPackage ../os-specific/linux/linux-wifi-hotspot { };
-
   linthesia = callPackage ../games/linthesia/default.nix { };
 
   libreelec-dvb-firmware = callPackage ../os-specific/linux/firmware/libreelec-dvb-firmware { };
