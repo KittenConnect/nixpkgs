@@ -9,7 +9,6 @@
 , ninja
 , gtk-doc
 , docbook-xsl-nons
-, docbook_xml_dtd_43
 , docbook_xml_dtd_45
 , pkg-config
 , libffi
