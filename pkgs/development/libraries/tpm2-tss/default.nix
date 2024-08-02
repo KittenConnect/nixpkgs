@@ -2,7 +2,8 @@
 , autoreconfHook, autoconf-archive, pkg-config, doxygen, perl
 , openssl, json_c, curl, libgcrypt
 , cmocka, uthash, swtpm, iproute2, procps, which
-, libuuid, freebsd
+, libuuid, libtpms
+, freebsd
 }:
 let
   # Avoid a circular dependency on Linux systems (systemd depends on tpm2-tss,
@@ -33,7 +34,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    openssl json_c curl libgcrypt uthash libuuid
+    openssl json_c curl libgcrypt uthash libuuid libtpms
   ]
   # cmocka is checked in the configure script
   # when unit and/or integration testing is enabled
@@ -72,18 +73,22 @@ stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs script
     substituteInPlace src/tss2-tcti/tctildr-dl.c \
-      --replace '@PREFIX@' $out/lib/
+      --replace-fail '@PREFIX@' $out/lib/
     substituteInPlace ./test/unit/tctildr-dl.c \
-      --replace '@PREFIX@' $out/lib/
+      --replace-fail '@PREFIX@' $out/lib/
     substituteInPlace ./bootstrap \
-      --replace 'git describe --tags --always --dirty' 'echo "${version}"'
+      --replace-fail 'git describe --tags --always --dirty' 'echo "${version}"'
+    for src in src/tss2-tcti/tcti-libtpms.c test/unit/tcti-libtpms.c; do
+      substituteInPlace "$src" \
+        --replace-fail '"libtpms.so"' '"${libtpms.out}/lib/libtpms.so"' \
+        --replace-fail '"libtpms.so.0"' '"${libtpms.out}/lib/libtpms.so.0"'
+    done
   '' + lib.optionalString stdenv.hostPlatform.isFreeBSD ''
     # the library just straight up violates the contract in the cmocka headers
     sed -E -i -e '/#include <cmocka.h>/ i #include <stdarg.h>' test/unit/*
 
     # this test fails. can't figure out how to diagnose
     sed -E -i -e '/  test\/unit\/fapi-io /d' Makefile-test.am
-
   '';
 
   configureFlags = lib.optionals doInstallCheck [
