@@ -37046,8 +37046,6 @@ with pkgs;
 
   fastp = callPackage ../applications/science/biology/fastp { };
 
-  febio-studio = callPackage ../applications/science/biology/febio-studio { };
-
   flywheel-cli = callPackage ../applications/science/biology/flywheel-cli { };
 
   hh-suite = callPackage ../applications/science/biology/hh-suite {
