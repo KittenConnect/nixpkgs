@@ -19138,6 +19138,13 @@
     githubId = 602439;
     name = "Serguei Narojnyi";
   };
+  snaki = {
+    email = "ek@kyouma.net";
+    matrix = "@snaki:kescher.at";
+    name = "emily";
+    github = "snaakey";
+    githubId = 38018554;
+  };
   snapdgn = {
     email = "snapdgn@proton.me";
     name = "Nitish Kumar";
