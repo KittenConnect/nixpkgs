@@ -23367,7 +23367,6 @@ with pkgs;
 
   rtrlib = callPackage ../development/libraries/rtrlib { };
 
-  kissfft = callPackage ../development/libraries/kissfft { };
   kissfftFloat = kissfft.override {
     datatype = "float";
   };
