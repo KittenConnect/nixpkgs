@@ -51,7 +51,16 @@
   libiconv,
   withStatic ? stdenv.hostPlatform.isMinGW,
   # passthru.tests
-  testers,
+  testers
+, guile-sdl2
+, jazz2
+, SDL2_ttf
+, SDL2_net
+, SDL2_gfx
+, SDL2_sound
+, SDL2_mixer
+, SDL2_image
+, python3Packages
 }:
 
 # NOTE: When editing this expression see if the same change applies to
@@ -211,13 +220,27 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit openglSupport;
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--version-regex"
-        "release-(.*)"
-      ];
+    updateScript = nix-update-script { extraArgs = [ "--version-regex" "release-(.*)" ]; };
+    tests = {
+      pkg-config = testers.hasPkgConfigModules {
+        package = finalAttrs.finalPackage;
+      };
+      inherit
+        guile-sdl2
+        jazz2
+        SDL2_ttf
+        SDL2_net
+        SDL2_gfx
+        SDL2_sound
+        SDL2_mixer
+        SDL2_image
+        ;
+      inherit (python3Packages)
+        pygame
+        pygame-ce
+        pygame-sdl2
+        ;
     };
-    tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
   };
 
   meta = with lib; {
