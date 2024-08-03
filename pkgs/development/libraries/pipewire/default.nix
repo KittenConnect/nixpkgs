@@ -15,6 +15,7 @@
 , alsa-lib
 , libjack2
 , libusb1
+, udev
 , libsndfile
 , vulkanSupport ? true
 , vulkan-headers
@@ -158,7 +159,8 @@ stdenv.mkDerivation(finalAttrs: {
     ncurses
     readline
     sbc
-  ] ++ lib.optionals stdenv.isLinux (if enableSystemd then [ systemd ] else [ udev ])
+  ] 
+  ++ lib.optionals stdenv.isLinux (if enableSystemd then [ systemd ] else [ udev ])
   ++ (if lib.meta.availableOn stdenv.hostPlatform webrtc-audio-processing_1 then [ webrtc-audio-processing_1 ] else [ webrtc-audio-processing ])
   ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform ldacbt) ldacbt
   ++ lib.optional zeroconfSupport avahi
