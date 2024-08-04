@@ -16346,6 +16346,11 @@
     githubId = 4201956;
     name = "pongo1231";
   };
+  PopeRigby = {
+    name = "PopeRigby";
+    github = "poperigby";
+    githubId = 20866468;
+  };
   poptart = {
     email = "poptart@hosakacorp.net";
     github = "terrorbyte";
