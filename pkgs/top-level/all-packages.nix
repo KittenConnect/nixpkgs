@@ -36286,8 +36286,6 @@ with pkgs;
 
   pysolfc = python3Packages.callPackage ../games/pysolfc { };
 
-  qq = callPackage ../applications/networking/instant-messengers/qq { };
-
   qqwing = callPackage ../games/qqwing { };
 
   quake3wrapper = callPackage ../games/quake3/wrapper { };
