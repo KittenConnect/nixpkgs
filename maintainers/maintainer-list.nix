@@ -7395,6 +7395,12 @@
       { fingerprint = "MP2UpIRtJpbFFqyucP431H/FPCfn58UhEUTro4lXtRs"; }
     ];
   };
+  geraldog = {
+    email = "geraldogabriel@gmail.com";
+    github = "geraldog";
+    githubId = 14135816;
+    name = "Geraldo Nascimento";
+  };
   gerg-l = {
     email = "gregleyda@proton.me";
     github = "Gerg-L";
