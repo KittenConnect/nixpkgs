@@ -197,6 +197,11 @@ stdenv.mkDerivation {
 
   patches = [
     ./opencl.patch
+
+    # Manual backport of https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/30510
+    # Fixes video corruption / crashes when decoding video on AMD iGPUs
+    # FIXME: remove when merged
+    ./vcn-pagefault.patch
   ];
 
   postPatch = ''
