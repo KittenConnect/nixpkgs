@@ -9223,8 +9223,6 @@ with pkgs;
 
   jrnl = callPackage ../applications/misc/jrnl { };
 
-  jsawk = callPackage ../tools/text/jsawk { };
-
   jsbeautifier = with python3Packages; toPythonApplication jsbeautifier;
 
   jscoverage = callPackage ../development/tools/misc/jscoverage { };
