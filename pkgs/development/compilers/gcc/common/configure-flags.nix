@@ -24,6 +24,7 @@
 , langObjC
 , langObjCpp
 , langJit
+, langRust ? false
 , disableBootstrap ? stdenv.targetPlatform != stdenv.hostPlatform
 }:
 
@@ -173,6 +174,7 @@ let
           ++ lib.optional langObjCpp   "obj-c++"
           ++ lib.optionals crossDarwin [ "objc" "obj-c++" ]
           ++ lib.optional langJit      "jit"
+          ++ lib.optional langRust     "rust"
           )
       }"
     ]
