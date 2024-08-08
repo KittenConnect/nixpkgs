@@ -10954,8 +10954,6 @@ self: super: with self; {
 
   py-zabbix = callPackage ../development/python-modules/py-zabbix { };
 
-  py17track = callPackage ../development/python-modules/py17track { };
-
   py2bit = callPackage ../development/python-modules/py2bit { };
 
   py3buddy = callPackage ../development/python-modules/py3buddy { };
