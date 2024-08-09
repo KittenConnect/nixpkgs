@@ -5110,8 +5110,6 @@ with pkgs;
 
   fioctl = callPackage ../tools/admin/fioctl { };
 
-  firecracker = callPackage ../applications/virtualization/firecracker { };
-
   firectl = callPackage ../applications/virtualization/firectl { };
 
   firestarter = callPackage ../applications/misc/firestarter { };
