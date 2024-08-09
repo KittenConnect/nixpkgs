@@ -1346,6 +1346,9 @@ self: super: builtins.intersectAttrs super {
 
   halide-haskell = super.halide-haskell.override { Halide = pkgs.halide; };
 
+  feedback = self.generateOptparseApplicativeCompletions [ "feedback" ]
+    (enableSeparateBinOutput super.feedback);
+
   # Sydtest has a brittle test suite that will only work with the exact
   # versions that it ships with.
   sydtest = dontCheck super.sydtest;
