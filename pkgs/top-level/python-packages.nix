@@ -15114,6 +15114,8 @@ self: super: with self; {
 
   starlette = callPackage ../development/python-modules/starlette { };
 
+  starlette-admin = callPackage ../development/python-modules/starlette-admin { };
+
   starlette-context = callPackage ../development/python-modules/starlette-context { };
 
   starlette-wtf = callPackage ../development/python-modules/starlette-wtf { };
