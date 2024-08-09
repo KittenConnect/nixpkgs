@@ -15024,6 +15024,8 @@ self: super: with self; {
 
   sqlalchemy-continuum = callPackage ../development/python-modules/sqlalchemy-continuum { };
 
+  sqlalchemy-file = callPackage ../development/python-modules/sqlalchemy-file { };
+
   sqlalchemy-i18n = callPackage ../development/python-modules/sqlalchemy-i18n { };
 
   sqlalchemy-jsonfield = callPackage ../development/python-modules/sqlalchemy-jsonfield { };
