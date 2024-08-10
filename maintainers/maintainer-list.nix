@@ -19725,6 +19725,12 @@
     githubId = 32478597;
     name = "Subin Kim";
   };
+  sugar700 = {
+    email = "sugar@sylveon.social";
+    github = "sugar700";
+    githubId = 168804988;
+    name = "sugar";
+  };
   suhr = {
     email = "suhr@i2pmail.org";
     github = "suhr";
