@@ -24535,8 +24535,6 @@ with pkgs;
 
   commonsMath = callPackage ../development/libraries/java/commons/math { };
 
-  fastjar = callPackage ../development/tools/java/fastjar { };
-
   httpunit = callPackage ../development/libraries/java/httpunit { };
 
   javaCup = callPackage ../development/libraries/java/cup {
