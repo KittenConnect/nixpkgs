@@ -4536,7 +4536,7 @@ self: super: with self; {
 
   flexcache = callPackage ../development/python-modules/flexcache { };
 
-  flexparser = callPackage ../development/python-modules/flexparser { };
+  flexit-bacnet = callPackage ../development/python-modules/flexit-bacnet { };
 
   flexmock = callPackage ../development/python-modules/flexmock { };
 
