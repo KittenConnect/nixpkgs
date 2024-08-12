@@ -1963,8 +1963,6 @@ self: super: with self; {
 
   camel-converter = callPackage ../development/python-modules/camel-converter { };
 
-  can = callPackage ../development/python-modules/can { };
-
   canals = callPackage ../development/python-modules/canals { };
 
   canmatrix = callPackage ../development/python-modules/canmatrix { };
@@ -10455,6 +10453,8 @@ self: super: with self; {
   pytlv = callPackage ../development/python-modules/pytlv { };
 
   pywebcopy = callPackage ../development/python-modules/pywebcopy { };
+
+  python-can = callPackage ../development/python-modules/python-can { };
 
   python-codon-tables = callPackage ../development/python-modules/python-codon-tables { };
 
