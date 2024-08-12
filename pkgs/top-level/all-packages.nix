@@ -20980,10 +20980,6 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Cocoa OpenGL IOKit;
   };
 
-  irrlichtmt = callPackage ../development/libraries/irrlichtmt {
-    inherit  (darwin.apple_sdk.frameworks) Cocoa Kernel;
-  };
-
   isocodes = callPackage ../development/libraries/iso-codes { };
 
   iso-flags = callPackage ../data/icons/iso-flags { };
