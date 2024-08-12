@@ -33,13 +33,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "graphviz";
-  version = "10.0.1";
+  version = "12.1.0";
 
   src = fetchFromGitLab {
     owner = "graphviz";
     repo = "graphviz";
     rev = version;
-    hash = "sha256-KAqJUVqPld3F2FHlUlfbw848GPXXOmyRQkab8jlH1NM=";
+    hash = "sha256-C+FFmWExEzPsDAmUiu/HmRVmb1Km4dJujagxN+v0uWw=";
   };
 
   patches = lib.optionals stdenv.hostPlatform.isFreeBSD [
@@ -96,10 +96,6 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails with "Graphviz test suite requires ksh93" which is not in nixpkgs
 
   preAutoreconf = ''
-    # components under this directory require a tool `CompileXIB` to build
-    # and there's no official way to disable this on darwin.
-    substituteInPlace Makefile.am --replace-fail 'SUBDIRS += macosx' ""
-
     ./autogen.sh
   '';
 
