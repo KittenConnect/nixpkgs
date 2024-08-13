@@ -22088,8 +22088,6 @@ with pkgs;
 
   libomxil-bellagio = callPackage ../development/libraries/libomxil-bellagio { };
 
-  liboop = callPackage ../development/libraries/liboop { };
-
   libopenaptx = callPackage ../development/libraries/libopenaptx { };
 
   libopenglrecorder = callPackage ../development/libraries/libopenglrecorder { };
