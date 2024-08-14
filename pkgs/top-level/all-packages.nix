@@ -22053,8 +22053,6 @@ with pkgs;
 
   libmp3splt = callPackage ../development/libraries/libmp3splt { };
 
-  libmrss = callPackage ../development/libraries/libmrss { };
-
   libmspack = callPackage ../development/libraries/libmspack { };
 
   libmusicbrainz3 = callPackage ../development/libraries/libmusicbrainz { };
