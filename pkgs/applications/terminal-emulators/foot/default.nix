@@ -165,6 +165,8 @@ stdenv.mkDerivation {
   ] ++ lib.optionals stdenv.isLinux [
     # Install systemd user units for foot-server
     "-Dsystemd-units-dir=${placeholder "out"}/lib/systemd/user"
+    # Especially -Wunused-command-line-argument is a problem with clang
+    "-Dwerror=false"
   ];
 
   # build and run binary generating PGO profiles,
