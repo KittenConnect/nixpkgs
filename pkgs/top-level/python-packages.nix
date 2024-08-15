@@ -2759,6 +2759,8 @@ self: super: with self; {
 
   cypherpunkpay = callPackage ../development/python-modules/cypherpunkpay { };
 
+  cyrtranslit = callPackage ../development/python-modules/cyrtranslit { };
+
   cysignals = callPackage ../development/python-modules/cysignals { };
 
   cython = callPackage ../development/python-modules/cython { };
