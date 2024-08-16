@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
   '';
   configureScript = "../configure";
 
-  configureFlags = with lib; [
+  configureFlags = [
     # Set the program prefix to the current targetPrefix.
     # This ensures that the prefix always conforms to
     # nixpkgs' expectations instead of relying on the build
@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  meta = with lib; {
+  meta = {
     mainProgram = "gdb";
 
     description = "GNU Project debugger";
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
 
     # GDB upstream does not support ARM darwin
-    platforms = with platforms; linux ++ cygwin ++ freebsd ++ ["x86_64-darwin"];
-    maintainers = with maintainers; [ pierron globin lsix ];
+    platforms = with lib.platforms; linux ++ cygwin ++ freebsd ++ ["x86_64-darwin"];
+    maintainers = with lib.maintainers; [ pierron globin lsix ];
   };
 }
