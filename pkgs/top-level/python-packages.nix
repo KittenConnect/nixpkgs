@@ -13318,6 +13318,8 @@ self: super: with self; {
 
   pyzmq = callPackage ../development/python-modules/pyzmq { };
 
+  pyzx = callPackage ../development/python-modules/pyzx { };
+
   qbittorrent-api = callPackage ../development/python-modules/qbittorrent-api { };
 
   qasync = callPackage ../development/python-modules/qasync { };
