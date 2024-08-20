@@ -13714,8 +13714,6 @@ self: super: with self; {
 
   roonapi = callPackage ../development/python-modules/roonapi { };
 
-  ronin = callPackage ../development/python-modules/ronin { };
-
   rope = callPackage ../development/python-modules/rope { };
 
   ropgadget = callPackage ../development/python-modules/ropgadget { };
