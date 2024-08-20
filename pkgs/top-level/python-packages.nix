@@ -17026,8 +17026,6 @@ self: super: with self; {
 
   validobj = callPackage ../development/python-modules/validobj { };
 
-  validphys2 = callPackage ../development/python-modules/validphys2 { };
-
   vallox-websocket-api = callPackage ../development/python-modules/vallox-websocket-api { };
 
   vapoursynth = callPackage ../development/python-modules/vapoursynth {

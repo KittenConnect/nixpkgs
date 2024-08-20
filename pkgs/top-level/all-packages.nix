@@ -36706,8 +36706,6 @@ with pkgs;
 
   shtns = callPackage ../applications/science/physics/shtns { };
 
-  validphys2 = with python3Packages; toPythonApplication validphys2;
-
   xfitter = callPackage ../applications/science/physics/xfitter { };
 
   xflr5 = libsForQt5.callPackage ../applications/science/physics/xflr5 { };
