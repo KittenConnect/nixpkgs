@@ -1689,8 +1689,6 @@ self: super: with self; {
 
   blessed = callPackage ../development/python-modules/blessed { };
 
-  blessings = callPackage ../development/python-modules/blessings { };
-
   blinker = callPackage ../development/python-modules/blinker { };
 
   blinkpy = callPackage ../development/python-modules/blinkpy { };
