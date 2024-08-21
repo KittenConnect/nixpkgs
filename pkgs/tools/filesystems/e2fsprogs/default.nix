@@ -100,6 +100,6 @@ stdenv.mkDerivation rec {
       mit       # lib/et, lib/ss
     ];
     platforms = platforms.unix;
-    maintainers = [ maintainers.eelco ];
+    maintainers = [ ];
   };
 }

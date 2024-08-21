@@ -1023,7 +1023,7 @@ with self; {
       description = "Simple Statistics";
       homepage = "https://github.com/nferraz/st";
       license = with lib.licenses; [ mit ];
-      maintainers = [ maintainers.eelco ];
+      maintainers = [ ];
       mainProgram = "st";
     };
   };
@@ -17051,7 +17051,7 @@ with self; {
       description = "Postmodern object system for Perl 5";
       homepage = "http://moose.perl.org";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
-      maintainers = [ maintainers.eelco ];
+      maintainers = [ ];
       mainProgram = "moose-outdated";
     };
   };
@@ -24137,7 +24137,7 @@ with self; {
     meta = {
       description = "Perl Template Toolkit Plugin for IO::All";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
-      maintainers = with maintainers; [ eelco ];
+      maintainers = [ ];
     };
   };
 

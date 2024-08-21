@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.xfce.org/";
     description = "Icons for Xfce";
     license = licenses.gpl2Plus;
+    maintainers = teams.xfce.members;
     platforms = platforms.linux ++ platforms.freebsd;
-    maintainers = with maintainers; [ eelco ] ++ teams.xfce.members;
   };
 }

@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-c-common";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej eelco r-burns ];
+    maintainers = with maintainers; [ orivej r-burns ];
   };
 }
