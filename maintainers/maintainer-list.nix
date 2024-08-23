@@ -12285,6 +12285,12 @@
     githubId = 44469719;
     name = "Jussi Kuokkanen";
   };
+  lutzberger = {
+    email = "lutz.berger@airbus.com";
+    github = "lutzberger";
+    githubId = 115777584;
+    name = "Lutz Berger";
+  };
   lux = {
     email = "lux@lux.name";
     github = "luxzeitlos";
