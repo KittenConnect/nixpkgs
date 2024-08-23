@@ -5787,7 +5787,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  nltk-data = callPackage ../tools/text/nltk_data { };
+  nltk-data = callPackage ../tools/text/nltk-data { };
 
   seaborn-data = callPackage ../tools/misc/seaborn-data { };
 
