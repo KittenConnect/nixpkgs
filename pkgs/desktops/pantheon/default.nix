@@ -34,7 +34,6 @@ lib.makeScope pkgs.newScope (self: with self; {
     wingpanel-indicator-nightlight
     wingpanel-indicator-notifications
     wingpanel-indicator-power
-    wingpanel-indicator-session
     wingpanel-indicator-sound
     wingpanel-quick-settings
   ];
@@ -158,8 +157,6 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   wingpanel-indicator-power = callPackage ./desktop/wingpanel-indicators/power { };
 
-  wingpanel-indicator-session = callPackage ./desktop/wingpanel-indicators/session { };
-
   wingpanel-indicator-sound = callPackage ./desktop/wingpanel-indicators/sound { };
 
   wingpanel-quick-settings = callPackage ./desktop/wingpanel-indicators/quick-settings { };
@@ -246,5 +243,7 @@ lib.makeScope pkgs.newScope (self: with self; {
   gnome-bluetooth-contract = throw "pantheon.gnome-bluetooth-contract has been removed, abandoned by upstream."; # added 2022-06-30
 
   notes-up = throw "The ‘pantheon.notes-up’ alias was removed on 2022-02-02, please use ‘pkgs.notes-up’ directly."; # added 2021-12-18
+
+  wingpanel-indicator-session = throw "pantheon.wingpanel-indicator-session has been removed, abandoned by upstream."; # added 2024-08-23
 
 }
