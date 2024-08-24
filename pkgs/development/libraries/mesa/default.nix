@@ -42,13 +42,13 @@
 , xorg
 , zstd
 , OpenGL, Xplugin
-, withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken
 , withLibunwind ? lib.meta.availableOn stdenv.hostPlatform libunwind
 , enableGalliumNine ? stdenv.isLinux
 , enableOSMesa ? (stdenv.isLinux || stdenv.isFreeBSD)
 , enableOpenCL ? stdenv.isLinux && stdenv.isx86_64
 , enableTeflon ? stdenv.isLinux && stdenv.isAarch64 # currently only supports aarch64 SoCs, may change in the future
 , enablePatentEncumberedCodecs ? true
+, enableValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken
 
 , galliumDrivers ? 
   if stdenv.isLinux then 
@@ -272,6 +272,7 @@ in stdenv.mkDerivation {
 
       # meson auto_features enables these features, but we do not want them
       (lib.mesonEnable "android-libbacktrace" false)
+      (lib.mesonEnable "valgrind" enableValgrind)
     ]
     ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [
       (lib.mesonBool "glvnd" true)
@@ -352,6 +353,12 @@ in stdenv.mkDerivation {
     spirv-llvm-translator
     udev
     lm_sensors
+    vulkan-loader
+    wayland
+    wayland-protocols
+    xcbutilkeysyms
+    xorgproto
+    zstd
   ]
   ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform elfutils) [
     elfutils
@@ -359,14 +366,8 @@ in stdenv.mkDerivation {
   ++ lib.optionals enableOpenCL [
     llvmPackages.clang
   ]
-  ++ lib.optionals withValgrind [
+  ++ lib.optionals enableValgrind [
     valgrind-light
-    vulkan-loader
-    wayland
-    wayland-protocols
-    xcbutilkeysyms
-    xorgproto
-    zstd
   ];
 
   depsBuildBuild = [
