@@ -1,5 +1,6 @@
 { lib
 , fetchFromGitHub
+, fetchpatch2
 , gtest
 , meson
 , nasm
@@ -23,6 +24,16 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = lib.optionalString stdenv.isFreeBSD ''
     sed -E -i -e "s/\\['linux', 'android', 'ios', 'darwin'\\]/['linux', 'android', 'ios', 'darwin', 'freebsd']/g" meson.build
   '';
+  
+  patches = [
+    # build: fix build with meson on riscv64
+    # https://github.com/cisco/openh264/pull/3773
+    (fetchpatch2 {
+      name = "openh264-riscv64.patch";
+      url = "https://github.com/cisco/openh264/commit/cea886eda8fae7ba42c4819e6388ce8fc633ebf6.patch";
+      hash = "sha256-ncXuGgogXA7JcCOjGk+kBprmOErFohrYjYzZYzAbbDQ=";
+    })
+  ];
 
   outputs = [ "out" "dev" ];
 
@@ -49,7 +60,8 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ AndersonTorres ];
     # See meson.build
     platforms = lib.platforms.windows ++ lib.intersectLists
-      (lib.platforms.x86 ++ lib.platforms.arm ++ lib.platforms.aarch64 ++ lib.platforms.loongarch64)
+      (lib.platforms.x86 ++ lib.platforms.arm ++ lib.platforms.aarch64 ++
+       lib.platforms.loongarch64 ++ lib.platforms.riscv64)
       (lib.platforms.linux ++ lib.platforms.darwin);
   };
 })
