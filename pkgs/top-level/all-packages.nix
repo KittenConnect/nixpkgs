@@ -903,9 +903,7 @@ with pkgs;
 
   fet-sh = callPackage ../tools/misc/fet-sh { };
 
-  fetchbower = callPackage ../build-support/fetchbower {
-    inherit (nodePackages) bower2nix;
-  };
+  fetchbower = callPackage ../build-support/fetchbower { };
 
   fetchbzr = callPackage ../build-support/fetchbzr { };
 
