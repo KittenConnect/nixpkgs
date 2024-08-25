@@ -82,6 +82,10 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://github.com/hyprwm/Hyprland/commit/a437e44a6af8e8f42966ffe3a26c1d562fce6b33.diff";
       hash = "sha256-Y0P4rY6HyPN8Y5Kowlgyj0PiAHh6nqPRAQ4iFT0l4E8=";
     })
+
+    # Fixes broken OpenGL applications on Apple silicon (Asahi Linux)
+    # Based on commit https://github.com/hyprwm/Hyprland/commit/279ec1c291021479b050c83a0435ac7076c1aee0
+    ./asahi-fix.patch
   ];
 
   postPatch = ''
