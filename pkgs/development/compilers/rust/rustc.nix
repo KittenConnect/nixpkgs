@@ -3,6 +3,7 @@
 , runCommandLocal, fetchurl, file, python3
 , darwin, cargo, cmake, rustc, rustfmt
 , pkg-config, openssl, xz, zlib
+, bintools
 , libiconv
 , which, libffi
 , libcxx
@@ -248,6 +249,7 @@ in stdenv.mkDerivation (finalAttrs: {
   dontUseCmakeConfigure = true;
 
   depsBuildBuild = [ pkgsBuildHost.stdenv.cc pkg-config ];
+  depsBuildTarget = lib.optionals stdenv.targetPlatform.isMinGW [ bintools ];
 
   nativeBuildInputs = [
     file python3 rustc cmake
