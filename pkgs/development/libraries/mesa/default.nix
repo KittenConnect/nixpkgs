@@ -5,8 +5,7 @@
 , elfutils
 , expat
 , fetchCrate
-, fetchurl
-, fetchpatch
+, fetchFromGitLab
 , file
 , flex
 , glslang
@@ -49,97 +48,87 @@
 , enableOSMesa ? (stdenv.isLinux || stdenv.isFreeBSD)
 , enableOpenCL ? stdenv.isLinux && stdenv.isx86_64
 , enableTeflon ? stdenv.isLinux && stdenv.isAarch64 # currently only supports aarch64 SoCs, may change in the future
-, enablePatentEncumberedCodecs ? true,
+, enablePatentEncumberedCodecs ? true
 
-  galliumDrivers ?
-    if stdenv.isLinux then
-      [
-        "d3d12" # WSL emulated GPU (aka Dozen)
-        "iris" # new Intel (Broadwell+)
-        "kmsro" # special "render only" driver for GPUs without a display controller
-        "nouveau" # Nvidia
-        "radeonsi" # new AMD (GCN+)
-        "r300" # very old AMD
-        "r600" # less old AMD
-        "swrast" # software renderer (aka LLVMPipe)
-        "svga" # VMWare virtualized GPU
-        "virgl" # QEMU virtualized GPU (aka VirGL)
-        "zink" # generic OpenGL over Vulkan, experimental
-      ]
-      ++ lib.optionals (stdenv.isAarch64 || stdenv.isAarch32) [
-        "etnaviv" # Vivante GPU designs (mostly NXP/Marvell SoCs)
-        "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
-        "lima" # ARM Mali 4xx
-        "panfrost" # ARM Mali Midgard and up (T/G series)
-        "vc4" # Broadcom VC4 (Raspberry Pi 0-3)
-      ]
-      ++ lib.optionals stdenv.isAarch64 [
-        "tegra" # Nvidia Tegra SoCs
-        "v3d" # Broadcom VC5 (Raspberry Pi 4)
-      ]
-      ++ lib.optionals stdenv.hostPlatform.isx86 [
-        "crocus" # Intel legacy, x86 only
-        "i915" # Intel extra legacy, x86 only
-      ]
-    else if stdenv.isFreeBSD then
-      [
-        "swrast"
-        "zink"
-        "r300"
-        "r600"
-        "radeonsi"
-      ]
-      ++ lib.optionals stdenv.isAarch64 [
-        "panfrost"
-      ]
-      ++ lib.optionals stdenv.hostPlatform.isx86 [
-        "crocus"
-        "i915"
-        "iris"
-        "svga"
-      ]
-    else
-      [ "auto" ],
-  vulkanDrivers ?
-    if stdenv.isLinux then
-      [
-        "amd" # AMD (aka RADV)
-        "intel" # new Intel (aka ANV)
-        "microsoft-experimental" # WSL virtualized GPU (aka DZN/Dozen)
-        "nouveau" # Nouveau (aka NVK)
-        "swrast" # software renderer (aka Lavapipe)
-      ]
-      ++
-        lib.optionals
-          (stdenv.hostPlatform.isAarch -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6")
-          [
-            # QEMU virtualized GPU (aka VirGL)
-            # Requires ATOMIC_INT_LOCK_FREE == 2.
-            "virtio"
-          ]
-      ++ lib.optionals stdenv.isAarch64 [
-        "broadcom" # Broadcom VC5 (Raspberry Pi 4, aka V3D)
-        "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
-        "imagination-experimental" # PowerVR Rogue (currently N/A)
-        "panfrost" # ARM Mali Midgard and up (T/G series)
-      ]
-      ++ lib.optionals stdenv.hostPlatform.isx86 [
-        "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
-      ]
-    else if stdenv.isFreeBSD then
-      [
-        "swrast"
-        "amd"
-      ]
-      ++ lib.optionals stdenv.hostPlatform.isx86 [
-        "intel"
-        "intel_hasvk"
-      ]
-    else
-      [ "auto" ],
-  eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ],
-  vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
-    # No Vulkan support on Darwin
+, galliumDrivers ? 
+  if stdenv.isLinux then 
+    [
+      "d3d12" # WSL emulated GPU (aka Dozen)
+      "iris" # new Intel (Broadwell+)
+      "llvmpipe" # software renderer
+      "nouveau" # Nvidia
+      "r300" # very old AMD
+      "r600" # less old AMD
+      "radeonsi" # new AMD (GCN+)
+      "softpipe" # older software renderer
+      "svga" # VMWare virtualized GPU
+      "virgl" # QEMU virtualized GPU (aka VirGL)
+      "zink" # generic OpenGL over Vulkan, experimental
+    ] ++ lib.optionals (stdenv.isAarch64 || stdenv.isAarch32) [
+      "etnaviv" # Vivante GPU designs (mostly NXP/Marvell SoCs)
+      "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
+      "lima" # ARM Mali 4xx
+      "panfrost" # ARM Mali Midgard and up (T/G series)
+      "vc4" # Broadcom VC4 (Raspberry Pi 0-3)
+    ] ++ lib.optionals stdenv.isAarch64 [
+      "tegra" # Nvidia Tegra SoCs
+      "v3d" # Broadcom VC5 (Raspberry Pi 4)
+    ] ++ lib.optionals stdenv.hostPlatform.isx86 [
+      "crocus" # Intel legacy, x86 only
+      "i915" # Intel extra legacy, x86 only
+    ] 
+  else if stdenv.isFreeBSD then
+    [
+      "swrast"
+      "zink"
+      "r300"
+      "r600"
+      "radeonsi"
+    ]
+    ++ lib.optionals stdenv.isAarch64 [
+      "panfrost"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isx86 [
+      "crocus"
+      "i915"
+      "iris"
+      "svga"
+    ]
+  else
+    [ "auto" ]
+, vulkanDrivers ?
+  if stdenv.isLinux then 
+    [
+      "amd" # AMD (aka RADV)
+      "intel" # new Intel (aka ANV)
+      "microsoft-experimental" # WSL virtualized GPU (aka DZN/Dozen)
+      "nouveau" # Nouveau (aka NVK)
+      "swrast" # software renderer (aka Lavapipe)
+    ] ++ lib.optionals (stdenv.hostPlatform.isAarch -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6") [
+      # QEMU virtualized GPU (aka VirGL)
+      # Requires ATOMIC_INT_LOCK_FREE == 2.
+      "virtio"
+    ] ++ lib.optionals stdenv.isAarch64 [
+      "broadcom" # Broadcom VC5 (Raspberry Pi 4, aka V3D)
+      "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
+      "imagination-experimental" # PowerVR Rogue (currently N/A)
+      "panfrost" # ARM Mali Midgard and up (T/G series)
+    ] ++ lib.optionals stdenv.hostPlatform.isx86 [
+      "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
+    ]
+  else if stdenv.isFreeBSD then
+    [
+      "swrast"
+      "amd"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isx86 [
+      "intel"
+      "intel_hasvk"
+    ]
+  else
+    [ "auto" ]
+, eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ]
+, vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
     "device-select"
     "overlay"
     "intel-nullhw"
@@ -157,8 +146,8 @@ let
     }
     {
       pname = "proc-macro2";
-      version = "1.0.70";
-      hash = "sha256-e4ZgyZUTu5nAtaH5QVkLelqJQX/XPj/rWkzf/g2c+1g=";
+      version = "1.0.86";
+      hash = "sha256-9fYAlWRGVIwPp8OKX7Id84Kjt8OoN2cANJ/D9ZOUUZE=";
     }
     {
       pname = "quote";
@@ -167,8 +156,8 @@ let
     }
     {
       pname = "syn";
-      version = "2.0.39";
-      hash = "sha256-Mjen2L/omhVbhU/+Ao65mogs3BP3fY+Bodab3uU63EI=";
+      version = "2.0.68";
+      hash = "sha256-nGLBbxR0DFBpsXMngXdegTm/o13FBS6QsM7TwxHXbgQ=";
     }
     {
       pname = "unicode-ident";
@@ -186,15 +175,9 @@ let
 
   needNativeCLC = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-  common = import ./common.nix { inherit lib fetchurl; };
-in
-stdenv.mkDerivation {
-  inherit (common)
-    pname
-    version
-    src
-    meta
-    ;
+  common = import ./common.nix { inherit lib fetchFromGitLab; };
+in stdenv.mkDerivation {
+  inherit (common) pname version src meta;
 
   patches = [
     ./opencl.patch
@@ -404,6 +387,7 @@ stdenv.mkDerivation {
     python3Packages.pycparser
     python3Packages.mako
     python3Packages.ply
+    python3Packages.pyyaml
     jdupes
     # Use bin output from glslang to not propagate the dev output at
     # the build time with the host glslang.
@@ -499,7 +483,7 @@ stdenv.mkDerivation {
     done
 
     # add RPATH here so Zink can find libvulkan.so
-    patchelf --add-rpath ${vulkan-loader}/lib $drivers/lib/dri/zink_dri.so
+    patchelf --add-rpath ${vulkan-loader}/lib $out/lib/libgallium*.so
   '';
 
   env.NIX_CFLAGS_COMPILE = toString ([
