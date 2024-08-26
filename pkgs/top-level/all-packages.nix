@@ -32807,8 +32807,6 @@ with pkgs;
 
   ponymix = callPackage ../applications/audio/ponymix { };
 
-  pop-launcher = callPackage ../applications/misc/pop-launcher { };
-
   pothos = libsForQt5.callPackage ../applications/radio/pothos { };
 
   potrace = callPackage ../applications/graphics/potrace { };
