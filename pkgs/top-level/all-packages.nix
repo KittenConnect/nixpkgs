@@ -26146,7 +26146,7 @@ with pkgs;
 
   cpustat = callPackage ../os-specific/linux/cpustat { };
 
-  cockroachdb-bin = callPackage ../servers/sql/cockroachdb/cockroachdb-bin.nix { };
+  cockroachdb = callPackage ../servers/sql/cockroachdb { };
 
   coconutbattery = callPackage ../os-specific/darwin/coconutbattery { };
 
