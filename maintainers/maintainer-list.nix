@@ -9259,6 +9259,12 @@
     github = "jankaifer";
     githubId = 12820484;
   };
+  janlikar = {
+    name = "Jan Likar";
+    email = "jan.likar@protonmail.com";
+    github = "janlikar";
+    githubId = 4228250;
+  };
   jansol = {
     email = "jan.solanti@paivola.fi";
     github = "jansol";
