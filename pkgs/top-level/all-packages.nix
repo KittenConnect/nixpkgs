@@ -12434,8 +12434,6 @@ with pkgs;
 
   setserial = callPackage ../tools/system/setserial { };
 
-  setzer = callPackage ../applications/editors/setzer { };
-
   seqdiag = with python3Packages; toPythonApplication seqdiag;
 
   sequoia-sqv = callPackage ../tools/security/sequoia-sqv { };
