@@ -10745,6 +10745,10 @@ with pkgs;
 
   noisetorch = callPackage ../applications/audio/noisetorch { };
 
+  notation = callPackage ../by-name/no/notation/package.nix {
+    buildGoModule = buildGo123Module;
+  };
+
   notify-osd = callPackage ../applications/misc/notify-osd { };
 
   notes = qt6Packages.callPackage ../applications/office/notes {
