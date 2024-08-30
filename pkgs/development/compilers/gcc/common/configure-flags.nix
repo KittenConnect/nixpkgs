@@ -5,7 +5,7 @@
 , threadsCross
 , version
 
-, binutils, gmp, mpfr, libmpc, isl
+, apple-sdk, binutils, gmp, mpfr, libmpc, isl
 
 , enableLTO
 , enableMultilib
@@ -111,12 +111,14 @@ let
       "--with-mpc=${libmpc}"
     ]
     ++ lib.optionals (!withoutTargetLibc) [
-      (if libcCross != null
-       then "--with-native-system-header-dir=${lib.getDev libcCross}${libcCross.incdir or "/include"}"
-       else if stdenv.cc.nativeLibc
-       then "--with-native-system-header-dir=${stdenv.cc.nativePrefix}/include"
-       else "--with-native-system-header-dir=${lib.getDev stdenv.cc.libc}/include"
-      )
+      (if libcCross == null
+       then (
+        # GCC will search for the headers relative to SDKROOT on Darwin, so it will find them in the store.
+        if targetPlatform.isDarwin then "--with-native-system-header-dir=/usr/include"
+        else if stdenv.cc.nativeLibc then "--with-native-system-header-dir=${stdenv.cc.nativePrefix}/include"
+        else "--with-native-system-header-dir=${lib.getDev stdenv.cc.libc}/include"
+       )
+       else "--with-native-system-header-dir=${lib.getDev libcCross}${libcCross.incdir or "/include"}")
       # gcc builds for cross-compilers (build != host) or cross-built
       # gcc (host != target) always apply the offset prefix to disentangle
       # target headers from build or host headers:
@@ -135,7 +137,8 @@ let
       #
       # We pick "/" path to effectively avoid sysroot offset and make it work
       # as a native case.
-      "--with-build-sysroot=/"
+      # Darwin requires using the SDK as the sysroot for `SDKROOT` to work correctly.
+      "--with-build-sysroot=${if targetPlatform.isDarwin then apple-sdk.sdkroot else "/"}"
       # Same with the stdlibc++ headers embedded in the gcc output
       "--with-gxx-include-dir=${placeholder "out"}/include/c++/${version}/"
     ]

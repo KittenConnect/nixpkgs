@@ -35,6 +35,7 @@
 , nukeReferences
 , callPackage
 , majorMinorVersion
+, apple-sdk
 , cctools
 , darwin
 }:
@@ -106,6 +107,7 @@ let
       ;
       # inherit generated with 'nix eval --json --impure --expr "with import ./. {}; lib.attrNames (lib.functionArgs gcc${majorVersion}.cc.override)" | jq '.[]' --raw-output'
       inherit
+        apple-sdk
         binutils
         buildPackages
         cargo
