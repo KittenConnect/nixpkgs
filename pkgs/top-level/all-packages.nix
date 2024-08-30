@@ -18716,7 +18716,9 @@ with pkgs;
 
   regex-cli = callPackage ../development/tools/misc/regex-cli { };
 
-  reno = callPackage ../development/tools/reno { };
+  reno = callPackage ../development/tools/reno {
+    python3Packages = python311Packages;
+  };
 
   re2c = callPackage ../development/tools/parsing/re2c { };
 
