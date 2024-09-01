@@ -38176,8 +38176,6 @@ with pkgs;
 
   helmsman = callPackage ../applications/networking/cluster/helmsman { };
 
-  velero = callPackage ../applications/networking/cluster/velero { };
-
   hplip = callPackage ../misc/drivers/hplip { };
 
   hplipWithPlugin = hplip.override { withPlugin = true; };
