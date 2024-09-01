@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "protocolbuffers";
     repo = "protobuf";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     inherit hash;
   };
 
@@ -95,9 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      pythonProtobuf = python3.pkgs.protobuf.override (_: {
-        protobuf = finalAttrs.finalPackage;
-      });
+      pythonProtobuf = python3.pkgs.protobuf;
       inherit grpc;
     };
 
