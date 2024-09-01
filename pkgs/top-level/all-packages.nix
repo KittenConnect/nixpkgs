@@ -4228,8 +4228,7 @@ with pkgs;
 
   boxfs = callPackage ../tools/filesystems/boxfs { };
 
-  bozohttpd = callPackage ../servers/http/bozohttpd { };
-  bozohttpd-minimal = callPackage ../servers/http/bozohttpd { minimal = true; };
+  bozohttpd-minimal = bozohttpd.override { minimal = true; };
 
   brasero-original = lowPrio (callPackage ../tools/cd-dvd/brasero { });
 
