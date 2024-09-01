@@ -22397,8 +22397,6 @@ with pkgs;
 
   yas = callPackage ../development/libraries/yas { };
 
-  libcyaml = callPackage ../development/libraries/libcyaml { };
-
   rang = callPackage ../development/libraries/rang { };
 
   libykclient = callPackage ../development/libraries/libykclient { };
