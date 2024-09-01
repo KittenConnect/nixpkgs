@@ -39448,8 +39448,6 @@ with pkgs;
 
   houdini = callPackage ../applications/misc/houdini { };
 
-  openfst = callPackage ../development/libraries/openfst { };
-
   opengrm-ngram = callPackage ../development/libraries/opengrm-ngram { };
 
   openring = callPackage ../applications/misc/openring { };
