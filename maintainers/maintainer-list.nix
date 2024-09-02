@@ -17036,6 +17036,12 @@
     githubId = 1332289;
     name = "Quentin Machu";
   };
+  quincepie = {
+    email = "flaky@quincepie.dev";
+    github = "Quince-Pie";
+    githubId = 127546159;
+    name = "QuincePie";
+  };
   quinn-dougherty = {
     email = "quinnd@riseup.net";
     github = "quinn-dougherty";
