@@ -18,6 +18,8 @@
 , grpc
 , enableShared ? !stdenv.hostPlatform.isStatic
 
+, testers
+, protobuf
 , ...
 }:
 
@@ -97,6 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       pythonProtobuf = python3.pkgs.protobuf;
       inherit grpc;
+      version = testers.testVersion { package = protobuf; };
     };
 
     inherit abseil-cpp;
