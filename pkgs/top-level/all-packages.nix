@@ -22966,6 +22966,7 @@ with pkgs;
   manilaclient = with python311Packages; toPythonApplication python-manilaclient;
   mistralclient = with python311Packages; toPythonApplication python-mistralclient;
   swiftclient = with python311Packages; toPythonApplication python-swiftclient;
+  troveclient = with python311Packages; toPythonApplication python-troveclient;
 
   openvdb = callPackage ../development/libraries/openvdb { };
 
