@@ -23463,10 +23463,7 @@ with pkgs;
     libGLU = null;
   });
 
-  SDL_compat = callPackage ../development/libraries/SDL_compat {
-    inherit (darwin.apple_sdk.frameworks) Cocoa;
-    inherit (darwin) autoSignDarwinBinariesHook;
-  };
+  SDL_compat = callPackage ../development/libraries/SDL_compat { };
 
   SDL = SDL_classic;
 
