@@ -25967,8 +25967,6 @@ with pkgs;
 
   ### SERVERS / GEOSPATIAL
 
-  fit-trackee = callPackage ../servers/geospatial/fit-trackee { };
-
   martin = callPackage ../servers/geospatial/martin {
     inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
   };
