@@ -10,6 +10,7 @@
   fetchPypi,
   gn,
   pytestCheckHook,
+  cctools,
   xcodebuild,
   ApplicationServices,
   OpenGL,
@@ -58,11 +59,16 @@ buildPythonPackage rec {
           sed -E -i -e '/SkOSFile_stdio/a \    "src/ports/SkDebug_stdio.cpp",' src/cpp/skia-builder/skia/BUILD.gn
         '';
 
-  nativeBuildInputs = [
-    cython
-    ninja
-    setuptools-scm
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcodebuild ];
+  nativeBuildInputs =
+    [
+      cython
+      ninja
+      setuptools-scm
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      cctools.libtool
+      xcodebuild
+    ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     ApplicationServices
