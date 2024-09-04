@@ -123,6 +123,8 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
+  enableParallelBuilding = true;
+
   postInstall = ''
     moveToOutput share/aclocal "$dev"
   '';
@@ -141,8 +143,6 @@ stdenv.mkDerivation (finalAttrs: {
   setupHook = ./setup-hook.sh;
 
   passthru = { inherit openglSupport; };
-
-  enableParallelBuilding = true;
 
   meta = {
     homepage = "http://www.libsdl.org/";
