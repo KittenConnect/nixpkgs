@@ -31898,10 +31898,6 @@ with pkgs;
 
   clerk = callPackage ../applications/audio/clerk { };
 
-  jujutsu = callPackage ../applications/version-management/jujutsu {
-    inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration;
-  };
-
   nbstripout = callPackage ../applications/version-management/nbstripout { };
 
   ncmpc = callPackage ../applications/audio/ncmpc { };
