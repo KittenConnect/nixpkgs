@@ -108,6 +108,9 @@ stdenv.mkDerivation rec {
     "-DEXPORT_C_API=OFF"
   ] ++ lib.optionals stdenv.hostPlatform.isPower [
     "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
+  ] ++ lib.optionals isCross [
+    (mkFlag stdenv.hostPlatform.isAarch32 "CROSS_COMPILE_ARM")
+    (mkFlag stdenv.hostPlatform.isAarch64 "CROSS_COMPILE_ARM64")
   ];
 
   preConfigure = lib.optionalString multibitdepthSupport ''
@@ -127,11 +130,6 @@ stdenv.mkDerivation rec {
       -DENABLE_HDR10_PLUS=ON
       ${mkFlag cliSupport "ENABLE_CLI"}
       ${mkFlag unittestsSupport "ENABLE_TESTS"}
-    )
-  '' + lib.optionalString isCross ''
-    cmakeFlagsArray+=(
-      ${mkFlag (stdenv.hostPlatform.isAarch32) "CROSS_COMPILE_ARM"}
-      ${mkFlag (stdenv.hostPlatform.isAarch64) "CROSS_COMPILE_ARM64"}
     )
   '';
 
