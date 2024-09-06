@@ -17846,7 +17846,8 @@ with pkgs;
 
   guile-hall = callPackage ../development/tools/guile/guile-hall { };
 
-  gwrap = callPackage ../development/tools/guile/g-wrap {
+  gwrap = g-wrap;
+  g-wrap = callPackage ../by-name/g-/g-wrap/package.nix {
     guile = guile_2_2;
   };
 
