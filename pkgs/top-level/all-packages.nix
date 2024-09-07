@@ -26007,8 +26007,6 @@ with pkgs;
 
   mlxbf-bootimages = callPackage ../misc/mlxbf-bootimages { };
 
-  iucode-tool = callPackage ../os-specific/linux/microcode/iucode-tool.nix { };
-
   inherit (callPackages ../os-specific/linux/apparmor { })
     libapparmor apparmor-utils apparmor-bin-utils apparmor-parser apparmor-pam
     apparmor-profiles apparmor-kernel-patches apparmorRulesFromClosure;
