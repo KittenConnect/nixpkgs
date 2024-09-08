@@ -9354,7 +9354,7 @@ with pkgs;
   less = if stdenv.isFreeBSD then freebsd.less else super.less;
 
   liquidsoap = callPackage ../tools/audio/liquidsoap/full.nix {
-    ffmpeg = ffmpeg-full;
+    ffmpeg = ffmpeg_6-full;
     ocamlPackages = ocaml-ng.ocamlPackages_4_14;
   };
 
