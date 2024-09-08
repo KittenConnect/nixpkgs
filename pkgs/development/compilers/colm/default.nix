@@ -17,6 +17,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper asciidoc autoreconfHook ];
 
+  env = lib.optionalAttrs stdenv.cc.isGNU {
+    NIX_CFLAGS_COMPILE = "-Wno-error=int-conversion";
+  };
+
   doCheck = true;
 
   postInstall = ''
