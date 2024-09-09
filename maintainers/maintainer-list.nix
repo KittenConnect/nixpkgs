@@ -11200,7 +11200,7 @@
     name = "kintrix";
   };
   kinzoku = {
-    email = "kinzokudev4869@gmail.com";
+    email = "kinzoku@the-nebula.xyz";
     github = "kinzoku-dev";
     githubId = 140647311;
     name = "Ayman Hamza";
