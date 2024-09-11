@@ -153,6 +153,8 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl3Plus;
     platforms = platforms.all;
+    # https://github.com/NixOS/nixpkgs/issues/333338
+    badPlatforms = [ lib.systems.inspect.patterns.isMinGW ];
     maintainers = [ ];
     mainProgram = "bash";
   };
