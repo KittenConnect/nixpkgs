@@ -9666,7 +9666,6 @@ with pkgs;
   nerdctl = callPackage ../applications/networking/cluster/nerdctl { };
 
   netdata = callPackage ../tools/system/netdata {
-    inherit (darwin.apple_sdk.frameworks) CoreFoundation IOKit;
     protobuf = protobuf_21;
   };
   netdataCloud = netdata.override {
