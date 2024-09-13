@@ -14911,7 +14911,6 @@ with pkgs;
       extraBuildInputs = lib.optional stdenv.hostPlatform.isDarwin clang.cc;
     };
 
-  gcc6Stdenv = overrideCC gccStdenv buildPackages.gcc6;
   gcc7Stdenv = overrideCC gccStdenv buildPackages.gcc7;
   gcc8Stdenv = overrideCC gccStdenv buildPackages.gcc8;
   gcc9Stdenv = overrideCC gccStdenv buildPackages.gcc9;
@@ -15005,7 +15004,7 @@ with pkgs;
   };
 
   inherit (callPackage ../development/compilers/gcc/all.nix { inherit noSysDirs; })
-    gcc6 gcc7 gcc8 gcc9 gcc10 gcc11 gcc12 gcc13 gcc14;
+    gcc7 gcc8 gcc9 gcc10 gcc11 gcc12 gcc13 gcc14;
 
   gcc_latest = gcc14;
 
@@ -15018,18 +15017,6 @@ with pkgs;
     langJit = true;
     enableLTO = false;
   };
-
-  gcj = gcj6;
-  gcj6 = wrapCC (gcc6.cc.override {
-    name = "gcj";
-    langJava = true;
-    langFortran = false;
-    langCC = false;
-    langC = false;
-    profiledCompiler = false;
-    inherit zip unzip zlib boehmgc gettext pkg-config perl;
-    inherit (gnome2) libart_lgpl;
-  });
 
   gnat = gnat12; # When changing this, update also gnatPackages
 
