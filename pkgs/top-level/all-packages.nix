@@ -11672,10 +11672,6 @@ with pkgs;
 
   psudohash = callPackage ../tools/security/psudohash { };
 
-  psensor = callPackage ../tools/system/psensor {
-    libXNVCtrl = linuxPackages.nvidia_x11.settings.libXNVCtrl;
-  };
-
   pubs = callPackage ../tools/misc/pubs { };
 
   pulldown-cmark = callPackage ../tools/typesetting/pulldown-cmark { };
