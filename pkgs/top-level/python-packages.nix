@@ -7478,6 +7478,8 @@ self: super: with self; {
 
   macropy = callPackage ../development/python-modules/macropy { };
 
+  maec = callPackage ../development/python-modules/maec { };
+
   maestral = callPackage ../development/python-modules/maestral { };
 
   magic = callPackage ../development/python-modules/magic { };
