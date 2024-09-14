@@ -30361,8 +30361,6 @@ with pkgs;
 
   gmpc = callPackage ../applications/audio/gmpc { };
 
-  gmtp = callPackage ../applications/misc/gmtp { };
-
   gnomecast = callPackage ../applications/video/gnomecast { };
 
   gnome-recipes = callPackage ../applications/misc/gnome-recipes { };
