@@ -19,6 +19,7 @@
 , enableManpages ? false
 , enableTerminfo ? true
 , clang-tools-extra_src ? null
+, devExtraCmakeFlags ? []
 }:
 
 let
@@ -79,7 +80,7 @@ let
       # For unknown reasons, it will try to link the shared library by name during a static link
       "-DZLIB_LIBRARY_RELEASE=${zlib}/lib/libz${stdenv.hostPlatform.extensions.staticLibrary}"
       "-DCMAKE_SKIP_INSTALL_RPATH=ON"
-    ]);
+    ]) ++ devExtraCmakeFlags;
 
     postPatch = ''
       # Make sure clang passes the correct location of libLTO to ld64
