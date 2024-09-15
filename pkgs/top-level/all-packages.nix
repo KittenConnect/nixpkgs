@@ -30007,8 +30007,6 @@ with pkgs;
 
   gigedit = callPackage ../applications/audio/gigedit { };
 
-  gqview = callPackage ../applications/graphics/gqview { };
-
   gnomecast = callPackage ../applications/video/gnomecast { };
 
   gnome-recipes = callPackage ../applications/misc/gnome-recipes { };
