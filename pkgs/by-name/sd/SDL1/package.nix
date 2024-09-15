@@ -73,7 +73,8 @@ stdenv.mkDerivation (finalAttrs: {
   # note 10 Jan 2024: this may be workaroundable with -DSDL_VIDEO_DRIVER_X11_CONST_PARAM_XDATA32 or some option that enables it
   ] ++ lib.optional (stdenv.isDarwin || stdenv.isFreeBSD) "--disable-x11-shared"
     ++ lib.optional (!x11Support) "--without-x"
-    ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib";
+    ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib"
+    ++ lib.optional stdenv.hostPlatform.isMusl "CFLAGS=-DICONV_INBUF_NONCONST";
 
   patches = [
     ./find-headers.patch
