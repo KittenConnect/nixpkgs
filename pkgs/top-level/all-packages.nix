@@ -24744,7 +24744,7 @@ with pkgs;
 
   engelsystem = callPackage ../servers/web-apps/engelsystem { };
 
-  envoy = callPackage ../servers/http/envoy {
+  envoy = callPackage ../by-name/en/envoy/package.nix {
     jdk = openjdk11_headless;
     gn = gn1924;
   };
