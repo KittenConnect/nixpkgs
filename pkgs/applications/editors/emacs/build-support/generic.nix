@@ -86,12 +86,14 @@ libBuildHelper.extendMkDerivation' stdenv.mkDerivation (finalAttrs:
     source ${./emacs-funcs.sh}
     addEmacsVars "$out"
 
-    find $out/share/emacs -type f -name '*.el' -print0 \
-      | xargs -0 -I {} -n 1 -P $NIX_BUILD_CORES sh -c \
-          "emacs --batch \
-            --eval '(setq large-file-warning-threshold nil)' \
-            --eval '(setq byte-compile-error-on-warn ${if finalAttrs.turnCompilationWarningToError then "t" else "nil"})' \
-           -f batch-native-compile {} || true"
+    find $out/share/emacs -type f -name '*.el' -not -name ".dir-locals.el" -print0 \
+      | xargs --verbose -0 -I {} -n 1 -P $NIX_BUILD_CORES sh -c \
+          "emacs \
+             --batch \
+             --eval '(setq large-file-warning-threshold nil)' \
+             --eval '(setq byte-compile-error-on-warn ${if finalAttrs.turnCompilationWarningToError then "t" else "nil"})' \
+             -f batch-native-compile {} \
+           || exit ${if finalAttrs.ignoreCompilationError then "0" else "\\$?"}"
   '' + postInstall;
 }
 
