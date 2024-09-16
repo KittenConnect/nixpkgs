@@ -5055,8 +5055,6 @@ with pkgs;
 
   mftrace = callPackage ../tools/typesetting/tex/mftrace { };
 
-  # Keep the old PGF since some documents don't render properly with
-  # the new one.
   pgf = pgf2;
 
   pplatex = callPackage ../tools/typesetting/tex/pplatex { };
