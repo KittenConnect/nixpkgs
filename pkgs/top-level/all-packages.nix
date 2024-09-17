@@ -19492,8 +19492,6 @@ with pkgs;
 
   croaring = callPackage ../development/libraries/croaring { };
 
-  crocoddyl = callPackage ../development/libraries/crocoddyl { };
-
   crossguid = callPackage ../development/libraries/crossguid { };
 
   cryptopp = callPackage ../development/libraries/crypto++ { };
