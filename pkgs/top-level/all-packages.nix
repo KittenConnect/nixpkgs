@@ -22794,8 +22794,6 @@ with pkgs;
 
   pingvin-share =  callPackage ../servers/pingvin-share { };
 
-  pinocchio = callPackage ../development/libraries/pinocchio { };
-
   pipelight = callPackage ../tools/misc/pipelight {
     stdenv = stdenv_32bit;
     wine-staging = pkgsi686Linux.wine-staging;
