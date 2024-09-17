@@ -21848,8 +21848,6 @@ with pkgs;
 
   libspatialaudio = callPackage ../development/libraries/libspatialaudio { };
 
-  libspatialindex = callPackage ../development/libraries/libspatialindex { };
-
   libspatialite = callPackage ../development/libraries/libspatialite { };
 
   libstatgrab = callPackage ../development/libraries/libstatgrab {
