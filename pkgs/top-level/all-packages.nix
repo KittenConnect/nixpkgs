@@ -33761,8 +33761,6 @@ with pkgs;
 
   vivictpp = callPackage ../applications/video/vivictpp { };
 
-  vpcs = callPackage ../applications/virtualization/vpcs { };
-
   primusLib = callPackage ../tools/X11/primus/lib.nix {
     nvidia_x11 = linuxPackages.nvidia_x11.override { libsOnly = true; };
   };
