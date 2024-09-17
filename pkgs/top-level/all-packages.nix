@@ -38096,8 +38096,6 @@ with pkgs;
 
   nvd = callPackage ../tools/package-management/nvd { };
 
-  solfege = python3Packages.callPackage ../misc/solfege { };
-
   disnix = callPackage ../tools/package-management/disnix { };
 
   dysnomia = callPackage ../tools/package-management/disnix/dysnomia (config.disnix or {
