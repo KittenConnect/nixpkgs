@@ -12456,8 +12456,6 @@ with pkgs;
 
   snet = callPackage ../tools/networking/snet { };
 
-  sng = callPackage ../tools/graphics/sng { };
-
   snmpcheck = callPackage ../tools/networking/snmpcheck { };
 
   snobol4 = callPackage ../development/interpreters/snobol4 { };
