@@ -4051,6 +4051,12 @@
     email = "jupiter@m.rdis.dev";
     name = "Scott Little";
   };
+  codgician = {
+    email = "codgician@outlook.com";
+    github = "codgician";
+    githubId = 15964984;
+    name = "codgician";
+  };
   codifryed = {
     email = "gb@guyboldon.com";
     name = "Guy Boldon";
