@@ -35362,7 +35362,6 @@ with pkgs;
   steamPackages = recurseIntoAttrs (callPackage ../games/steam { });
 
   steam = steamPackages.steam-fhsenv;
-  steam-small = steamPackages.steam-fhsenv-small;
 
   steam-run = steam.run;
 
