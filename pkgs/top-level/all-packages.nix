@@ -9020,8 +9020,6 @@ with pkgs;
 
   k2pdfopt = callPackage ../applications/misc/k2pdfopt { };
 
-  kargo = callPackage ../tools/misc/kargo { };
-
   kazam = callPackage ../applications/video/kazam { };
 
   kalibrate-rtl = callPackage ../applications/radio/kalibrate-rtl { };
