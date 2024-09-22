@@ -18619,8 +18619,6 @@ with pkgs;
 
   snore = callPackage ../tools/misc/snore { };
 
-  snyk = callPackage ../development/tools/analysis/snyk { };
-
   snzip = callPackage ../tools/archivers/snzip { };
 
   snowman = qt5.callPackage ../development/tools/analysis/snowman { };
