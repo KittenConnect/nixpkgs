@@ -80,7 +80,8 @@ let
       # For unknown reasons, it will try to link the shared library by name during a static link
       "-DZLIB_LIBRARY_RELEASE=${zlib}/lib/libz${stdenv.hostPlatform.extensions.staticLibrary}"
       "-DCMAKE_SKIP_INSTALL_RPATH=ON"
-    ]) ++ devExtraCmakeFlags;
+    ]) ++ lib.optional (lib.versionAtLeast release_version "20") "-DLLVM_DIR=${libllvm.dev}/lib/cmake/llvm"
+      ++ devExtraCmakeFlags;
 
     postPatch = ''
       # Make sure clang passes the correct location of libLTO to ld64
@@ -140,8 +141,10 @@ let
       mkdir -p $dev/bin
     '' + (if lib.versionOlder release_version "15" then ''
       cp bin/clang-tblgen $dev/bin
-    '' else ''
+    '' else if lib.versionOlder release_version "20" then ''
       cp bin/{clang-tblgen,clang-tidy-confusable-chars-gen,clang-pseudo-gen} $dev/bin
+    '' else ''
+      cp bin/{clang-tblgen,clang-tidy-confusable-chars-gen} $dev/bin
     '');
 
     passthru = {
