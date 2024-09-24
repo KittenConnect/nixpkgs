@@ -4,11 +4,11 @@
 , libcap
 , libnl
 , freebsd
-, sensorsSupport ? stdenv.isLinux, lm_sensors
+, sensorsSupport ? stdenv.hostPlatform.isLinux, lm_sensors
 , systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
 }:
 
-assert systemdSupport -> stdenv.isLinux;
+assert systemdSupport -> stdenv.hostPlatform.isLinux;
 
 stdenv.mkDerivation rec {
   pname = "htop";
@@ -22,19 +22,19 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ]
-    ++ lib.optional stdenv.isLinux pkg-config
+    ++ lib.optional stdenv.hostPlatform.isLinux pkg-config
   ;
 
   buildInputs = [ ncurses ]
-    ++ lib.optional stdenv.isDarwin IOKit
-    ++ lib.optionals stdenv.isFreeBSD [ freebsd.libkvm freebsd.libdevstat ]
-    ++ lib.optionals stdenv.isLinux [ libcap libnl ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin IOKit
+    ++ lib.optionals stdenv.hostPlatform.isFreeBSD [ freebsd.libkvm freebsd.libdevstat ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ libcap libnl ]
     ++ lib.optional sensorsSupport lm_sensors
     ++ lib.optional systemdSupport systemd
   ;
 
   configureFlags = [ "--enable-unicode" "--sysconfdir=/etc" ]
-    ++ lib.optionals stdenv.isLinux [
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
       "--enable-affinity"
       "--enable-capabilities"
       "--enable-delayacct"

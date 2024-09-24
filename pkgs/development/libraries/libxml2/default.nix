@@ -50,13 +50,13 @@ stdenv.mkDerivation (finalAttrs: {
     gettext
   ] ++ lib.optionals (pythonSupport && python?isPy3 && python.isPy3) [
     ncurses
-  ] ++ lib.optionals (stdenv.isDarwin && pythonSupport && python?isPy2 && python.isPy2) [
+  ] ++ lib.optionals (stdenv.hostPlatform.isDarwin && pythonSupport && python?isPy2 && python.isPy2) [
     libintl
   ];
 
   propagatedBuildInputs = [
     findXMLCatalogs
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     libiconv
   ] ++ lib.optionals icuSupport [
     icu
@@ -81,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck =
     (stdenv.hostPlatform == stdenv.buildPlatform) &&
     stdenv.hostPlatform.libc != "musl";
-  preCheck = lib.optional stdenv.isDarwin ''
+  preCheck = lib.optional stdenv.hostPlatform.isDarwin ''
     export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
   '';
 

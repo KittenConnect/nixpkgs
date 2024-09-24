@@ -44,15 +44,15 @@
 , zstd
 , OpenGL, Xplugin
 , withLibunwind ? lib.meta.availableOn stdenv.hostPlatform libunwind
-, enableGalliumNine ? stdenv.isLinux
-, enableOSMesa ? (stdenv.isLinux || stdenv.isFreeBSD)
-, enableOpenCL ? stdenv.isLinux && stdenv.isx86_64
-, enableTeflon ? stdenv.isLinux && stdenv.isAarch64 # currently only supports aarch64 SoCs, may change in the future
+, enableGalliumNine ? stdenv.hostPlatform.isLinux
+, enableOSMesa ? (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD)
+, enableOpenCL ? stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64
+, enableTeflon ? stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64 # currently only supports aarch64 SoCs, may change in the future
 , enablePatentEncumberedCodecs ? true
 , enableValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken
 
 , galliumDrivers ? 
-  if stdenv.isLinux then 
+  if stdenv.hostPlatform.isLinux then 
     [
       "d3d12" # WSL emulated GPU (aka Dozen)
       "iris" # new Intel (Broadwell+)
@@ -65,20 +65,20 @@
       "svga" # VMWare virtualized GPU
       "virgl" # QEMU virtualized GPU (aka VirGL)
       "zink" # generic OpenGL over Vulkan, experimental
-    ] ++ lib.optionals (stdenv.isAarch64 || stdenv.isAarch32) [
+    ] ++ lib.optionals (stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isAarch32) [
       "etnaviv" # Vivante GPU designs (mostly NXP/Marvell SoCs)
       "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
       "lima" # ARM Mali 4xx
       "panfrost" # ARM Mali Midgard and up (T/G series)
       "vc4" # Broadcom VC4 (Raspberry Pi 0-3)
-    ] ++ lib.optionals stdenv.isAarch64 [
+    ] ++ lib.optionals stdenv.hostPlatform.isAarch64 [
       "tegra" # Nvidia Tegra SoCs
       "v3d" # Broadcom VC5 (Raspberry Pi 4)
     ] ++ lib.optionals stdenv.hostPlatform.isx86 [
       "crocus" # Intel legacy, x86 only
       "i915" # Intel extra legacy, x86 only
     ] 
-  else if stdenv.isFreeBSD then
+  else if stdenv.hostPlatform.isFreeBSD then
     [
       "swrast"
       "zink"
@@ -86,7 +86,7 @@
       "r600"
       "radeonsi"
     ]
-    ++ lib.optionals stdenv.isAarch64 [
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 [
       "panfrost"
     ]
     ++ lib.optionals stdenv.hostPlatform.isx86 [
@@ -98,7 +98,7 @@
   else
     [ "auto" ]
 , vulkanDrivers ?
-  if stdenv.isLinux then 
+  if stdenv.hostPlatform.isLinux then 
     [
       "amd" # AMD (aka RADV)
       "intel" # new Intel (aka ANV)
@@ -109,7 +109,7 @@
       # QEMU virtualized GPU (aka VirGL)
       # Requires ATOMIC_INT_LOCK_FREE == 2.
       "virtio"
-    ] ++ lib.optionals stdenv.isAarch64 [
+    ] ++ lib.optionals stdenv.hostPlatform.isAarch64 [
       "broadcom" # Broadcom VC5 (Raspberry Pi 4, aka V3D)
       "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
       "imagination-experimental" # PowerVR Rogue (currently N/A)
@@ -117,7 +117,7 @@
     ] ++ lib.optionals stdenv.hostPlatform.isx86 [
       "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
     ]
-  else if stdenv.isFreeBSD then
+  else if stdenv.hostPlatform.isFreeBSD then
     [
       "swrast"
       "amd"
@@ -128,8 +128,8 @@
     ]
   else
     [ "auto" ]
-, eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ]
-, vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
+, eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "wayland" ]
+, vulkanLayers ? lib.optionals (!stdenv.hostPlatform.isDarwin) [
     "device-select"
     "overlay"
     "intel-nullhw"
@@ -207,7 +207,7 @@ in stdenv.mkDerivation {
     ++ lib.optionals enableOSMesa [
       "osmesa"
     ]
-    ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [
+    ++ lib.optionals (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD) [
       "driversdev"
     ]
     ++ lib.optionals enableTeflon [
@@ -261,7 +261,7 @@ in stdenv.mkDerivation {
 
       # Enable Intel RT stuff when available
       (lib.mesonBool "install-intel-clc" true)
-      (lib.mesonEnable "intel-rt" stdenv.isx86_64)
+      (lib.mesonEnable "intel-rt" stdenv.hostPlatform.isx86_64)
       (lib.mesonOption "clang-libdir" "${llvmPackages.clang-unwrapped.lib}/lib")
 
       # Clover, old OpenCL frontend
@@ -275,17 +275,17 @@ in stdenv.mkDerivation {
       (lib.mesonEnable "android-libbacktrace" false)
       (lib.mesonEnable "valgrind" enableValgrind)
     ]
-    ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [
+    ++ lib.optionals (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD) [
       (lib.mesonBool "glvnd" true)
       (lib.mesonOption "clang-libdir" "${llvmPackages.clang-unwrapped.lib}/lib")
     ]
-    ++ lib.optionals stdenv.isLinux [
-      (lib.mesonEnable "intel-rt" stdenv.isx86_64)
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      (lib.mesonEnable "intel-rt" stdenv.hostPlatform.isx86_64)
       # Enable RT for Intel hardware
       # https://gitlab.freedesktop.org/mesa/mesa/-/issues/9080
       (lib.mesonBool "install-intel-clc" (stdenv.buildPlatform == stdenv.hostPlatform))
     ]
-    ++ lib.optionals stdenv.isFreeBSD [
+    ++ lib.optionals stdenv.hostPlatform.isFreeBSD [
       (lib.mesonEnable "lmsensors" false)
     ]
     ++ lib.optionals enableOpenCL [
@@ -338,14 +338,14 @@ in stdenv.mkDerivation {
     wayland
     wayland-protocols
   ]
-  ++ lib.optionals (stdenv.isLinux || stdenv.isFreeBSD) [
+  ++ lib.optionals (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD) [
     libva-minimal
     llvmPackages.clang
     llvmPackages.clang-unwrapped
     llvmPackages.libclc
     llvmPackages.libllvm
   ]
-  ++ lib.optionals stdenv.isLinux [
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     libomxil-bellagio
     libva-minimal
     lm_sensors
@@ -411,7 +411,7 @@ in stdenv.mkDerivation {
 
   doCheck = false;
 
-  postInstall = lib.optionalString (stdenv.isLinux || stdenv.isFreeBSD) ''
+  postInstall = lib.optionalString (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD) ''
     mkdir -p $drivers $osmesa
     mkdir -p $drivers/lib
     # Move driver-related bits to $drivers
@@ -450,7 +450,7 @@ in stdenv.mkDerivation {
     moveToOutput lib/libteflon.so $teflon
   '';
 
-  postFixup = lib.optionalString (stdenv.isLinux || stdenv.isFreeBSD) ''
+  postFixup = lib.optionalString (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD) ''
     # set the default search path for DRI drivers; used e.g. by X server
     for pc in lib/pkgconfig/{dri,d3d}.pc; do
       [ -f "$dev/$pc" ] && substituteInPlace "$dev/$pc" --replace "$drivers" "${libglvnd.driverLink}"

@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = lib.optional stdenv.isFreeBSD freebsd.libstdthreads;
+  buildInputs = lib.optional stdenv.hostPlatform.isFreeBSD freebsd.libstdthreads;
 
   buildInputs = lib.optional stdenv.hostPlatform.isFreeBSD [ freebsd.libstdthreads ];
 

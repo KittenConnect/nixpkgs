@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   outputs = [ "bin" "doc" "man" "dev" "lib" "out" ];
 
   # https://github.com/jqlang/jq/issues/2871
-  postPatch = lib.optionalString stdenv.isFreeBSD ''
+  postPatch = lib.optionalString stdenv.hostPlatform.isFreeBSD ''
     substituteInPlace Makefile.am --replace-fail "tests/mantest" "" --replace-fail "tests/optionaltest" ""
   '';
 
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   # Otherwise, configure will detect that they’re in libm, but the build will fail
   # with clang 16+ due to calls to undeclared functions.
   # This is fixed upstream and can be removed once jq is updated (to 1.7 or an unstable release).
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin (toString [
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (toString [
     "-D_REENTRANT=1"
     "-D_DARWIN_C_SOURCE=1"
   ]);
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     "--mandir=\${man}/share/man"
   ] ++ lib.optional (!onigurumaSupport) "--with-oniguruma=no"
   # jq is linked to libjq:
-  ++ lib.optional (!stdenv.isDarwin) "LDFLAGS=-Wl,-rpath,\\\${libdir}";
+  ++ lib.optional (!stdenv.hostPlatform.isDarwin) "LDFLAGS=-Wl,-rpath,\\\${libdir}";
 
   preFixup = ''
     patchelf --shrink-rpath --allowed-rpath-prefixes /nix/store "$bin/bin/jq"

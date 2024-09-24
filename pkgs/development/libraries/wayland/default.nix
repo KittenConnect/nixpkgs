@@ -7,8 +7,8 @@
 , wayland-scanner
 , expat
 , libxml2
-, withLibraries ? stdenv.isLinux || stdenv.isDarwin || stdenv.isFreeBSD
-, withTests ? stdenv.isLinux
+, withLibraries ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isFreeBSD
+, withTests ? stdenv.hostPlatform.isLinux
 , libffi
 , epoll-shim
 , withDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform

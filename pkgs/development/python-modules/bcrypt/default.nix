@@ -49,7 +49,7 @@ buildPythonPackage rec {
   ];
 
   # Remove when https://github.com/NixOS/nixpkgs/pull/190093 lands.
-  buildInputs = lib.optional stdenv.isDarwin libiconv;
+  buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

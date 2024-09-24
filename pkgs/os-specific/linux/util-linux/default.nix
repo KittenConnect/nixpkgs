@@ -1,10 +1,10 @@
 { lib, stdenv, fetchurl, fetchpatch, pkg-config, zlib, shadow
-, capabilitiesSupport ? stdenv.isLinux
+, capabilitiesSupport ? stdenv.hostPlatform.isLinux
 , libcap_ng
 , libxcrypt
 , ncursesSupport ? true
 , ncurses
-, pamSupport ? stdenv.isLinux
+, pamSupport ? stdenv.hostPlatform.isLinux
 , linux-pam
 , systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
 , systemd
@@ -13,10 +13,10 @@
 , translateManpages ? true
 , po4a
 , installShellFiles
-, writeSupport ? stdenv.isLinux
-, shadowSupport ? stdenv.isLinux
-, ipcsSupport ? stdenv.isLinux
-, hardlinkSupport ? stdenv.isLinux
+, writeSupport ? stdenv.hostPlatform.isLinux
+, shadowSupport ? stdenv.hostPlatform.isLinux
+, ipcsSupport ? stdenv.hostPlatform.isLinux
+, hardlinkSupport ? stdenv.hostPlatform.isLinux
 , memstreamHook
 , gitUpdater
 }:
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   # the greater util-linux toolset.
   # Compatibility is maintained by symlinking the binaries from the
   # smaller outputs in the bin output.
-  outputs = [ "bin" "dev" "out" "lib" "man" ] ++ lib.optionals stdenv.isLinux [ "mount" ] ++ [ "login" ] ++ lib.optionals stdenv.isLinux [ "swap" ];
+  outputs = [ "bin" "dev" "out" "lib" "man" ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "mount" ] ++ [ "login" ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "swap" ];
   separateDebugInfo = true;
 
   postPatch = ''
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString shadowSupport ''
     substituteInPlace include/pathnames.h \
       --replace "/bin/login" "${shadow}/bin/login"
-  '' + lib.optionalString stdenv.isFreeBSD ''
+  '' + lib.optionalString stdenv.hostPlatform.isFreeBSD ''
     sed -E -i -e "s/__APPLE__/__FreeBSD__/g" lib/c_strtod.c
   '';
 
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     "usrsbin_execdir=${placeholder "bin"}/sbin"
   ];
 
-  env.CFLAGS = lib.optionalString stdenv.isFreeBSD "-D_GNU_SOURCE -D_BSD_SOURCE -D_DEFAULT_SOURCE";
+  env.CFLAGS = lib.optionalString stdenv.hostPlatform.isFreeBSD "-D_GNU_SOURCE -D_BSD_SOURCE -D_DEFAULT_SOURCE";
 
   nativeBuildInputs = [ pkg-config installShellFiles ]
     ++ lib.optionals translateManpages [ po4a ];
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  postInstall = lib.optionalString stdenv.isLinux ''
+  postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     moveToOutput bin/mount "$mount"
     moveToOutput bin/umount "$mount"
     ln -svf "$mount/bin/"* $bin/bin/
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     moveToOutput sbin/sulogin "$login"
     prefix=$login _moveSbin
     ln -svf "$login/bin/"* $bin/bin/
-    '' + lib.optionalString stdenv.isLinux ''
+    '' + lib.optionalString stdenv.hostPlatform.isLinux ''
 
     moveToOutput sbin/swapon "$swap"
     moveToOutput sbin/swapoff "$swap"

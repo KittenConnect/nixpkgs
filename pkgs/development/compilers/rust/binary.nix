@@ -33,13 +33,13 @@ rec {
       license = [ licenses.mit licenses.asl20 ];
     };
 
-    nativeBuildInputs = lib.optional (!stdenv.isDarwin) autoPatchelfHook;
+    nativeBuildInputs = lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
     buildInputs = [ bash ]
-      ++ lib.optional (!stdenv.isDarwin && !stdenv.isFreeBSD) gcc.cc.lib
-      ++ lib.optional (!stdenv.isDarwin) zlib
+      ++ lib.optional (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isFreeBSD) gcc.cc.lib
+      ++ lib.optional (!stdenv.hostPlatform.isDarwin) zlib
       # the binaries seem to link against versioned symbols in libcxxrt that are only present when built from the freebsd source tree
-      ++ lib.optionals stdenv.isFreeBSD [ freebsd.libcxxrt libcxx ]
-      ++ lib.optional stdenv.isDarwin Security;
+      ++ lib.optionals stdenv.hostPlatform.isFreeBSD [ freebsd.libcxxrt libcxx ]
+      ++ lib.optional stdenv.hostPlatform.isDarwin Security;
 
     postPatch = ''
       patchShebangs .
@@ -113,10 +113,10 @@ rec {
     };
 
     nativeBuildInputs = [ makeWrapper ]
-      ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
+      ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
     buildInputs = [ bash ]
-      ++ lib.optional (!stdenv.isDarwin && !stdenv.isFreeBSD) gcc.cc.lib
-      ++ lib.optional stdenv.isDarwin Security;
+      ++ lib.optional (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isFreeBSD) gcc.cc.lib
+      ++ lib.optional stdenv.hostPlatform.isDarwin Security;
 
     postPatch = ''
       patchShebangs .

@@ -25,9 +25,9 @@
 , testers
 , AppKit
 , Cocoa
-, gdktarget ? if stdenv.isDarwin then "quartz" else "x11"
-, cupsSupport ? config.gtk2.cups or stdenv.isLinux
-, xineramaSupport ? stdenv.isLinux
+, gdktarget ? if stdenv.hostPlatform.isDarwin then "quartz" else "x11"
+, cupsSupport ? config.gtk2.cups or stdenv.hostPlatform.isLinux
+, xineramaSupport ? stdenv.hostPlatform.isLinux
 }:
 
 let
@@ -70,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://gitlab.gnome.org/GNOME/gtk/-/commit/3bbf0b6176d42836d23c36a6ac410e807ec0a7a7.patch";
       hash = "sha256-mstOPk9NNpUwScrdEbvGhmAv8jlds3SBdj53T0q33vM=";
     })
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     ./patches/2.0-gnome_bugzilla_557780_306776_freeciv_darwin.patch
     ./patches/2.0-darwin-x11.patch
   ] ++ lib.optionals (stdenv.isDarwin || stdenv.isFreeBSD) [
@@ -84,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     gdk-pixbuf
     glib
     pango
-  ] ++ lib.optionals (stdenv.isLinux || stdenv.isDarwin || stdenv.isFreeBSD) [
+  ] ++ lib.optionals (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isFreeBSD) [
     libXcomposite
     libXcursor
     libXi
@@ -92,14 +92,14 @@ stdenv.mkDerivation (finalAttrs: {
     libXrender
   ] ++ lib.optional xineramaSupport libXinerama
   ++ lib.optional cupsSupport cups
-  ++ lib.optionals stdenv.isDarwin [
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
     libXdamage
     AppKit
     Cocoa
   ];
 
   preConfigure =
-    lib.optionalString (stdenv.isDarwin
+    lib.optionalString (stdenv.hostPlatform.isDarwin
                         && lib.versionAtLeast
                           stdenv.hostPlatform.darwinMinVersion "11")
       "MACOSX_DEPLOYMENT_TARGET=10.16";
@@ -108,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--sysconfdir=/etc"
     "--with-gdktarget=${gdktarget}"
     "--with-xinput=yes"
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "--disable-glibtest"
     "--disable-introspection"
     "--disable-visibility"

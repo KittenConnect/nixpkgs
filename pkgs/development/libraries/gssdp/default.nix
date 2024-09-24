@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Bail out! GLib-GIO-FATAL-CRITICAL: g_inet_address_to_string: assertion 'G_IS_INET_ADDRESS (address)' failed
-  doCheck = !stdenv.isDarwin && !stdenv.isFreeBSD;
+  doCheck = !stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isFreeBSD;
 
   postFixup = lib.optionalString (stdenv.buildPlatform == stdenv.hostPlatform) ''
     # Move developer documentation to devdoc output.

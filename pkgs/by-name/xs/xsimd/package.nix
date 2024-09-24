@@ -23,12 +23,12 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://github.com/xtensor-stack/xsimd/commit/c8a87ed6e04b6782f48f94713adfb0cad6c11ddf.patch";
       hash = "sha256-2/FvBGdqTPcayD7rdHPSzL+F8IYKAfMW0WBJ0cW9EZ0=";
     })
-  ] ++ lib.optionals (stdenv.isDarwin || stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isFreeBSD) [
+  ] ++ lib.optionals (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isFreeBSD) [
     # - Darwin report: https://github.com/xtensor-stack/xsimd/issues/917
     # - Musl   report: https://github.com/xtensor-stack/xsimd/issues/798
     # Also manifests on FreeBSD
     # ./disable-exp10-test.patch # TODO: re-enable if needed
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     # https://github.com/xtensor-stack/xsimd/issues/1030
     ./disable-test_error_gamma.patch
   ];

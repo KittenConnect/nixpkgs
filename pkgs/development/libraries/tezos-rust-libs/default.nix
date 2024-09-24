@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ llvmPackages_12.llvm cargo ];
-  propagatedBuildInputs = [ llvmPackages_12.libllvm ];
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  propagatedBuildDeps = [ llvmPackages_12.libllvm ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
 
   buildPhase = ''
     runHook preBuild
