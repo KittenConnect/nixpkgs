@@ -5218,6 +5218,16 @@ with pkgs;
 
   grobi = callPackage ../tools/X11/grobi { };
 
+  grype = callPackage ../by-name/gr/grype/package.nix {
+    buildGoModule = buildGo123Module;
+  };
+
+  gscan2pdf = callPackage ../applications/graphics/gscan2pdf {
+    # needs this fork of libtiff, because original libtiff
+    # stopped packaging required tools with version 4.6
+    libtiff = libtiff_t;
+  };
+
   gsctl = callPackage ../applications/misc/gsctl { };
 
   gsocket = callPackage ../tools/networking/gsocket { };
