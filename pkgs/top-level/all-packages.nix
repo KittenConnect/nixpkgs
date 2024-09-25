@@ -18445,8 +18445,6 @@ with pkgs;
 
   redisinsight = callPackage ../development/tools/redisinsight { };
 
-  redo = callPackage ../development/tools/build-managers/redo { };
-
   redo-apenwarr = callPackage ../development/tools/build-managers/redo-apenwarr { };
 
   redo-c = callPackage ../development/tools/build-managers/redo-c { };
