@@ -18089,8 +18089,6 @@ with pkgs;
 
   lcov = callPackage ../development/tools/analysis/lcov { };
 
-  leiningen = callPackage ../development/tools/build-managers/leiningen { };
-
   lemon = callPackage ../development/tools/parsing/lemon { };
 
   lenmus = callPackage ../applications/misc/lenmus { };
