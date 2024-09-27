@@ -6591,6 +6591,13 @@
     githubId = 195032;
     name = "Eric Evenchick";
   };
+  eveeifyeve = {
+    name = "Eveeifyeve";
+    github = "eveeifyeve";
+    githubId = 88671402;
+    matrix = "@eveeifyeve:matrix.org";
+    email = "eveeg1971@gmail.com";
+  };
   evenbrenden = {
     email = "packages@anythingexternal.com";
     github = "evenbrenden";
