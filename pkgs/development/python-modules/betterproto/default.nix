@@ -40,7 +40,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  passthru.optional-dependencies.compiler = [
+  optional-dependencies.compiler = [
     black
     jinja2
     isort
@@ -53,7 +53,7 @@ buildPythonPackage rec {
     pytest-mock
     pytest7CheckHook
     tomlkit
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   pythonImportsCheck = [ "betterproto" ];
 

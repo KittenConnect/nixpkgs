@@ -37,7 +37,7 @@ buildPythonPackage rec {
     "test_delitem"
   ];
 
-  passthru.optional-dependencies = {
+  optional-dependencies = {
     pens = [ fontpens ];
     lxml = [ fonttools ] ++ fonttools.optional-dependencies.lxml;
   };
