@@ -36416,8 +36416,6 @@ with pkgs;
     cudaSupport = true;
   };
 
-  mathmod = libsForQt5.callPackage ../applications/science/math/mathmod { };
-
   metis = callPackage ../development/libraries/science/math/metis { };
 
   nauty = callPackage ../applications/science/math/nauty { };
