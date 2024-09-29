@@ -26,7 +26,6 @@
 
 # platform-specific dependencies
 , bash
-, configd
 , darwin
 , windows
 
@@ -184,8 +183,6 @@ let
   ] ++ optionals stdenv.hostPlatform.isMinGW [
     windows.dlfcn
     windows.mingw_w64_pthreads
-  ] ++ optionals stdenv.hostPlatform.isDarwin [
-    configd
   ] ++ optionals tzdataSupport [
     tzdata
   ] ++ optionals withGdbm [
@@ -365,9 +362,6 @@ in with passthru; stdenv.mkDerivation (finalAttrs: {
     (enableFeature enableGIL "gil")
   ] ++ optionals enableOptimizations [
     "--enable-optimizations"
-  ] ++ optionals (stdenv.hostPlatform.isDarwin && configd == null) [
-    # Make conditional on Darwin for now to avoid causing Linux rebuilds.
-    "py_cv_module__scproxy=n/a"
   ] ++ optionals (sqlite != null) [
     "--enable-loadable-sqlite-extensions"
   ] ++ optionals (libxcrypt != null) [
