@@ -26403,8 +26403,6 @@ with pkgs;
 
   gotests = callPackage ../development/tools/gotests { };
 
-  gotestsum = callPackage ../development/tools/gotestsum { };
-
   gqlgenc = callPackage ../development/tools/gqlgenc { };
 
   impl = callPackage ../development/tools/impl { };
