@@ -13225,8 +13225,6 @@ with pkgs;
 
   typesense = callPackage ../servers/search/typesense { };
 
-  typos = callPackage ../development/tools/typos { };
-
   tz = callPackage ../tools/misc/tz { };
 
   u9fs = callPackage ../servers/u9fs { };
