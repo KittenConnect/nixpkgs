@@ -351,8 +351,6 @@ with pkgs;
 
   cbfmt = callPackage ../development/tools/cbfmt { };
 
-  cfn-nag = callPackage ../development/tools/cfn-nag { };
-
   circumflex = callPackage ../applications/networking/circumflex { };
 
   citron = callPackage ../tools/misc/citron { };
