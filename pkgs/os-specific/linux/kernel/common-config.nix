@@ -33,10 +33,13 @@ let
   forceRust = features.rust or false;
   kernelSupportsRust = lib.versionAtLeast version "6.7";
 
-  # Currently only enabling Rust by default on kernel 6.12+,
-  # which actually has features that use Rust that we want.
-  defaultRust = lib.versionAtLeast version "6.12" && rustAvailable;
-  withRust = (forceRust || defaultRust) && kernelSupportsRust;
+  # Currently not enabling Rust by default, as upstream requires rustc 1.81
+  defaultRust = false;
+  withRust =
+    assert lib.assertMsg (!(forceRust && !kernelSupportsRust)) ''
+      Kernels below 6.7 (the kernel being built is ${version}) don't support Rust.
+    '';
+    (forceRust || defaultRust) && kernelSupportsRust;
 
   options = {
 
