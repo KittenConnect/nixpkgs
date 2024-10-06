@@ -202,6 +202,22 @@ in
 
   config = lib.mkIf enableDHCP {
 
+    assertions = [ {
+      # dhcpcd doesn't start properly with malloc ∉ [ jemalloc libc mimalloc scudo ]
+      # see https://github.com/NixOS/nixpkgs/issues/151696
+      assertion =
+        dhcpcd.enablePrivSep
+          -> lib.elem config.environment.memoryAllocator.provider [ "jemalloc" "libc" "mimalloc" "scudo" ];
+      message = ''
+        dhcpcd with privilege separation is incompatible with chosen system malloc.
+          Currently `graphene-hardened` allocator is known to be broken.
+          To disable dhcpcd's privilege separation, overlay Nixpkgs and override dhcpcd
+          to set `enablePrivSep = false`.
+      '';
+    } ];
+
+    environment.etc."dhcpcd.conf".source = dhcpcdConf;
+
     systemd.services.dhcpcd = let
       cfgN = config.networking;
       hasDefaultGatewaySet = (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
