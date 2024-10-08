@@ -15149,6 +15149,7 @@ with pkgs;
     julia_16-bin
     julia_19-bin
     julia_110-bin
+    julia_111-bin
     julia_19
     julia_110;
 
