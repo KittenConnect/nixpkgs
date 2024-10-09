@@ -34459,10 +34459,6 @@ with pkgs;
 
   opensearch = callPackage ../servers/search/opensearch { };
 
-  osu-lazer = callPackage ../games/osu-lazer { };
-
-  osu-lazer-bin = callPackage ../games/osu-lazer/bin.nix { };
-
   pro-office-calculator = libsForQt5.callPackage ../games/pro-office-calculator { };
 
   qgo = libsForQt5.callPackage ../games/qgo { };
