@@ -125,6 +125,7 @@
 , withVpl ? false # Hardware acceleration via intel libvpl
 , withVpx ? withHeadlessDeps && stdenv.buildPlatform == stdenv.hostPlatform # VP8 & VP9 de/encoding
 , withVulkan ? withSmallDeps && !stdenv.hostPlatform.isDarwin
+, withVvenc ? withFullDeps && lib.versionAtLeast version "7.1" # H.266/VVC encoding
 , withWebp ? withHeadlessDeps # WebP encoder
 , withX264 ? withHeadlessDeps && withGPL # H.264/AVC encoder
 , withX265 ? withHeadlessDeps && withGPL # H.265/HEVC encoder
@@ -318,6 +319,7 @@
 , vo-amrwbenc
 , vulkan-headers
 , vulkan-loader
+, vvenc
 , x264
 , x265
 , xavs
@@ -661,6 +663,9 @@ stdenv.mkDerivation (finalAttrs: {
     (enableFeature withVorbis "libvorbis")
     (enableFeature withVpx "libvpx")
     (enableFeature withVulkan "vulkan")
+  ] ++ optionals (versionAtLeast version "7.1")  [
+    (enableFeature withVvenc "libvvenc")
+  ] ++ [
     (enableFeature withWebp "libwebp")
     (enableFeature withX264 "libx264")
     (enableFeature withX265 "libx265")
@@ -804,6 +809,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals withVpl [ libvpl ]
   ++ optionals withVpx [ libvpx ]
   ++ optionals withVulkan [ vulkan-headers vulkan-loader ]
+  ++ optionals withVvenc [ vvenc ]
   ++ optionals withWebp [ libwebp ]
   ++ optionals withX264 [ x264 ]
   ++ optionals withX265 [ x265 ]
