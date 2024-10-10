@@ -17,7 +17,6 @@
 , libusb1
 , glib
 , gettext
-, systemd
 , nixosTests
 , useIMobileDevice ? true
 , libimobiledevice
@@ -26,6 +25,8 @@
 , withIntrospection ? lib.meta.availableOn stdenv.hostPlatform gobject-introspection && stdenv.hostPlatform.emulatorAvailable buildPackages
 , buildPackages
 , gobject-introspection
+, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, systemd
 }:
 
 assert withDocs -> withIntrospection;
@@ -82,11 +83,6 @@ stdenv.mkDerivation (finalAttrs: {
     libgudev
     libusb1
     udev
-
-  ] ++ lib.optionals useIMobileDevice [
-    libimobiledevice
-  ] ++ lib.optionals stdenv.isLinux [
-    systemd
   ] ++ lib.optionals withIntrospection [
     # Duplicate from nativeCheckInputs until https://github.com/NixOS/nixpkgs/issues/161570 is solved
     umockdev
@@ -98,6 +94,10 @@ stdenv.mkDerivation (finalAttrs: {
       pp.pygobject3
       pp.packaging
     ]))
+  ] ++ lib.optionals withSystemd [
+    systemd
+  ] ++ lib.optionals useIMobileDevice [
+    libimobiledevice
   ];
 
   nativeCheckInputs = [
