@@ -36373,8 +36373,6 @@ with pkgs;
     fftw = fftwSinglePrec;
   });
 
-  zegrapher = libsForQt5.callPackage ../applications/science/math/zegrapher { };
-
   ### SCIENCE/MEDICINE
 
   dcmtk = callPackage ../applications/science/medicine/dcmtk { };
