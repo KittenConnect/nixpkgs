@@ -4,6 +4,7 @@
 , python3
 , meson
 , ninja
+, elogind
 , systemd
 , enableSystemd ? stdenv.isLinux
 , pkg-config
@@ -160,7 +161,7 @@ stdenv.mkDerivation(finalAttrs: {
     readline
     sbc
   ] 
-  ++ lib.optionals stdenv.isLinux (if enableSystemd then [ systemd ] else [ udev ])
+  ++ lib.optionals stdenv.isLinux (if enableSystemd then [ systemd ] else [ elogind udev ])
   ++ (if lib.meta.availableOn stdenv.hostPlatform webrtc-audio-processing_1 then [ webrtc-audio-processing_1 ] else [ webrtc-audio-processing ])
   ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform ldacbt) ldacbt
   ++ lib.optional zeroconfSupport avahi
@@ -188,6 +189,7 @@ stdenv.mkDerivation(finalAttrs: {
     (lib.mesonEnable "avahi" zeroconfSupport)
     (lib.mesonEnable "gstreamer" gstreamerSupport)
     (lib.mesonEnable "gstreamer-device-provider" gstreamerSupport)
+    (lib.mesonOption "logind-provider" (if enableSystemd then "libsystemd" else "libelogind"))
     (lib.mesonEnable "systemd" enableSystemd)
     (lib.mesonEnable "systemd-system-service" enableSystemd)
     (lib.mesonEnable "selinux" stdenv.isLinux)
