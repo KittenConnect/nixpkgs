@@ -74,6 +74,7 @@
 , withJxl ? withFullDeps && lib.versionAtLeast version "5" # JPEG XL de/encoding
 , withKvazaar ? withFullDeps # HEVC encoding
 , withLadspa ? withFullDeps # LADSPA audio filtering
+, withLc3 ? withFullDeps && lib.versionAtLeast version "7.1" # LC3 de/encoding
 , withLcms2 ? withFullDeps # ICC profile support via lcms2
 , withLzma ? withHeadlessDeps # xz-utils
 , withMetal ? false # Unfree and requires manual downloading of files
@@ -266,6 +267,7 @@
 , libilbc
 , libjack2
 , libjxl
+, liblc3
 , libmodplug
 , libmysofa
 , libopenmpt
@@ -600,6 +602,8 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ [
     (enableFeature withKvazaar "libkvazaar")
     (enableFeature withLadspa "ladspa")
+  ] ++ optionals (versionAtLeast version "7.1") [
+    (enableFeature withLc3 "liblc3")
   ] ++ optionals (versionAtLeast version "5.1") [
     (enableFeature withLcms2 "lcms2")
   ] ++ [
@@ -763,6 +767,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals withJxl [ libjxl ]
   ++ optionals withKvazaar [ kvazaar ]
   ++ optionals withLadspa [ ladspaH ]
+  ++ optionals withLc3 [ liblc3 ]
   ++ optionals withLcms2 [ lcms2 ]
   ++ optionals withLzma [ xz ]
   ++ optionals withMfx [ intel-media-sdk ]
