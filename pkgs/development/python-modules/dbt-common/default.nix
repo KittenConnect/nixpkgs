@@ -37,8 +37,8 @@ buildPythonPackage rec {
   build-system = [ hatchling ];
 
   pythonRelaxDeps = [
-    "agate"
     "protobuf"
+    "agate"
   ];
 
   dependencies = [
