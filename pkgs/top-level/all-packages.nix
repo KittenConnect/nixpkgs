@@ -24277,7 +24277,6 @@ with pkgs;
 
   envoy = callPackage ../by-name/en/envoy/package.nix {
     jdk = openjdk11_headless;
-    gn = gn1924;
   };
 
   ergochat = callPackage ../servers/irc/ergochat { };
