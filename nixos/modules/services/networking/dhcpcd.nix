@@ -264,9 +264,24 @@ in
             ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${lib.optionalString cfg.persistent "--persistent"} --config ${dhcpcdConf}";
             ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
             Restart = "always";
-          } // lib.optionalAttrs (cfg.runHook == "") {
-            # Proc filesystem
-            ProcSubset = "all";
+            AmbientCapabilities = [ "CAP_NET_ADMIN" "CAP_NET_RAW" "CAP_NET_BIND_SERVICE" ];
+            ReadWritePaths = [ "/proc/sys/net/ipv6" ]
+              ++ lib.optionals useResolvConf ([ "/run/resolvconf" ] ++ config.networking.resolvconf.subscriberFiles);
+            DeviceAllow = "";
+            LockPersonality = true;
+            MemoryDenyWriteExecute = true;
+            NoNewPrivileges = lib.mkDefault true;  # may be disabled for sudo in runHook
+            PrivateDevices = true;
+            PrivateMounts = true;
+            PrivateTmp = true;
+            PrivateUsers = false;
+            ProtectClock = true;
+            ProtectControlGroups = true;
+            ProtectHome = "tmpfs";  # allow exceptions to be added to ReadOnlyPaths, etc.
+            ProtectHostname = true;
+            ProtectKernelLogs = true;
+            ProtectKernelModules = true;
+            ProtectKernelTunables = true;
             ProtectProc = "invisible";
             # Access write directories
             UMask = "0027";
@@ -297,6 +312,9 @@ in
             # System Call Filtering
             SystemCallArchitectures = "native";
             SystemCallFilter = [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @resources" "chroot" "gettid" "setgroups" "setuid" ];
+          } // lib.optionalAttrs (cfg.runHook == "") {
+            # Proc filesystem
+            ProcSubset = "all";
           };
       };
 
