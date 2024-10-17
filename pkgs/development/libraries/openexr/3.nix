@@ -5,6 +5,7 @@
 , imath
 , libdeflate
 , pkg-config
+, libjxl
 , pkgsCross
 }:
 
@@ -50,6 +51,7 @@ stdenv.mkDerivation rec {
   # the flagged line is effectively printf(strerror(errno))
   hardeningDisable = lib.optionals stdenv.hostPlatform.isFreeBSD [ "format" ];
   passthru.tests = {
+    inherit libjxl;
     musl = pkgsCross.musl64.openexr_3;
   };
 
