@@ -13333,8 +13333,6 @@ self: super: with self; {
 
   qualysclient = callPackage ../development/python-modules/qualysclient { };
 
-  quamash = callPackage ../development/python-modules/quamash { };
-
   quandl = callPackage ../development/python-modules/quandl { };
 
   quantile-forest = callPackage ../development/python-modules/quantile-forest { };
