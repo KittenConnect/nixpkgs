@@ -36861,7 +36861,6 @@ with pkgs;
         curl
       ];
     });
-    perl = perl540;
   };
 
   megam = callPackage ../applications/science/misc/megam {
