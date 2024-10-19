@@ -1358,6 +1358,7 @@
   ./services/system/uptimed.nix
   ./services/system/userborn.nix
   ./services/system/zram-generator.nix
+  ./services/torrent/bitmagnet.nix
   ./services/torrent/deluge.nix
   ./services/torrent/flexget.nix
   ./services/torrent/flood.nix
