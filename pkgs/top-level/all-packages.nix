@@ -9576,8 +9576,6 @@ with pkgs;
 
   ldns = callPackage ../development/libraries/ldns { };
 
-  leafpad = callPackage ../applications/editors/leafpad { };
-
   leanblueprint = with python3Packages; toPythonApplication leanblueprint;
 
   leanify = callPackage ../tools/misc/leanify { };
