@@ -13329,8 +13329,7 @@ with pkgs;
 
   vimwiki-markdown = python3Packages.callPackage ../tools/misc/vimwiki-markdown { };
 
-  visidata = (newScope python3Packages) ../applications/misc/visidata {
-  };
+  visidata = python3Packages.callPackage ../applications/misc/visidata { };
 
   vit = callPackage ../applications/misc/vit { };
 
