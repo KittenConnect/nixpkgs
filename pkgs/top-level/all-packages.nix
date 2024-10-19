@@ -4302,8 +4302,6 @@ with pkgs;
 
   map-cmd = callPackage ../tools/misc/map { };
 
-  clash-geoip = callPackage ../data/misc/clash-geoip { };
-
   clevercsv = with python3Packages; toPythonApplication clevercsv;
 
   cli53 = callPackage ../tools/admin/cli53 { };
