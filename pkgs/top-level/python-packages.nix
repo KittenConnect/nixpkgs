@@ -1478,6 +1478,8 @@ self: super: with self; {
 
   basemap-data = callPackage ../development/python-modules/basemap-data { };
 
+  basemap-data-hires = callPackage ../development/python-modules/basemap-data-hires { };
+
   bases = callPackage ../development/python-modules/bases { };
 
   bash-kernel = callPackage ../development/python-modules/bash-kernel { };
