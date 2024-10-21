@@ -30630,8 +30630,6 @@ with pkgs;
     inherit (darwin.apple_sdk_11_0.frameworks) AppKit Cocoa Foundation OpenGL;
   };
 
-  lazpaint = callPackage ../applications/graphics/lazpaint { };
-
   caps = callPackage ../applications/audio/caps { };
 
   lbdb = callPackage ../tools/misc/lbdb { };
