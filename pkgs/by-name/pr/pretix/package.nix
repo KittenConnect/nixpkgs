@@ -102,6 +102,7 @@ python.pkgs.buildPythonApplication rec {
     "pyjwt"
     "python-bidi"
     "redis"
+    "qrcode"
     "requests"
     "sentry-sdk"
   ];
