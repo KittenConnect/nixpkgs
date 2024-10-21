@@ -34755,8 +34755,6 @@ with pkgs;
 
   gtypist = callPackage ../games/gtypist { };
 
-  gweled = callPackage ../games/gweled { };
-
   harmonist = callPackage ../games/harmonist { };
 
   hase = callPackage ../games/hase { };
