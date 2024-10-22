@@ -14407,8 +14407,6 @@ with pkgs;
 
   gpxsee = gpxsee-qt5;
 
-  gtklock-userinfo-module = callPackage ../tools/wayland/gtklock/userinfo-module.nix { };
-
   guvcview = libsForQt5.callPackage ../os-specific/linux/guvcview { };
 
   hachoir = with python3Packages; toPythonApplication hachoir;
