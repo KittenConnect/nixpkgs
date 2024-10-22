@@ -17905,8 +17905,6 @@ with pkgs;
 
   lemon = callPackage ../development/tools/parsing/lemon { };
 
-  lenmus = callPackage ../applications/misc/lenmus { };
-
   libtool = libtool_2;
 
   libtool_1_5 = callPackage ../development/tools/misc/libtool { };
