@@ -1,17 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wrapGAppsHook3
-, meson
-, ninja
-, scdoc
-, pkg-config
-, wrapGAppsHook
-, wayland-scanner
-, glib
-, gtk3
-, pam
-, gtk-session-lock
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  scdoc,
+  pkg-config,
+  wrapGAppsHook3,
+  wayland-scanner,
+  glib,
+  gtk3,
+  pam,
+  gtk-session-lock,
 }:
 
 stdenv.mkDerivation rec {
@@ -55,7 +55,10 @@ stdenv.mkDerivation rec {
     ''; # Following  nixpkgs/pkgs/applications/window-managers/sway/lock.nix
     homepage = "https://github.com/jovanlanik/gtklock";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dit7ya aleksana ];
+    maintainers = with maintainers; [
+      dit7ya
+      aleksana
+    ];
     platforms = platforms.linux;
     mainProgram = "gtklock";
   };
