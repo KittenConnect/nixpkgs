@@ -20269,8 +20269,6 @@ with pkgs;
 
   impy = callPackage ../development/libraries/impy { };
 
-  ineffassign = callPackage ../development/tools/ineffassign { };
-
   ijs = callPackage ../development/libraries/ijs { };
 
   indicator-application-gtk2 = callPackage ../development/libraries/indicator-application/gtk2.nix { };
