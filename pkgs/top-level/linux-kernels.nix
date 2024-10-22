@@ -138,6 +138,7 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
+        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -146,6 +147,7 @@ in {
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
         kernelPatches.export-rt-sched-migrate
+        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -154,6 +156,7 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
+        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -162,6 +165,7 @@ in {
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
         kernelPatches.export-rt-sched-migrate
+        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -170,6 +174,7 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
+        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -178,6 +183,7 @@ in {
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
         kernelPatches.export-rt-sched-migrate
+        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -194,6 +200,7 @@ in {
       kernelPatches = [
         kernelPatches.bridge_stp_helper
         kernelPatches.request_key_helper
+        kernelPatches.netfilter-typo-fix
       ];
     };
 
@@ -207,6 +214,7 @@ in {
           kernelPatches.request_key_helper
           kernelPatches.rust_1_77-6_9
           kernelPatches.rust_1_78
+          kernelPatches.netfilter-typo-fix
         ];
       };
       latest = packageAliases.linux_latest.kernel;
