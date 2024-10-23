@@ -21,12 +21,15 @@ stdenv.mkDerivation rec {
     # We remove phony 'FRC' target that forces rebuilds:
     #   'version.h: FRC ...' is translated to 'version.h: ...'.
     sed -i lib/dialects/*/Makefile -e 's/version.h:\s*FRC/version.h:/'
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    sed -i 's|lcurses|lncurses|g' Configure
   '' + lib.optionalString stdenv.isFreeBSD ''
     # lsof wants FreeBSD source it can modify
     cp -R ${freebsd.sys.src}/sys sys
     export FREEBSD_SYS=$PWD/sys
+  ''
+    # help Configure find libproc.h in $SDKROOT
+   + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    sed -i -e 's|lcurses|lncurses|g' \
+           -e "s|/Library.*/MacOSX.sdk/|\"$SDKROOT\"/|" Configure
   '';
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
