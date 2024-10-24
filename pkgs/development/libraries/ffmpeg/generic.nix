@@ -335,14 +335,8 @@
 , zlib
 , zvbi
 /*
- *  Darwin frameworks
+ *  Darwin
  */
-, Accelerate
-, AppKit
-, AudioToolbox
-, AVFoundation
-, CoreImage
-, VideoToolbox
 , xcode # unfree contains metalcc and metallib
 /*
  *  Cuda Packages
@@ -738,12 +732,9 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals withAlsa [ alsa-lib ]
   ++ optionals withAmf [ amf-headers ]
   ++ optionals withAom [ libaom ]
-  ++ optionals withAppKit [ AppKit ]
   ++ optionals withAribb24 [ aribb24 ]
   ++ optionals withAribcaption [ libaribcaption ]
   ++ optionals withAss [ libass ]
-  ++ optionals withAudioToolbox [ AudioToolbox ]
-  ++ optionals withAvFoundation [ AVFoundation ]
   ++ optionals withAvisynth [ avisynthplus ]
   ++ optionals withBluray [ libbluray ]
   ++ optionals withBs2b [ libbs2b ]
@@ -753,7 +744,6 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals withCelt [ celt ]
   ++ optionals withChromaprint [ chromaprint ]
   ++ optionals withCodec2 [ codec2 ]
-  ++ optionals withCoreImage [ CoreImage ]
   ++ optionals withCudaNVCC [ cuda_cudart cuda_nvcc ]
   ++ optionals withDav1d [ dav1d ]
   ++ optionals withDc1394 [ libdc1394 libraw1394 ]
@@ -798,7 +788,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals withQuirc [ quirc ]
   ++ optionals withRav1e [ rav1e ]
   ++ optionals withRtmp [ rtmpdump ]
-  ++ optionals withRubberband ([ rubberband ] ++ lib.optional stdenv.hostPlatform.isDarwin Accelerate)
+  ++ optionals withRubberband [ rubberband ]
   ++ optionals withSamba [ samba ]
   ++ optionals withSdl2 [ SDL2 ]
   ++ optionals withShaderc [ shaderc ]
@@ -816,7 +806,6 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals withV4l2 [ libv4l ]
   ++ optionals withVaapi [ (if withSmallDeps then libva else libva-minimal) ]
   ++ optionals withVdpau [ libvdpau ]
-  ++ optionals withVideoToolbox [ VideoToolbox ]
   ++ optionals withVidStab [ vid-stab ]
   ++ optionals withVmaf [ libvmaf ]
   ++ optionals withVoAmrwbenc [ vo-amrwbenc ]
