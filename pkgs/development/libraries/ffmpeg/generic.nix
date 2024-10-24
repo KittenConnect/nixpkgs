@@ -332,6 +332,7 @@
 /*
  *  Darwin
  */
+, apple-sdk_15
 , xcode # unfree contains metalcc and metallib
 /*
  *  Cuda Packages
@@ -719,6 +720,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals withCudaNVCC [ cuda_nvcc ];
 
   buildInputs = []
+  ++ optionals stdenv.hostPlatform.isDarwin [ apple-sdk_15 ]
   ++ optionals withAlsa [ alsa-lib ]
   ++ optionals withAmf [ amf-headers ]
   ++ optionals withAom [ libaom ]
