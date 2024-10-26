@@ -11634,8 +11634,6 @@ with pkgs;
 
   react-native-debugger = callPackage ../development/tools/react-native-debugger { };
 
-  readarr = callPackage ../servers/readarr { };
-
   read-edid = callPackage ../os-specific/linux/read-edid { };
 
   readstat = callPackage ../applications/science/math/readstat { };
