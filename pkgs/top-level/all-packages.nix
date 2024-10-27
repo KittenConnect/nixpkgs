@@ -20326,7 +20326,6 @@ with pkgs;
   isort = with python3Packages; toPythonApplication isort;
 
   ispc = callPackage ../development/compilers/ispc {
-    xcode = darwin.xcode_14;
     llvmPackages = llvmPackages_17;
   };
 
