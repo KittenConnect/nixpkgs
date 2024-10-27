@@ -9569,8 +9569,6 @@ with pkgs;
 
   libcork = callPackage ../development/libraries/libcork { };
 
-  libconfig = callPackage ../development/libraries/libconfig { };
-
   libcmis = callPackage ../development/libraries/libcmis { };
 
   libee = callPackage ../development/libraries/libee { };
