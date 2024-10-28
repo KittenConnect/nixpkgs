@@ -18392,8 +18392,6 @@ with pkgs;
 
   sqlboiler-crdb = callPackage ../development/tools/database/sqlboiler-crdb { };
 
-  sqlc = callPackage ../development/tools/database/sqlc { };
-
   sqlcheck = callPackage ../development/tools/database/sqlcheck { };
 
   sqlcmd = callPackage ../development/tools/database/sqlcmd { };
