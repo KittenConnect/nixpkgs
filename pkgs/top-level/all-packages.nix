@@ -23839,8 +23839,6 @@ with pkgs;
 
   ### SERVERS
 
-  _389-ds-base = callPackage ../servers/ldap/389 { };
-
   _5etools = callPackage ../servers/web-apps/5etools { };
 
   adguardhome = callPackage ../servers/adguardhome { };
