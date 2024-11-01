@@ -21903,6 +21903,12 @@
     githubId = 1391883;
     name = "Tom Hall";
   };
+  thtrf = {
+    email = "thtrf@proton.me";
+    github = "thtrf";
+    githubId = 82712122;
+    name = "thtrf";
+  };
   Thunderbottom = {
     email = "chinmaydpai@gmail.com";
     github = "Thunderbottom";
