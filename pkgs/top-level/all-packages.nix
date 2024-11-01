@@ -32197,8 +32197,6 @@ with pkgs;
     curses = ncurses;
   };
 
-  linuxstopmotion = libsForQt5.callPackage ../applications/video/linuxstopmotion { };
-
   sweethome3d = recurseIntoAttrs (
     (callPackage ../applications/misc/sweethome3d { }) //
     (callPackage ../applications/misc/sweethome3d/editors.nix {
