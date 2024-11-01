@@ -5,6 +5,7 @@
   fetchFromGitHub,
   postgresql,
   buildPostgresqlExtension,
+  nixosTests,
 }:
 
 buildPostgresqlExtension rec {
@@ -20,12 +21,12 @@ buildPostgresqlExtension rec {
 
   makeFlags = [ "USE_PGXS=1" ];
 
-  passthru.tests.wal2json = lib.recurseIntoAttrs (
-    callPackage ../../../../../nixos/tests/postgresql-wal2json.nix {
-      inherit (stdenv) system;
-      inherit postgresql;
-    }
-  );
+  installPhase = ''
+    install -D -t $out/lib *${postgresql.dlSuffix}
+    install -D -t $out/share/postgresql/extension sql/*.sql
+  '';
+
+  passthru.tests = nixosTests.postgresql-wal2json.passthru.override postgresql;
 
   meta = with lib; {
     description = "PostgreSQL JSON output plugin for changeset extraction";
