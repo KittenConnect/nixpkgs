@@ -28575,8 +28575,6 @@ with pkgs;
 
   dirt = callPackage ../applications/audio/dirt { };
 
-  distrho = callPackage ../applications/audio/distrho { };
-
   dit = callPackage ../applications/editors/dit { };
 
   djvulibre = callPackage ../applications/misc/djvulibre { };
