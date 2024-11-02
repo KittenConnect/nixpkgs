@@ -14,7 +14,7 @@ buildPostgresqlExtension (finalAttrs: {
   passthru.updateScript = unstableGitUpdater { };
 
   passthru.tests = lib.recurseIntoAttrs {
-    pgjwt = nixosTests.pgjwt.passthru.override postgresql;
+    pgjwt = nixosTests.postgresql.pgjwt.passthru.override postgresql;
 
     extension = postgresqlTestExtension {
       inherit (finalAttrs) finalPackage;
