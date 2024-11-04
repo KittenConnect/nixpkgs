@@ -7,6 +7,9 @@
   libspnav,
   qtbase,
   wrapQtAppsHook,
+  libX11,
+  # Qt6 support is close: https://github.com/FreeSpacenav/spnavcfg/issues/43
+  libsForQt5,
 }:
 stdenv.mkDerivation rec {
   pname = "spnavcfg";
@@ -31,9 +34,11 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapQtAppsHook
   ];
+
   buildInputs = [
     qtbase
     libspnav
+    libX11
   ];
 
   meta = with lib; {
