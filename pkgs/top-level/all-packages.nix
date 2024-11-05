@@ -4614,8 +4614,6 @@ with pkgs;
     inherit (haskellPackages) ghcWithPackages diagrams-builder;
   };
 
-  dialect = callPackage ../applications/misc/dialect { };
-
   dialogbox = libsForQt5.callPackage ../tools/misc/dialogbox { };
 
   dieharder = callPackage ../tools/security/dieharder { };
