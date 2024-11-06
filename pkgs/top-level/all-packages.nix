@@ -17465,8 +17465,6 @@ with pkgs;
 
   gnome-desktop-testing = callPackage ../development/tools/gnome-desktop-testing { };
 
-  gnome-firmware = callPackage ../applications/misc/gnome-firmware { };
-
   gnome-tecla = callPackage ../applications/misc/gnome-tecla { };
 
   gnome-usage = callPackage ../applications/misc/gnome-usage { };
