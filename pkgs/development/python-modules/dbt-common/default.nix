@@ -44,9 +44,12 @@ buildPythonPackage rec {
     hash = "sha256-SIMg6ewnE6kY+drqcPlYrxt1XlWBurZU62FI/QnHAHY=";
   };
 
-  build-system = [
-    hatchling
+  patches = [
+    # https://github.com/dbt-labs/dbt-common/pull/211
+    ./protobuf_5.patch
   ];
+
+  build-system = [ hatchling ];
 
   pythonRelaxDeps = [
     "protobuf"
