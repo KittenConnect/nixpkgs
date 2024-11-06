@@ -19275,4 +19275,8 @@ with pkgs;
   cantata = callPackage ../by-name/ca/cantata/package.nix {
     ffmpeg = ffmpeg_6;
   };
+
+  tree-from-tags = callPackage ../by-name/tr/tree-from-tags/package.nix {
+    ruby = ruby_3_1;
+  };
 }
