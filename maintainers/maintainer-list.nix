@@ -19631,6 +19631,13 @@
     githubId = 5104601;
     name = "schnusch";
   };
+  schrobingus = {
+    email = "brent.monning.jr@gmail.com";
+    name = "Brent Monning";
+    github = "schrobingus";
+    githubId = 72168352;
+    matrix = "@schrobingus:matrix.org";
+  };
   Schweber = {
     github = "Schweber";
     githubId = 64630479;
