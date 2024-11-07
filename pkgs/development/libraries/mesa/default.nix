@@ -229,7 +229,7 @@ in stdenv.mkDerivation {
 
   # Needed to discover llvm-config for cross
   preConfigure = ''
-    PATH=${llvmPackages.libllvm.dev}/bin:$PATH
+    PATH=${lib.getDev llvmPackages.libllvm}/bin:$PATH
   '';
 
   # TODO: Fix FreeBSD Build
@@ -259,14 +259,14 @@ in stdenv.mkDerivation {
       (lib.mesonBool "osmesa" true) # used by wine
       (lib.mesonBool "teflon" true) # TensorFlow frontend
 
-      # Enable Intel RT stuff when available
-      (lib.mesonBool "install-intel-clc" true)
-      (lib.mesonEnable "intel-rt" stdenv.hostPlatform.isx86_64)
-      (lib.mesonOption "clang-libdir" "${llvmPackages.clang-unwrapped.lib}/lib")
-
       # Clover, old OpenCL frontend
       (lib.mesonOption "gallium-opencl" "icd")
       (lib.mesonBool "opencl-spirv" true)
+
+      # Enable Intel RT stuff when available
+      (lib.mesonBool "install-intel-clc" true)
+      (lib.mesonEnable "intel-rt" stdenv.hostPlatform.isx86_64)
+      (lib.mesonOption "clang-libdir" "${lib.getLib llvmPackages.clang-unwrapped}/lib")
 
       # Rusticl, new OpenCL frontend
       (lib.mesonBool "gallium-rusticl" true)
