@@ -2600,7 +2600,6 @@ with pkgs;
 
   lapce = callPackage ../applications/editors/lapce {
     inherit (darwin) libobjc;
-    inherit (darwin.apple_sdk.frameworks) Security CoreServices ApplicationServices Carbon AppKit;
   };
 
   languagetool-rust = callPackage ../tools/text/languagetool-rust {
