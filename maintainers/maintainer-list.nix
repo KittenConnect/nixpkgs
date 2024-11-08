@@ -2141,7 +2141,6 @@
   };
   aucub = {
     name = "aucub";
-    email = "dr56ekgbb@mozmail.com";
     github = "aucub";
     githubId = 78630225;
   };
