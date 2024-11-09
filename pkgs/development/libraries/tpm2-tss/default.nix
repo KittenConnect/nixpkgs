@@ -83,13 +83,23 @@ stdenv.mkDerivation rec {
         --replace-fail '"libtpms.so"' '"${libtpms.out}/lib/libtpms.so"' \
         --replace-fail '"libtpms.so.0"' '"${libtpms.out}/lib/libtpms.so.0"'
     done
-  '' + lib.optionalString stdenv.hostPlatform.isFreeBSD ''
-    # the library just straight up violates the contract in the cmocka headers
-    sed -E -i -e '/#include <cmocka.h>/ i #include <stdarg.h>' test/unit/*
+  '' 
+    + lib.optionalString stdenv.hostPlatform.isFreeBSD ''
+      # the library just straight up violates the contract in the cmocka headers
+      sed -E -i -e '/#include <cmocka.h>/ i #include <stdarg.h>' test/unit/*
 
-    # this test fails. can't figure out how to diagnose
-    sed -E -i -e '/  test\/unit\/fapi-io /d' Makefile-test.am
-  '';
+      # this test fails. can't figure out how to diagnose
+      sed -E -i -e '/  test\/unit\/fapi-io /d' Makefile-test.am
+    ''
+    # tcti tests rely on mocking function calls, which appears not to be supported
+    # on clang
+    + lib.optionalString stdenv.cc.isClang ''
+      sed -i '/TESTS_UNIT / {
+        /test\/unit\/tcti-swtpm/d;
+        /test\/unit\/tcti-mssim/d;
+        /test\/unit\/tcti-device/d
+      }' Makefile-test.am
+    '';
 
   configureFlags = lib.optionals doInstallCheck [
     "--enable-unit"
