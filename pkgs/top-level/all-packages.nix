@@ -1090,9 +1090,7 @@ with pkgs;
     jdk = jdk8;
   };
 
-  stargazer = callPackage ../servers/gemini/stargazer {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  };
+  stargazer = callPackage ../servers/gemini/stargazer { };
 
   supermin = callPackage ../tools/virtualization/supermin {
     ocamlPackages = ocaml-ng.ocamlPackages_4_14;
