@@ -15409,8 +15409,6 @@ with pkgs;
 
   opentx = libsForQt5.callPackage ../applications/misc/opentx { };
 
-  openvi = darwin.apple_sdk_11_0.callPackage ../applications/editors/openvi { };
-
   organicmaps = qt6Packages.callPackage ../applications/misc/organicmaps { };
 
   owofetch = callPackage ../tools/misc/owofetch {
