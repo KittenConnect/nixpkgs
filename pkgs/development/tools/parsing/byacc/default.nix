@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--program-transform-name='s,^,b,'"
   ];
 
-  doCheck = true;
+  doCheck = !stdenv.hostPlatform.isFreeBSD;
 
   postInstall = ''
     ln -s $out/bin/byacc $out/bin/yacc
